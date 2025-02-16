@@ -386,6 +386,17 @@
 .site-header__logo img {
   width: 100%;
 }
+.site-header__menu {
+  container-type: inline-size;
+}
+@container (min-width: 600px) {
+  .site-header__menu-list {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
 .site-footer {
   padding-block: var(--spacing-lg);
 }
