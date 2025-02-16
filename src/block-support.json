@@ -1,0 +1,107 @@
+{
+	"core": {
+		"supported": {
+			"core/group": {},
+			"core/columns": {},
+			"core/column": {},
+			"core/grid": {},
+			"core/stack": {},
+			"core/row": {},
+			"core/details": {},
+			"core/image": {},
+			"core/file": {},
+			"core/media-text": {},
+			"core/latest-posts": {},
+			"core/cover": {},
+			"core/heading": {},
+			"core/paragraph": {},
+			"core/pullquote": {},
+			"core/quote": {},
+			"core/list": {},
+			"core/list-item": {},
+			"core/table": {},
+			"core/buttons": {},
+			"core/button": {},
+			"core/gallery": {},
+			"core/embed": {},
+			"core/freeform": {},
+			"core/footnotes": {}
+		}
+	},
+	"categories": [
+		{
+			"name": "Basic text",
+			"slug": "text",
+			"icon": "",
+			"blocks": [
+				"core/heading",
+				"core/paragraph",
+				"core/quote",
+				"core/list",
+				"core/buttons",
+				"core/details",
+				"core/table"
+			]
+		},
+		{
+			"name": "Featured text",
+			"slug": "featured-text",
+			"icon": "",
+			"blocks": [
+				"comet/call-to-action",
+				"core/pullquote"
+			]
+		},
+		{
+			"name": "Layout",
+			"slug": "design",
+			"icon": "",
+			"blocks": [
+				"core/group",
+				"core/columns",
+				"core/column",
+				"core/grid",
+				"core/stack",
+				"core/row"
+			]
+		},
+		{
+			"name": "Content grouping",
+			"slug": "grouping",
+			"icon": "",
+			"blocks": [
+				"comet/container",
+				"comet/panels"
+			]
+		},
+		{
+			"name": "Media",
+			"slug": "media",
+			"icon": "",
+			"blocks": [
+				"core/image",
+				"core/media-text",
+				"core/gallery",
+				"core/cover",
+				"core/file"
+			]
+		},
+		{
+			"name": "Media - Embedded",
+			"slug": "embeds",
+			"icon": "",
+			"blocks": [
+				"core/embed"
+			]
+		},
+		{
+			"name": "Dynamic content",
+			"slug": "content",
+			"icon": "",
+			"blocks": [
+				"core/latest-posts",
+				"core/footnotes"
+			]
+		}
+	]
+}

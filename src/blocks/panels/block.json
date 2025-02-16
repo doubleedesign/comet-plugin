@@ -1,0 +1,121 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/panels",
+	"title": "Panels",
+	"parent": [
+		"comet/container",
+		"core/group",
+		"core/column"
+	],
+	"allowedBlocks": [
+		"comet/panel"
+	],
+	"editorScript": "file:./index.js",
+	"category": "grouping",
+	"icon": "list-view",
+	"description": "Group related content into expandable/collapsible sections or a tabbed interface",
+	"keywords": [
+		"accordion",
+		"tabs",
+		"panels",
+		"container",
+		"wrapper",
+		"section",
+		"group"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "div"
+		},
+		"variant": {
+			"type": "string",
+			"default": "comet/accordion"
+		},
+		"orientation": {
+			"type": "string",
+			"enum": [
+				"horizontal",
+				"vertical"
+			],
+			"default": "horizontal"
+		}
+	},
+	"editorStyle": [
+		"comet-accordion-style",
+		"comet-tabs-style"
+	],
+	"providesContext": {
+		"comet/variant": "variant",
+		"comet/orientation": "orientation"
+	},
+	"variations": [
+		{
+			"name": "comet/accordion",
+			"title": "Accordion",
+			"icon": "list-view",
+			"description": "Group related content in an expandable/collapsible interface",
+			"scope": [
+				"inserter",
+				"transform"
+			],
+			"isDefault": true,
+			"isActive": [
+				"variant",
+				"accordion"
+			],
+			"attributes": {
+				"variant": "accordion"
+			}
+		},
+		{
+			"name": "comet/tabs",
+			"title": "Tabs",
+			"icon": "category",
+			"description": "Group related content in a tabbed interface",
+			"scope": [
+				"inserter",
+				"transform"
+			],
+			"isActive": [
+				"variant",
+				"tab"
+			],
+			"attributes": {
+				"variant": "tab"
+			}
+		}
+	],
+	"supports": {
+		"mode": false,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"align": false,
+		"html": false,
+		"color": {
+			"gradients": true,
+			"theme": true,
+			"text": false,
+			"background": false,
+			"__experimentalDefaultControls": {
+				"theme": true
+			}
+		},
+		"layout": {
+			"allowEditing": true,
+			"allowSwitching": false,
+			"allowJustification": false,
+			"allowVerticalAlignment": false,
+			"allowOrientation": true,
+			"allowInheriting": false,
+			"default": {
+				"type": "flex",
+				"flexWrap": "wrap"
+			}
+		}
+	}
+}

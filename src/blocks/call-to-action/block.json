@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/call-to-action",
+	"title": "Call-to-Action",
+	"icon": "megaphone",
+	"editorScript": "file:./index.js",
+	"category": "text",
+	"allowedBlocks": [
+		"core/heading",
+		"core/paragraph",
+		"core/buttons"
+	],
+	"description": "Featured panel with short text content and action buttons",
+	"keywords": [
+		"layout",
+		"call-to-action",
+		"cta"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "div"
+		}
+	},
+	"editorStyle": [
+		"comet-call-to-action-style"
+	],
+	"supports": {
+		"mode": false,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": false,
+		"ariaLabel": false,
+		"align": false,
+		"html": false,
+		"multiple": true,
+		"color": {
+			"gradients": true,
+			"text": false,
+			"background": true,
+			"__experimentalDefaultControls": {
+				"background": true
+			}
+		}
+	}
+}

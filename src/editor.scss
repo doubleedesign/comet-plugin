@@ -1,0 +1,36 @@
+// This file compiles component CSS adjusted for the WordPress block editor, to be loaded only in the back-end.
+// When I say "adjusted", that should just be for core components because we don't control their default HTML.
+@use "blocks";
+@use "../vendor/doubleedesign/comet-components-core/src/components/variables" as *;
+
+@each $colorName, $value in $colors {
+	.has-#{$colorName}-background-color {
+		background-color: var(--color-#{$colorName});
+		color: var(--readable-color-#{$colorName});
+	}
+}
+
+.wp-block-buttons {
+	@extend .button-group;
+}
+
+.wp-block-button__link {
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+}
+
+// flex layout support is used solely to enable the orientation setting in the editor,
+// but it then breaks the visual layout so we need to hack it here
+.wp-block-comet-panels-is-layout-flex {
+	display: block !important;
+}
+
+.accordion {
+	details {
+		> .block-editor-inner-blocks,
+		> .block-editor-inner-blocks > .block-editor-block-list__layout {
+			display: contents;
+		}
+	}
+}

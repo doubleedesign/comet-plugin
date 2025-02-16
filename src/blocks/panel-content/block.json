@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/panel-content",
+	"title": "Panel content",
+	"editorScript": "file:./index.js",
+	"parent": [
+		"comet/panel"
+	],
+	"usesContext": [
+		"comet/variant"
+	],
+	"category": "layout",
+	"icon": "text",
+	"description": "Content area for a Panel",
+	"keywords": [
+		"accordion",
+		"tabs"
+	],
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"textdomain": "comet",
+	"attributes": {
+		"allowedBlocks": {
+			"type": "array",
+			"default": [
+				"core/group"
+			]
+		}
+	}
+}

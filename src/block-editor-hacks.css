@@ -1,0 +1,31 @@
+html :where(.wp-block) {
+	margin-top: 0;
+	margin-bottom: 0;
+	max-width: var(--width-contained);
+}
+
+.block-editor-block-list__layout {
+	container-type: inline-size;
+}
+
+.block-editor-block-list__block {
+
+	&.wp-block-comet-container {
+
+		&.has-background {
+			padding-block: var(--spacing-sm);
+		}
+
+		&.is-style-default {
+			max-width: var(--width-contained);
+		}
+
+		&.is-style-wide {
+			max-width: var(--width-wide);
+		}
+
+		&.is-style-narrow {
+			max-width: var(--width-narrow);
+		}
+	}
+}

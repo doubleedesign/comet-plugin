@@ -1,0 +1,27 @@
+// This file compiles all component CSS into one file for use on a WordPress site front-end
+
+@use "../vendor/doubleedesign/comet-components-core/src/components/Container/container.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Stack/stack.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Grid/grid.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Columns/columns.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Freeform/freeform.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/ButtonGroup/button-group.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/ButtonGroup/Button/button.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/CallToAction/call-to-action.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Details/details.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Accordion/accordion.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Tabs/tabs.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Pullquote/pullquote.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/MediaText/media-text.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Image/image.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Gallery/gallery.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Table/table.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Embed/embed.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/LatestPosts/latest-posts.scss";
+
+// Technically not blocks, but we'll include these components here for simplicity
+@use "../vendor/doubleedesign/comet-components-core/src/components/Menu/menu.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/PageHeader/page-header.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/Breadcrumbs/breadcrumbs.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/SiteHeader/site-header.scss";
+@use "../vendor/doubleedesign/comet-components-core/src/components/SiteFooter/site-footer.scss";

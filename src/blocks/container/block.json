@@ -1,0 +1,56 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/container",
+	"title": "Container",
+	"category": "grouping",
+	"icon": "align-wide",
+	"parent": [
+		null
+	],
+	"description": "Create a section that controls the maximum width of its contents, can have a background colour, etc.",
+	"editorStyle": [
+		"comet-container-style"
+	],
+	"styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "fullwidth",
+			"label": "Full Width"
+		},
+		{
+			"name": "wide",
+			"label": "Wide"
+		},
+		{
+			"name": "narrow",
+			"label": "Narrow"
+		}
+	],
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "section",
+			"enum": [
+				"section",
+				"div",
+				"main"
+			]
+		}
+	},
+	"supports": {
+		"color": {
+			"gradients": true,
+			"text": false,
+			"background": true,
+			"__experimentalDefaultControls": {
+				"background": true
+			}
+		}
+	},
+	"editorScript": "file:./index.js"
+}

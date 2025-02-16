@@ -1,0 +1,169 @@
+{
+	"version": 3,
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Comet Components",
+	"settings": {
+		"appearanceTools": false,
+		"lightbox": {
+			"enabled": false
+		},
+		"typography": {
+			"lineHeight": false,
+			"dropCap": false,
+			"fontStyle": false,
+			"fontWeight": false,
+			"letterSpacing": false,
+			"textDecoration": false,
+			"textTransform": false,
+			"fontSizes": [],
+			"customFontSize": false,
+			"fontFamilies": []
+		},
+		"color": {
+			"text": false,
+			"background": true,
+			"link": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"customGradient": false,
+			"palette": [
+				{
+					"name": "primary",
+					"slug": "primary",
+					"color": "#845ec2"
+				},
+				{
+					"name": "secondary",
+					"slug": "secondary",
+					"color": "#00c9a7"
+				},
+				{
+					"name": "accent",
+					"slug": "accent",
+					"color": "#ba3caf"
+				},
+				{
+					"name": "Warning",
+					"slug": "warning",
+					"color": "#f9c971"
+				},
+				{
+					"name": "Error",
+					"slug": "error",
+					"color": "#d23e3e"
+				},
+				{
+					"name": "light",
+					"slug": "light",
+					"color": "#F0F0F2"
+				},
+				{
+					"name": "dark",
+					"slug": "dark",
+					"color": "#4b4453"
+				},
+				{
+					"name": "white",
+					"slug": "white",
+					"color": "#FFF"
+				}
+			],
+			"gradients": [
+				{
+					"name": "primary + light",
+					"slug": "primary-light",
+					"gradient": "linear-gradient(180deg, #845ec2 50%, #F0F0F2 50%)"
+				},
+				{
+					"name": "Light + primary",
+					"slug": "light-primary",
+					"gradient": "linear-gradient(180deg, #F0F0F2 50%, #845ec2 50%)"
+				},
+				{
+					"name": "primary + dark",
+					"slug": "primary-dark",
+					"gradient": "linear-gradient(180deg, #845ec2 50%, #4b4453 50%)"
+				},
+				{
+					"name": "Dark + primary",
+					"slug": "dark-primary",
+					"gradient": "linear-gradient(180deg, #4b4453 50%, #845ec2 50%)"
+				},
+				{
+					"name": "primary + white",
+					"slug": "primary-white",
+					"gradient": "linear-gradient(180deg, #845ec2 50%, #FFF 50%)"
+				},
+				{
+					"name": "White + primary",
+					"slug": "white-primary",
+					"gradient": "linear-gradient(180deg, #FFF 50%, #845ec2 50%)"
+				},
+				{
+					"name": "secondary + light",
+					"slug": "secondary-light",
+					"gradient": "linear-gradient(180deg, #00c9a7 50%, #F0F0F2 50%)"
+				},
+				{
+					"name": "Light + secondary",
+					"slug": "light-secondary",
+					"gradient": "linear-gradient(180deg, #F0F0F2 50%, #00c9a7 50%)"
+				},
+				{
+					"name": "secondary + dark",
+					"slug": "secondary-dark",
+					"gradient": "linear-gradient(180deg, #00c9a7 50%, #4b4453 50%)"
+				},
+				{
+					"name": "Dark + secondary",
+					"slug": "dark-secondary",
+					"gradient": "linear-gradient(180deg, #4b4453 50%, #00c9a7 50%)"
+				},
+				{
+					"name": "secondary + white",
+					"slug": "secondary-white",
+					"gradient": "linear-gradient(180deg, #00c9a7 50%, #FFF 50%)"
+				},
+				{
+					"name": "White + secondary",
+					"slug": "white-secondary",
+					"gradient": "linear-gradient(180deg, #FFF 50%, #00c9a7 50%)"
+				},
+				{
+					"name": "Light + dark",
+					"slug": "light-dark",
+					"gradient": "linear-gradient(180deg, #F0F0F2 50%, #4b4453 50%)"
+				},
+				{
+					"name": "Dark + light",
+					"slug": "dark-light",
+					"gradient": "linear-gradient(180deg, #4b4453 50%, #F0F0F2 50%)"
+				},
+				{
+					"name": "Light + white",
+					"slug": "light-white",
+					"gradient": "linear-gradient(180deg, #F0F0F2 50%, #FFF 50%)"
+				},
+				{
+					"name": "White + light",
+					"slug": "white-light",
+					"gradient": "linear-gradient(180deg, #FFF 50%, #F0F0F2 50%)"
+				}
+			]
+		},
+		"border": {
+			"radius": false,
+			"style": false,
+			"width": false,
+			"color": false
+		},
+		"blocks": {
+			"core/image": {
+				"lightbox": {
+					"allowEditing": false,
+					"enabled": false
+				}
+			}
+		}
+	}
+}
