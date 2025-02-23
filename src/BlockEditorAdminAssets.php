@@ -18,7 +18,7 @@ class BlockEditorAdminAssets {
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
 
 		// Editor CSS
-		if(is_admin()) {
+		if (is_admin()) {
 			add_action('enqueue_block_assets', [$this, 'enqueue_comet_global_css'], 10);
 			add_action('enqueue_block_assets', [$this, 'enqueue_wp_block_css'], 10);
 			add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles']);
@@ -28,7 +28,7 @@ class BlockEditorAdminAssets {
 		add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
 
 		// Component front-end JS
-		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_component_js'], 10);
+		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
 	}
 
 	/**
@@ -60,11 +60,15 @@ class BlockEditorAdminAssets {
 		wp_enqueue_style('comet-component-block-styles', $block_css_path, array(), COMET_VERSION);
 	}
 
-	function enqueue_comet_component_js(): void {
+	/**
+	 * Bundled JS for all components for the front-end
+	 * @return void
+	 */
+	function enqueue_comet_combined_component_js(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
-		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core/src/components/';
-		wp_enqueue_script('comet-tabs', "$libraryDir/Tabs/tabs.js");
+		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core/';
+		wp_enqueue_script('comet-component-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
 	}
 
 	/**
