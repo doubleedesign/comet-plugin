@@ -34,3 +34,29 @@
 		}
 	}
 }
+
+.tabs {
+	// Note: In the editor, the output is not quite the same as in the final rendering
+	// Most notably, the tablist is not a single grouped list like the Comet rendering constructs
+	// - it's basically like each panel is its own instance.
+
+	.block-editor-block-list__layout {
+		margin-bottom: 1rem;
+	}
+
+	&[data-orientation="vertical"] {
+		.block-editor-block-list__layout {
+			display: flex;
+			flex-wrap: nowrap;
+
+			.tabs__tab-list {
+				width: 200px;
+				flex-basis: 200px;
+			}
+
+			.tab__panel__content {
+				flex-grow: 1;
+			}
+		}
+	}
+}

@@ -1,0 +1,166 @@
+.page-header {
+  padding-block: var(--spacing-lg);
+}
+@container (min-width: 960px) {
+  .page-header {
+    padding-block: var(--spacing-xl);
+  }
+}
+.page-header h1 {
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-xs);
+  margin-block: var(--spacing-md);
+}
+.breadcrumbs__list__item {
+  display: flex;
+  font-size: 0.9rem;
+}
+.breadcrumbs__list__item a {
+  color: inherit;
+  display: block;
+  opacity: 0.75;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+.breadcrumbs__list__item a:hover, .breadcrumbs__list__item a:focus, .breadcrumbs__list__item a:active {
+  opacity: 1;
+  text-decoration-color: currentColor;
+}
+.breadcrumbs__list__item:after {
+  content: "/";
+  padding-inline-start: var(--spacing-xs);
+  opacity: 0.4;
+}
+.bg-primary .breadcrumbs__list {
+  color: var(--readable-color-primary);
+}
+.bg-secondary .breadcrumbs__list {
+  color: var(--readable-color-secondary);
+}
+.bg-accent .breadcrumbs__list {
+  color: var(--readable-color-accent);
+}
+.bg-warning .breadcrumbs__list {
+  color: var(--readable-color-warning);
+}
+.bg-error .breadcrumbs__list {
+  color: var(--readable-color-error);
+}
+.bg-light .breadcrumbs__list {
+  color: var(--readable-color-light);
+}
+.bg-dark .breadcrumbs__list {
+  color: var(--readable-color-dark);
+}
+.bg-white .breadcrumbs__list {
+  color: var(--readable-color-white);
+}
+
+.site-header .container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.site-header__logo {
+  display: block;
+  max-width: 11rem;
+}
+.site-header__logo img {
+  width: 100%;
+  max-width: 11rem;
+}
+.site-header__menu {
+  container-type: inline-size;
+  flex-grow: 1;
+  padding-block: var(--spacing-lg);
+}
+@container (min-width: 600px) {
+  .site-header__menu-list {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-xs);
+  }
+}
+@container (min-width: 720px) {
+  .site-header__menu-list {
+    gap: var(--spacing-md);
+  }
+}
+.site-header__menu-list__item {
+  display: block;
+  position: relative;
+  padding-bottom: var(--spacing-xs);
+}
+.site-header__menu-list__item__link {
+  display: block;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+.site-header__menu-list__item__link:hover, .site-header__menu-list__item__link:focus, .site-header__menu-list__item__link:active,
+.site-header__menu-list__item__link [aria-current=page] {
+  text-decoration-color: currentColor;
+}
+.site-header__menu-list__item:has(.menu-list__item__link[aria-current=page]) a {
+  text-decoration-color: currentColor;
+}
+.site-header__menu-list__item .menu-list {
+  margin-top: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  height: 0;
+  transition: all 0.2s linear;
+  min-width: 10rem;
+  padding-block: var(--spacing-xxs);
+  background: var(--color-primary);
+}
+.site-header__menu-list__item .menu-list__item {
+  display: block;
+}
+.site-header__menu-list__item .menu-list__item__link {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  white-space: nowrap;
+  color: var(--readable-color-primary);
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+.site-header__menu-list__item .menu-list__item__link:hover, .site-header__menu-list__item .menu-list__item__link:focus, .site-header__menu-list__item .menu-list__item__link:active {
+  text-decoration-color: currentColor;
+  background: rgba(0, 0, 0, 0.25);
+}
+.site-header__menu-list__item:hover .menu-list, .site-header__menu-list__item:focus-within .menu-list {
+  opacity: 1;
+  height: auto;
+}
+
+.site-footer {
+  padding-block: var(--spacing-lg);
+}
+@container (min-width: 960px) {
+  .site-footer {
+    padding-block: var(--spacing-xl);
+  }
+}
+.site-footer a {
+  color: inherit;
+}
+.site-footer__menu-list {
+  display: block;
+}
+.site-footer__menu-list__item {
+  display: block;
+}
+
+/*# sourceMappingURL=template-parts.css.map */
