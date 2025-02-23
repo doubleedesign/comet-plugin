@@ -8,7 +8,12 @@ html :where(.wp-block) {
 	container-type: inline-size;
 }
 
+.block-editor-inner-blocks .block-editor-block-list__layout {
+	container-type: unset;
+}
+
 .block-editor-block-list__block {
+	font-family: var(--font-family-body);
 
 	&.wp-block-comet-container {
 
@@ -28,4 +33,12 @@ html :where(.wp-block) {
 			max-width: var(--width-narrow);
 		}
 	}
+}
+
+.block-list-appender {
+	margin: 0 auto;
+}
+
+.acf-block-component .acf-block-fields {
+	font-family: inherit;
 }

@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/callout",
+	"title": "Callout",
+	"icon": "megaphone",
+	"editorScript": "file:./index.js",
+	"category": "text",
+	"parent": [
+		"comet/container",
+		"core/column",
+		"core/group",
+		"comet/panel-content"
+	],
+	"allowedBlocks": [
+		"core/heading",
+		"core/paragraph",
+		"core/list",
+		"core/buttons"
+	],
+	"description": "Highlighted text box to draw attention to a brief announcement, note, warning, error, or other important information.",
+	"keywords": [
+		"layout",
+		"callout",
+		"alert",
+		"error",
+		"message",
+		"textbox"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "div"
+		}
+	},
+	"editorStyle": [
+		"comet-callout-style"
+	],
+	"supports": {
+		"mode": false,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": false,
+		"ariaLabel": false,
+		"align": false,
+		"html": false,
+		"multiple": true,
+		"color": {
+			"gradients": true,
+			"text": false,
+			"background": false,
+			"__experimentalDefaultControls": {
+				"background": false
+			}
+		}
+	}
+}

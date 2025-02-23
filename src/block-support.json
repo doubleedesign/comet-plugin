@@ -45,6 +45,7 @@
 			"icon": "",
 			"blocks": [
 				"comet/call-to-action",
+				"comet/callout",
 				"core/pullquote"
 			]
 		},

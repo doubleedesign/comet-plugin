@@ -1,14 +1,11 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\NotImplemented;
-use Doubleedesign\Comet\Core\Renderable;
-use Doubleedesign\Comet\Core\Utils;
+use Doubleedesign\Comet\Core\{Callout,Paragraph,Renderable,Utils,NotImplemented};
 use DOMDocument;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use ReflectionClass, ReflectionProperty, Closure, ReflectionException, RuntimeException;
 use WP_Block_Type_Registry, WP_Block;
-use WP_Theme_JSON_Data;
 
 class BlockRenderer {
 	private array $theme_json;
@@ -530,13 +527,17 @@ class BlockRenderer {
 
 	private static function handle_error($error): string {
 		if(current_user_can('edit_posts')) {
-			$adminMessage = '';
-			$adminMessage .= '<div class="callout callout--error">';
-			$adminMessage .= '<p><strong>' . $error->getMessage() . '</strong></p>';
-			$adminMessage .= '<p>This message is shown only to logged-in site editors. For support, please <a href="https://www.doubleedesign.com.au">contact Double-E Design.</a></p>';
-			$adminMessage .= '</div>';
+			$adminMessage = new Callout(
+				['colorTheme' => 'error'],
+				[
+					new Paragraph(['className' => 'is-style-lead'], $error->getMessage()),
+					new Paragraph([], "This message is shown only to logged-in site editors. For support, please <a href=\"https://www.doubleedesign.com.au\">contact Double-E Design.</a>")
+				]
+			);
 
-			return $adminMessage;
+			ob_start();
+			$adminMessage->render();
+			return ob_get_clean();
 		}
 		else {
 			error_log($error);

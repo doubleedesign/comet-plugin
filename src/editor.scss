@@ -1,8 +1,20 @@
-// This file compiles component CSS adjusted for the WordPress block editor, to be loaded only in the back-end.
-// When I say "adjusted", that should just be for core components because we don't control their default HTML.
 @use "blocks";
 @use "../vendor/doubleedesign/comet-components-core/src/components/variables" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/PageHeader/page-header" as *;
 
+// In the editor, make the page title section resemble the PageHeader component
+// It won't always be the same because it won't have the breadcrumbs,
+// and site-specific overrides may be needed, but this is a start
+.editor-visual-editor__post-title-wrapper {
+	max-width: map-get($widths, 'contained');
+	margin: 0 auto;
+	padding: 0.707rem;
+	@extend .page-header;
+}
+
+// The rest of this file compiles component CSS adjusted for the WordPress block editor,
+// to be loaded only in the back-end.
+// When I say "adjusted", that should just be for core components because we don't control their default HTML.
 @each $colorName, $value in $colors {
 	.has-#{$colorName}-background-color {
 		background-color: var(--color-#{$colorName});
@@ -57,6 +69,16 @@
 			.tab__panel__content {
 				flex-grow: 1;
 			}
+
+			.tabs__content__tab-panel {
+				display: block !important;
+			}
 		}
 	}
 }
+
+:where(.editor-styles-wrapper) p {
+	line-height: inherit !important;
+	font-size: 1rem;
+}
+

@@ -20,8 +20,8 @@ class ComponentAssets {
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
 		add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
 
-		// Editor CSS
 		if (is_admin()) {
+			// Editor CSS
 			add_action('enqueue_block_assets', [$this, 'enqueue_comet_global_css'], 10);
 			add_action('enqueue_block_assets', [$this, 'enqueue_wp_block_css'], 10);
 			add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles']);
