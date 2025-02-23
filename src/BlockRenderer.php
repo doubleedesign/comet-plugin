@@ -16,7 +16,7 @@ class BlockRenderer {
 	public function __construct() {
 		$this->load_merged_theme_json();
 		add_filter('wp_theme_json_data_default', [$this, 'filter_default_theme_json'], 10, 1);
-		add_action('init', [$this, 'override_core_block_rendering'], 25);
+		add_action('init', [$this, 'override_core_block_rendering'], 20);
 	}
 
 	protected function load_merged_theme_json(): void {
@@ -37,9 +37,9 @@ class BlockRenderer {
 	 * Filter the default theme.json data to remove some of the WP defaults
 	 * that add unwanted CSS variables
 	 * @param $theme_json
-	 * @return WP_Theme_JSON_Data
+	 * @return object (WP_Theme_JSON_Data, or WP_Theme_JSON_Data_Gutenberg if the Gutenberg plugin is installed to get latest features/fixes)
 	 */
-	function filter_default_theme_json($theme_json): WP_Theme_JSON_Data {
+	function filter_default_theme_json($theme_json): object {
 		$data = $theme_json->get_data();
 		// Remove unused WP defaults that become the --wp--preset-* CSS variables and clog up the CSS
 		$data['settings']['color']['palette']['default'] = [];
@@ -123,6 +123,9 @@ class BlockRenderer {
 	 * The function called inside render_block_callback
 	 * to render blocks using Comet Components.
 	 *
+	 * Note: If another block is rendered inside a Comet Components block,
+	 *       it will hit this function as well
+	 *
 	 * This exists separately from render_block_callback for better debugging - this way we see render_block() in Xdebug stack traces,
 	 * whereas if this returned the closure directly, it would show up as an anonymous function
 	 * @param string $block_name
@@ -133,6 +136,23 @@ class BlockRenderer {
 	 * @return string
 	 */
 	public function render_block(string $block_name, array $attributes, string $content, WP_Block $block_instance): string {
+		// Handle blocks that hit this function due to being an inner block,
+		// but shouldn't be passed directly to Comet components to render
+		if(!str_starts_with($block_name, 'core/') && !str_starts_with($block_name, 'comet/')) {
+			try {
+				if ($block_instance->block_type->render_callback) {
+					$rendered = call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
+					return $rendered;
+				}
+				else {
+					throw new RuntimeException("Problem rendering $block_name in BlockRenderer->render_block()");
+				}
+			}
+			catch (RuntimeException $e) {
+				return self::handle_error($e);
+			}
+		}
+
 		try {
 			ob_start();
 			$component = $this->block_to_comet_component_object($block_instance);
@@ -275,11 +295,27 @@ class BlockRenderer {
 		$innerBlocks = $block_instance->inner_blocks ?? null;
 		if ($innerBlocks) {
 			$transformed = array_map(function ($block) {
+				// Handle reusable blocks/synced patterns
+				// TODO: handle these not being Comet Components blocks
 				if($block->name === 'core/block') {
 					return $this->reusable_block_content_to_comet_component_objects($block);
 				}
 
-				return $this->block_to_comet_component_object($block);
+				try {
+					return $this->block_to_comet_component_object($block);
+				}
+				catch(RuntimeException $e) {
+					// If the block did not have a matching Comet component (at least not directly), render it as plain HTML
+					// and then wrap it in a component that handles that
+					try {
+						$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
+						return new PreprocessedHTML($block->attributes, $html);
+					}
+					catch (RuntimeException $e) {
+						self::handle_error($e);
+						return null;
+					}
+				}
 			}, iterator_to_array($innerBlocks));
 
 			// Ensure arrays of arrays (common with reusable blocks) get flattened to a single array

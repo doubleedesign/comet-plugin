@@ -16,7 +16,7 @@ wp.domReady(() => {
 				className: [
 					colorThemeName ? `${variant} ${variant}--theme-${colorThemeName}` : variant,
 				].filter(Boolean).join(' '),
-				'data-orientation': attributes.orientation,
+				'data-orientation': attributes.layout.orientation,
 			});
 
 			const template = [

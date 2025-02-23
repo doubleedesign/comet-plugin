@@ -146,10 +146,14 @@ class BlockRegistry extends JavaScriptImplementation {
 		$custom = $this->get_custom_block_names();
 		// Third-party plugin block types
 		$plugin = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, 'ninja-forms/'));
+		// Block types for the current site - based on theme textdomain matching block prefix
+		$theme = wp_get_theme()->get('TextDomain');
+		$current_site = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, "$theme/"));
 
 		$result = array_merge(
 			$core,
 			$custom,
+			array_keys($current_site),
 			array_column($plugin, 'name')
 		// add core or plugin blocks here if:
 		// 1. They are to be allowed at the top level

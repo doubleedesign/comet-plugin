@@ -3,6 +3,7 @@ namespace Doubleedesign\Comet\WordPress;
 
 /**
  * This class handles loading of CSS and JS assets in the block editor
+ * and the front-end (so should probably be refactored or renamed)
  */
 class BlockEditorAdminAssets {
 
@@ -25,18 +26,27 @@ class BlockEditorAdminAssets {
 
 		// General admin JS
 		add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
+
+		// Component front-end JS
+		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_component_js'], 10);
 	}
 
 	/**
-	 * Global stylesheet for basics like typography, colors, etc.
+	 * - Global stylesheet for basics like typography, colors, etc.
+	 * - Combined Comet styles for components corresponding to template parts like the header and footer
 	 * To be used both for the front-end and the back-end editor.
 	 * @return void
 	 */
 	function enqueue_comet_global_css(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
+
 		$global_css_path = $pluginDir . '/vendor/doubleedesign/comet-components-core/src/components/global.css';
 		wp_enqueue_style('comet-global-styles', $global_css_path, array(), COMET_VERSION);
+
+		$template_css_path = $pluginDir . '/src/template-parts.css';
+		wp_enqueue_style('comet-component-template-part-styles', $template_css_path, array(), COMET_VERSION);
+
 	}
 
 	/**
@@ -47,7 +57,14 @@ class BlockEditorAdminAssets {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
 		$block_css_path = $pluginDir . '/src/blocks.css';
-		wp_enqueue_style('comet-component-styles', $block_css_path, array(), COMET_VERSION);
+		wp_enqueue_style('comet-component-block-styles', $block_css_path, array(), COMET_VERSION);
+	}
+
+	function enqueue_comet_component_js(): void {
+		$currentDir = plugin_dir_url(__FILE__);
+		$pluginDir = dirname($currentDir, 1);
+		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core/src/components/';
+		wp_enqueue_script('comet-tabs', "$libraryDir/Tabs/tabs.js");
 	}
 
 	/**
