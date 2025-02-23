@@ -22,6 +22,8 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		add_filter('use_block_editor_for_post_type', [$this, 'selective_gutenberg'], 10, 2);
 		add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
 		add_filter('block_editor_settings_all', [$this, 'disable_block_code_editor'], 10, 2);
+
+		add_action('admin_enqueue_scripts', [$this, 'admin_css']);
 	}
 
 
@@ -33,7 +35,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	function load_merged_theme_json(): void {
 		delete_option('wp_theme_json_data'); // clear cache
 
-		add_filter('wp_theme_json_data_theme', function ($theme_json)  {
+		add_filter('wp_theme_json_data_theme', function ($theme_json) {
 			$plugin_theme_json_path = plugin_dir_path(__FILE__) . 'theme.json';
 			$plugin_theme_json_data = json_decode(file_get_contents($plugin_theme_json_path), true);
 			if (is_array($plugin_theme_json_data)) {
@@ -158,5 +160,18 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		$settings['codeEditingEnabled'] = false;
 
 		return $settings;
+	}
+
+
+	/**
+	 * Scripts to hackily hide stuff (e.g., the disabled code editor button)
+	 * and other CSS adjustments for simplicity
+	 * @return void
+	 */
+	function admin_css(): void {
+		$currentDir = plugin_dir_url(__FILE__);
+		$pluginDir = dirname($currentDir, 1);
+
+		wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/src/block-editor-config.css", array(), COMET_VERSION);
 	}
 }

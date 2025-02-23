@@ -29,7 +29,7 @@ abstract class JavaScriptImplementation {
 	}
 
 	/**
-	 * Add type=module to comet script tags
+	 * Add type=module to script tags
 	 *
 	 * @param $tag
 	 * @param $handle

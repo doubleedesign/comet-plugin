@@ -5,7 +5,7 @@ namespace Doubleedesign\Comet\WordPress;
  * This class handles loading of CSS and JS assets in the block editor
  * and the front-end (so should probably be refactored or renamed)
  */
-class BlockEditorAdminAssets {
+class ComponentAssets {
 
 	function __construct() {
 		if (!function_exists('register_block_type')) {
@@ -16,6 +16,9 @@ class BlockEditorAdminAssets {
 		// Front-end CSS
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_global_css'], 10);
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_css'], 10);
+		// Front-end JS
+		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
+		add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
 
 		// Editor CSS
 		if (is_admin()) {
@@ -23,12 +26,6 @@ class BlockEditorAdminAssets {
 			add_action('enqueue_block_assets', [$this, 'enqueue_wp_block_css'], 10);
 			add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles']);
 		}
-
-		// General admin JS
-		add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
-
-		// Component front-end JS
-		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
 	}
 
 	/**
@@ -72,6 +69,23 @@ class BlockEditorAdminAssets {
 	}
 
 	/**
+	 * Add type=module to script tags
+	 *
+	 * @param $tag
+	 * @param $handle
+	 * @param $src
+	 *
+	 * @return mixed|string
+	 */
+	function script_type_module($tag, $handle, $src): mixed {
+		if (str_starts_with($handle, 'comet-')) {
+			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
+		}
+
+		return $tag;
+	}
+
+	/**
 	 * Combined stylesheet for all blocks for the editor
 	 * @return void
 	 */
@@ -93,18 +107,5 @@ class BlockEditorAdminAssets {
 		}
 
 		return $editor_settings;
-	}
-
-	/**
-	 * Scripts to hackily remove/hide menu items (e.g., the disabled code editor button) for simplicity,
-	 * open list view by default, and other editor UX things like that
-	 * @return void
-	 */
-	function admin_scripts(): void {
-		$currentDir = plugin_dir_url(__FILE__);
-		$pluginDir = dirname($currentDir, 1);
-
-		//wp_enqueue_script('comet-block-editor-hacks', './block-editor-hacks.js', array('wp-edit-post', 'wp-data', 'wp-dom-ready'), COMET_VERSION, true);
-		wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/src/block-editor-hacks.css", array(), COMET_VERSION);
 	}
 }
