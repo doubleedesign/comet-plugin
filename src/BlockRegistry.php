@@ -234,17 +234,12 @@ class BlockRegistry extends JavaScriptImplementation {
 	 * @return void
 	 */
 	function register_custom_attributes(): void {
-//		Block_Supports_Extended\register('color', 'inner_background', [
-//			'label'  => __('Inner background'),
-//			'blocks' => ['core/group', 'core/columns'],
-//		]);
-
 		Block_Supports_Extended\register('color', 'theme', [
 			'label'  => __('Colour theme'),
 			'property' => 'background',
 			// TODO: Support for comet/panels
-			'selector' => '.%1$s wp-block-button__link wp-block-callout',
-			'blocks' => ['core/button', 'comet/callout'],
+			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group',
+			'blocks' => ['core/button', 'comet/callout', 'comet/file-group'],
 		]);
 
 		Block_Supports_Extended\register('color', 'inline', [

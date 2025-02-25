@@ -33,10 +33,11 @@
 		"innerBlocks": false,
 		"color": {
 			"gradients": true,
+			"theme": true,
 			"text": false,
-			"background": true,
+			"background": false,
 			"__experimentalDefaultControls": {
-				"background": true
+				"theme": true
 			}
 		}
 	}

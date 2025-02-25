@@ -1,7 +1,7 @@
 <?php
 use Doubleedesign\Comet\Core\FileGroup;
 
-$colorTheme = $block['backgroundColor'] ?? 'primary';
+$colorTheme = $block['colorTheme'] ?? 'primary';
 $files = array_map(function($file) {
 	return [
 		'url' => $file['url'],
