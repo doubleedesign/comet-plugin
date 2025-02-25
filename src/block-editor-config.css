@@ -12,8 +12,11 @@ html :where(.wp-block) {
 	container-type: unset;
 }
 
-.block-editor-block-list__block {
+.wp-site-blocks {
 	font-family: var(--font-family-body);
+}
+
+.block-editor-block-list__block {
 
 	&.wp-block-comet-container {
 

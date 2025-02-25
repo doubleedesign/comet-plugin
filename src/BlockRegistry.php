@@ -410,10 +410,16 @@ class BlockRegistry extends JavaScriptImplementation {
 		delete_transient('wp_blocks_data'); // clear cache
 		$name = $metadata['name'];
 
-		$typography_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'text'
-		))[0]['blocks'] ?? [];
+		$typography_blocks = array_merge(
+			array_values(array_filter(
+				$this->block_support_json['categories'],
+				fn($category) => $category['slug'] === 'text'
+			))[0]['blocks'] ?? [],
+			array_values(array_filter(
+				$this->block_support_json['categories'],
+				fn($category) => $category['slug'] === 'featured-text'
+			))[0]['blocks'] ?? []
+		);
 
 		$layout_blocks = array_values(array_filter(
 			$this->block_support_json['categories'],

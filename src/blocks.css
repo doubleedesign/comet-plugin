@@ -43,6 +43,9 @@
     padding: var(--spacing-md);
   }
 }
+.container > .columns {
+  padding-inline: 0;
+}
 .columns:has(.columns__column--has-own-width) {
   display: flex;
   gap: var(--spacing-sm);
@@ -97,22 +100,22 @@
 .columns--halign-end {
   justify-content: flex-end;
 }
-.columns__column {
+.columns .column {
   min-width: 0;
 }
-.columns__column:not(.columns__column--has-own-width) {
+.columns .column:not(.columns .column--has-own-width) {
   flex-grow: 1;
 }
-.columns__column--has-own-width {
+.columns .column--has-own-width {
   grid-column: span 1;
 }
-.columns__column--valign-start {
+.columns .column--valign-start {
   align-self: flex-start;
 }
-.columns__column--valign-center {
+.columns .column--valign-center {
   align-self: center;
 }
-.columns__column--valign-end {
+.columns .column--valign-end {
   align-self: flex-end;
 }
 
