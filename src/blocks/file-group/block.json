@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "comet/file-group",
+	"title": "File group",
+	"icon": "media-document",
+	"description": "List a collection of downloadable files with descriptions",
+	"category": "media",
+	"parent": [
+		"comet/container",
+		"core/column",
+		"core/group",
+		"comet/panel-content"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"files",
+		"downloads"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "div"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"color": {
+			"gradients": true,
+			"text": false,
+			"background": true,
+			"__experimentalDefaultControls": {
+				"background": true
+			}
+		}
+	}
+}

@@ -128,14 +128,18 @@ class BlockRenderer {
 	 * @param string $block_name
 	 * @param array $attributes
 	 * @param string $content
-	 * @param WP_Block $block_instance
+	 * @param WP_Block|bool $block_instance
 	 *
 	 * @return string
 	 */
-	public function render_block(string $block_name, array $attributes, string $content, WP_Block $block_instance): string {
+	public function render_block(string $block_name, array $attributes, string $content, WP_Block|bool $block_instance): string {
 		// Handle blocks that hit this function due to being an inner block,
 		// but shouldn't be passed directly to Comet components to render
-		if(!str_starts_with($block_name, 'core/') && !str_starts_with($block_name, 'comet/')) {
+		if(
+			(!str_starts_with($block_name, 'core/') && !str_starts_with($block_name, 'comet/'))
+			|| (gettype($block_instance) !== 'object')
+			|| in_array($block_name, ['comet/file-group'])
+		) {
 			try {
 				if ($block_instance->block_type->render_callback) {
 					$rendered = call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
@@ -298,12 +302,19 @@ class BlockRenderer {
 					return $this->reusable_block_content_to_comet_component_objects($block);
 				}
 
+				// Handle known ACF blocks that we want to use its render template for
+				if(in_array($block->name, ['comet/file-group'])) {
+					$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
+					return new PreprocessedHTML($block->attributes, $html);
+				}
+
 				try {
 					return $this->block_to_comet_component_object($block);
 				}
 				catch(RuntimeException $e) {
-					// If the block did not have a matching Comet component (at least not directly), render it as plain HTML
+					// If the block did not have a matching Comet component (at least not directly), render it as HTML
 					// and then wrap it in a component that handles that
+					// this should pick up client blocks, which are usually ACF blocks and this is how we want to handle those
 					try {
 						$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
 						return new PreprocessedHTML($block->attributes, $html);

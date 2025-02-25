@@ -49,8 +49,12 @@ class BlockRegistry extends JavaScriptImplementation {
 
 			$block_json = json_decode(file_get_contents("$folder/block.json"));
 
+			// This is an ACF block and we want to use a render template
+			if (isset($block_json->acf->renderTemplate)) {
+				register_block_type($folder);
+			}
 			// Block name -> direct translation to component name
-			if (isset($className) && BlockRenderer::can_render_comet_component($className)) {
+			else if (isset($className) && BlockRenderer::can_render_comet_component($className)) {
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
 				]);

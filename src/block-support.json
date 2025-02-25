@@ -9,7 +9,6 @@
 			"core/row": {},
 			"core/details": {},
 			"core/image": {},
-			"core/file": {},
 			"core/heading": {},
 			"core/paragraph": {},
 			"core/pullquote": {},
@@ -80,7 +79,7 @@
 				"core/media-text",
 				"core/gallery",
 				"core/cover",
-				"core/file"
+				"comet/file-group"
 			]
 		},
 		{
