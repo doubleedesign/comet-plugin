@@ -133,6 +133,14 @@
 	}
 }
 
+.wp-block-pullquote {
+	padding: 0;
+
+	blockquote {
+		@extend .pullquote;
+	}
+}
+
 :where(.editor-styles-wrapper) p {
 	line-height: inherit !important;
 	font-size: 1rem;

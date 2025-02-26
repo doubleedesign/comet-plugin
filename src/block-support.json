@@ -79,7 +79,8 @@
 				"core/media-text",
 				"core/gallery",
 				"core/cover",
-				"comet/file-group"
+				"comet/file-group",
+				"comet/link-group"
 			]
 		},
 		{

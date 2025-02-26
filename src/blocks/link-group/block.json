@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "comet/link-group",
+	"title": "Link group",
+	"icon": "admin-links",
+	"description": "List a collection of external or featured links",
+	"category": "media",
+	"parent": [
+		"comet/container",
+		"core/column",
+		"core/group",
+		"comet/panel-content"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	},
+	"keywords": [
+		"link",
+		"links"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "div"
+		}
+	},
+	"supports": {
+		"mode": true,
+		"jsx": true,
+		"innerBlocks": false,
+		"color": {
+			"gradients": true,
+			"theme": true,
+			"text": false,
+			"background": false,
+			"__experimentalDefaultControls": {
+				"theme": true
+			}
+		}
+	}
+}

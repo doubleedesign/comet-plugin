@@ -151,7 +151,7 @@ class BlockRenderer {
 		if(
 			(!str_starts_with($block_name, 'core/') && !str_starts_with($block_name, 'comet/'))
 			|| (gettype($block_instance) !== 'object')
-			|| in_array($block_name, ['comet/file-group'])
+			|| in_array($block_name, ['comet/file-group', 'comet/link-group'])
 		) {
 			try {
 				if ($block_instance->block_type->render_callback) {
@@ -318,7 +318,7 @@ class BlockRenderer {
 				}
 
 				// Handle known ACF blocks that we want to use its render template for
-				if(in_array($block->name, ['comet/file-group'])) {
+				if(in_array($block->name, ['comet/file-group', 'comet/link-group'])) {
 					$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
 					return new PreprocessedHTML($block->attributes, $html);
 				}
