@@ -238,8 +238,8 @@ class BlockRegistry extends JavaScriptImplementation {
 			'label'  => __('Colour theme'),
 			'property' => 'background',
 			// TODO: Support for comet/panels
-			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps',
-			'blocks' => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps'],
+			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote',
+			'blocks' => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote'],
 		]);
 
 		Block_Supports_Extended\register('color', 'inline', [
@@ -263,10 +263,16 @@ class BlockRegistry extends JavaScriptImplementation {
 		delete_transient('wp_blocks_data'); // clear cache
 		$name = $metadata['name'];
 
-		$typography_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'text'
-		))[0]['blocks'] ?? null;
+		$typography_blocks = array_merge(
+			array_values(array_filter(
+				$this->block_support_json['categories'],
+				fn($category) => $category['slug'] === 'text'
+			))[0]['blocks'] ?? [],
+			array_values(array_filter(
+				$this->block_support_json['categories'],
+				fn($category) => $category['slug'] === 'featured-text'
+			))[0]['blocks'] ?? []
+		);
 
 		$layout_blocks = array_values(array_filter(
 			$this->block_support_json['categories'],
@@ -306,6 +312,8 @@ class BlockRegistry extends JavaScriptImplementation {
 				'text' => false, // replaced with custom attribute because it wasn't working
 				'background' => false
 			];
+			$metadata['supports']['__experimentalBorder'] = false;
+			$metadata['supports']['border'] = false;
 		}
 
 		if ($name === 'core/buttons') {
