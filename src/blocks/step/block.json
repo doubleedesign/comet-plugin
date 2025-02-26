@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/step",
+	"title": "Step",
+	"parent": [
+		"comet/steps"
+	],
+	"allowedBlocks": [
+		"core/heading",
+		"core/paragraph",
+		"core/image",
+		"core/list",
+		"core/buttons"
+	],
+	"editorScript": "file:./index.js",
+	"category": "text",
+	"icon": "editor-ol",
+	"description": "Feature a series of steps or stages in a process",
+	"keywords": [
+		"steps",
+		"ordered",
+		"process",
+		"list",
+		"sequence",
+		"section",
+		"group"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "li"
+		},
+		"orientation": {
+			"type": "string",
+			"enum": [
+				"horizontal",
+				"vertical"
+			],
+			"default": "horizontal"
+		}
+	},
+	"providesContext": {
+		"comet/orientation": "orientation"
+	},
+	"supports": {
+		"mode": false,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"align": false,
+		"html": false,
+		"color": {
+			"gradients": true,
+			"text": false,
+			"background": true,
+			"__experimentalDefaultControls": {
+				"background": true
+			}
+		}
+	}
+}

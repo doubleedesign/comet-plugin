@@ -33,14 +33,6 @@
 		"variant": {
 			"type": "string",
 			"default": "comet/accordion"
-		},
-		"orientation": {
-			"type": "string",
-			"enum": [
-				"horizontal",
-				"vertical"
-			],
-			"default": "horizontal"
 		}
 	},
 	"editorStyle": [

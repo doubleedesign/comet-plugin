@@ -8,7 +8,7 @@ wp.domReady(() => {
 	registerBlockType('comet/container', {
 		edit: () => {
 			const blockProps = useBlockProps({
-				className: 'container'
+				className: 'section'
 			});
 			const template = [
 				['core/paragraph']
@@ -16,9 +16,13 @@ wp.domReady(() => {
 
 			return createElement('section',
 				blockProps,
-				createElement(InnerBlocks, {
-					template: template
-				})
+				createElement(
+					'div',
+					{ className: 'container' },
+					createElement(InnerBlocks, {
+						template: template
+					})
+				),
 			);
 		},
 		save: () => {

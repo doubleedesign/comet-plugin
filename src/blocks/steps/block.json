@@ -1,0 +1,85 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/steps",
+	"title": "Steps",
+	"parent": [
+		"comet/container",
+		"core/group",
+		"core/column"
+	],
+	"allowedBlocks": [
+		"comet/step"
+	],
+	"editorScript": "file:./index.js",
+	"category": "grouping",
+	"icon": "editor-ol",
+	"description": "Feature a series of steps or stages in a process",
+	"keywords": [
+		"steps",
+		"ordered",
+		"process",
+		"list",
+		"sequence",
+		"section",
+		"group"
+	],
+	"textdomain": "comet",
+	"attributes": {
+		"tagName": {
+			"type": "string",
+			"default": "ol"
+		},
+		"maxPerRow": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"styles": [
+		{
+			"name": "numbered",
+			"label": "With numbers",
+			"isDefault": true
+		},
+		{
+			"name": "basic",
+			"label": "Basic"
+		}
+	],
+	"editorStyle": [
+		"comet-steps-style"
+	],
+	"providesContext": {
+		"comet/orientation": "orientation"
+	},
+	"supports": {
+		"mode": false,
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"align": false,
+		"html": false,
+		"color": {
+			"gradients": true,
+			"theme": true,
+			"text": false,
+			"background": false,
+			"__experimentalDefaultControls": {
+				"theme": true
+			}
+		},
+		"layout": {
+			"allowEditing": true,
+			"allowSwitching": false,
+			"allowJustification": false,
+			"allowVerticalAlignment": false,
+			"allowOrientation": true,
+			"allowInheriting": false,
+			"default": {
+				"type": "flow",
+				"orientation": "vertical"
+			}
+		}
+	}
+}

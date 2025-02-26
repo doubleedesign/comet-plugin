@@ -112,6 +112,19 @@ class BlockRenderer {
 	 */
 	public static function render_block_callback(string $block_name): Closure {
 		return function ($attributes, $content, $block_instance) use ($block_name) {
+			if($block_instance->block_type->supports['anchor']) {
+				$tag = trim($attributes['tagName']);
+				// Create a simple DOM parser to process the $content and find the first instance of $tag, and extract the ID if it has one
+				// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+				$dom = new DOMDocument();
+				@$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+				$element = $dom->getElementsByTagName($tag)->item(0);
+				if($element &&  $element->getAttribute('id')) {
+					$attributes['id'] = $element->getAttribute('id');
+					$block_instance->attributes['id'] = $element->getAttribute('id');
+				}
+			}
+
 			return (new BlockRenderer())->render_block($block_name, $attributes, $content, $block_instance);
 		};
 	}
@@ -203,6 +216,8 @@ class BlockRenderer {
 		}
 		if ($block_name === 'core/pullquote') {
 			$quoteContent = $block_instance->parsed_block['innerHTML'];
+			// Create a simple DOM parser and find the quote and citation elements
+			// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
 			$dom = new DOMDocument();
 			@$dom->loadHTML($quoteContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 			$quote = $dom->getElementsByTagName('p')->item(0);

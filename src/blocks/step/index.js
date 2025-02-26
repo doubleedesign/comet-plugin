@@ -5,36 +5,35 @@ wp.domReady(() => {
 	const { useBlockProps, InnerBlocks } = wp.blockEditor;
 	const { createElement } = wp.element;
 
-	registerBlockType('comet/panels', {
+	registerBlockType('comet/step', {
 		edit: ({ attributes }) => {
 			const themeColors = wp.data.select('core/block-editor').getSettings().colors;
 			const colorThemeHex = attributes?.style?.elements?.theme?.color?.background ?? '#ffffff';
 			const colorThemeName = themeColors.find((color) => color.color === colorThemeHex)?.slug;
-			const variant = attributes.variant === 'tab' ? 'tabs' : attributes.variant;
 
 			const blockProps = useBlockProps({
-				className: [
-					colorThemeName ? `${variant} ${variant}--theme-${colorThemeName}` : variant,
-				].filter(Boolean).join(' '),
-				'data-orientation': attributes?.layout?.orientation,
+				className: 'steps__step'
 			});
 
 			const template = [
-				['comet/panel'],
-				['comet/panel'],
-				['comet/panel']
+				['core/heading', { level: 3, placeholder: 'Step heading' }],
+				['core/paragraph', { placeholder: 'Step description' }],
 			];
 
-			return createElement('div',
+			return createElement('li',
 				blockProps,
-				createElement(InnerBlocks, {
-					allowedBlocks: ['comet/panel'],
-					template: template
-				})
+				createElement(
+					'div',
+					{ className: colorThemeName ? `steps__step__inner bg-${colorThemeName}` : 'steps__step__inner' },
+					createElement(InnerBlocks, {
+						allowedBlocks: ['core/heading', 'core/paragraph', 'core/list', 'core/image', 'core/buttons'],
+						template: template
+					})
+				)
 			);
 		},
 		save: () => {
-			return createElement('div',
+			return createElement('li',
 				useBlockProps.save(),
 				createElement(InnerBlocks.Content)
 			);

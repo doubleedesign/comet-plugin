@@ -1,12 +1,53 @@
+.page-section, .wp-block-comet-container {
+  padding-inline: var(--spacing-sm);
+  padding-block: var(--spacing-md);
+}
+@media (min-width: 960px) {
+  .page-section, .wp-block-comet-container {
+    padding-block: var(--spacing-xl);
+  }
+}
+@media (min-width: 1440px) {
+  .page-section, .wp-block-comet-container {
+    padding-block: var(--spacing-xxl);
+  }
+}
+.page-section.bg-primary + .page-section.bg-primary, .bg-primary.wp-block-comet-container + .page-section.bg-primary, .page-section.bg-primary + .bg-primary.wp-block-comet-container, .bg-primary.wp-block-comet-container + .bg-primary.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-secondary + .page-section.bg-secondary, .bg-secondary.wp-block-comet-container + .page-section.bg-secondary, .page-section.bg-secondary + .bg-secondary.wp-block-comet-container, .bg-secondary.wp-block-comet-container + .bg-secondary.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-accent + .page-section.bg-accent, .bg-accent.wp-block-comet-container + .page-section.bg-accent, .page-section.bg-accent + .bg-accent.wp-block-comet-container, .bg-accent.wp-block-comet-container + .bg-accent.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-warning + .page-section.bg-warning, .bg-warning.wp-block-comet-container + .page-section.bg-warning, .page-section.bg-warning + .bg-warning.wp-block-comet-container, .bg-warning.wp-block-comet-container + .bg-warning.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-error + .page-section.bg-error, .bg-error.wp-block-comet-container + .page-section.bg-error, .page-section.bg-error + .bg-error.wp-block-comet-container, .bg-error.wp-block-comet-container + .bg-error.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-light + .page-section.bg-light, .bg-light.wp-block-comet-container + .page-section.bg-light, .page-section.bg-light + .bg-light.wp-block-comet-container, .bg-light.wp-block-comet-container + .bg-light.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-dark + .page-section.bg-dark, .bg-dark.wp-block-comet-container + .page-section.bg-dark, .page-section.bg-dark + .bg-dark.wp-block-comet-container, .bg-dark.wp-block-comet-container + .bg-dark.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section.bg-white + .page-section.bg-white, .bg-white.wp-block-comet-container + .page-section.bg-white, .page-section.bg-white + .bg-white.wp-block-comet-container, .bg-white.wp-block-comet-container + .bg-white.wp-block-comet-container {
+  padding-top: 0;
+}
+.page-section:not([class*=bg-]) + .page-section:not([class*=bg-]), .wp-block-comet-container:not([class*=bg-]) + .page-section:not([class*=bg-]), .page-section:not([class*=bg-]) + .wp-block-comet-container:not([class*=bg-]), .wp-block-comet-container:not([class*=bg-]) + .wp-block-comet-container:not([class*=bg-]) {
+  padding-top: 0;
+}
+.page-header.bg-white + .page-section:not([class*=bg-]), .bg-white.editor-visual-editor__post-title-wrapper + .page-section:not([class*=bg-]), .page-header.bg-white + .wp-block-comet-container:not([class*=bg-]), .bg-white.editor-visual-editor__post-title-wrapper + .wp-block-comet-container:not([class*=bg-]) {
+  padding-top: 0;
+}
+
 .container {
   margin: 0 auto;
   container-type: inline-size;
   width: 100%;
   max-width: var(--width-contained);
-  padding-inline: var(--spacing-sm);
-}
-.container[class*=bg-] {
-  padding-block: var(--spacing-sm);
 }
 .container--fullwidth {
   max-width: 100vw;
@@ -598,6 +639,152 @@
   font-size: var(--font-size-sm);
 }
 
+.steps {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.steps[data-orientation=horizontal] {
+  display: grid;
+  grid-gap: var(--spacing-md);
+  grid-auto-rows: 1fr;
+  justify-content: center;
+}
+@container (min-width: 600px) {
+  .steps[data-orientation=horizontal] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@container (min-width: 960px) {
+  .steps[data-orientation=horizontal][data-max-per-row="3"], .steps[data-orientation=horizontal][data-max-per-row="5"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .steps[data-orientation=horizontal][data-max-per-row="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@container (min-width: 1100px) {
+  .steps[data-orientation=horizontal][data-max-per-row="3"], .steps[data-orientation=horizontal][data-max-per-row="4"], .steps[data-orientation=horizontal][data-max-per-row="5"] {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+}
+@container (min-width: 1100px) {
+  .steps[data-orientation=horizontal][data-max-per-row="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .steps[data-orientation=horizontal][data-max-per-row="5"] {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.steps--numbered, .wp-block-comet-steps.is-style-numbered {
+  counter-reset: step-counter;
+}
+.steps__step {
+  min-width: 0;
+  display: block;
+  position: relative;
+}
+[data-orientation=horizontal] .steps__step {
+  padding-inline: var(--spacing-md);
+}
+@container (min-width: 1440px) {
+  [data-orientation=horizontal] .steps__step {
+    padding-inline: var(--spacing-lg);
+  }
+}
+[data-orientation=vertical] .steps__step {
+  padding-block: var(--spacing-md);
+}
+@container (min-width: 1440px) {
+  [data-orientation=vertical] .steps__step {
+    padding-block: var(--spacing-lg);
+  }
+}
+.steps__step__inner {
+  background: var(--color-white);
+  padding: var(--spacing-md);
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.15);
+  height: 100%;
+  position: relative;
+  z-index: 10;
+}
+[data-color-theme=primary] .steps__step__inner:before {
+  background-color: var(--color-primary);
+  color: var(--readable-color-primary);
+}
+[data-color-theme=secondary] .steps__step__inner:before {
+  background-color: var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+[data-color-theme=accent] .steps__step__inner:before {
+  background-color: var(--color-accent);
+  color: var(--readable-color-accent);
+}
+[data-color-theme=warning] .steps__step__inner:before {
+  background-color: var(--color-warning);
+  color: var(--readable-color-warning);
+}
+[data-color-theme=error] .steps__step__inner:before {
+  background-color: var(--color-error);
+  color: var(--readable-color-error);
+}
+[data-color-theme=light] .steps__step__inner:before {
+  background-color: var(--color-light);
+  color: var(--readable-color-light);
+}
+[data-color-theme=dark] .steps__step__inner:before {
+  background-color: var(--color-dark);
+  color: var(--readable-color-dark);
+}
+[data-color-theme=white] .steps__step__inner:before {
+  background-color: var(--color-white);
+  color: var(--readable-color-white);
+}
+.steps--numbered .steps__step__inner, .wp-block-comet-steps.is-style-numbered .steps__step__inner {
+  counter-increment: step-counter;
+}
+.steps--numbered .steps__step__inner:before, .wp-block-comet-steps.is-style-numbered .steps__step__inner:before {
+  content: counter(step-counter);
+  height: 2rem;
+  width: 2rem;
+  border-radius: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-family: var(--font-family-accent);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-sm);
+  line-height: 1;
+  margin-block-end: var(--spacing-xs);
+  margin-inline-end: var(--spacing-md);
+}
+.steps__step__inner:after {
+  content: "";
+  position: absolute;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  background: var(--color-white);
+  transform: rotate(45deg);
+  transform-origin: center center;
+}
+[data-orientation=vertical] .steps__step__inner:after {
+  left: 50%;
+  bottom: 100%;
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
+}
+[data-orientation=horizontal] .steps__step__inner:after {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
+}
+.steps__step:last-child .steps__step__inner:after {
+  display: none;
+}
+
 .page-header, .editor-visual-editor__post-title-wrapper {
   padding-block: var(--spacing-lg);
 }
@@ -622,9 +809,73 @@
   color: var(--readable-color-primary);
 }
 
+.has-primary-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-primary-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-primary-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-primary-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-primary-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-primary-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-primary-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-primary-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary) 50%, var(--color-white) 50%, var(--color-white) 100%);
+}
+
 .has-secondary-background-color {
   background-color: var(--color-secondary);
   color: var(--readable-color-secondary);
+}
+
+.has-secondary-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-secondary-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-secondary-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-secondary-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-secondary-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-secondary-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-secondary-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-secondary-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-white) 50%, var(--color-white) 100%);
 }
 
 .has-accent-background-color {
@@ -632,9 +883,73 @@
   color: var(--readable-color-accent);
 }
 
+.has-accent-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-accent-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-accent-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-accent-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-accent-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-accent-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-accent-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-accent-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-white) 50%, var(--color-white) 100%);
+}
+
 .has-warning-background-color {
   background-color: var(--color-warning);
   color: var(--readable-color-warning);
+}
+
+.has-warning-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-warning-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-warning-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-warning-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-warning-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-warning-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-warning-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-warning-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-warning) 0%, var(--color-warning) 50%, var(--color-white) 50%, var(--color-white) 100%);
 }
 
 .has-error-background-color {
@@ -642,9 +957,73 @@
   color: var(--readable-color-error);
 }
 
+.has-error-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-error-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-error-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-error-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-error-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-error-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-error-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-error-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 50%, var(--color-white) 50%, var(--color-white) 100%);
+}
+
 .has-light-background-color {
   background-color: var(--color-light);
   color: var(--readable-color-light);
+}
+
+.has-light-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-light-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-light-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-light-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-light-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-light-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-light-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-light-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-white) 50%, var(--color-white) 100%);
 }
 
 .has-dark-background-color {
@@ -652,9 +1031,73 @@
   color: var(--readable-color-dark);
 }
 
+.has-dark-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-dark-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-dark-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-dark-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-dark-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-dark-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-dark-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-dark-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-dark) 50%, var(--color-white) 50%, var(--color-white) 100%);
+}
+
 .has-white-background-color {
   background-color: var(--color-white);
   color: var(--readable-color-white);
+}
+
+.has-white-primary-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+
+.has-white-secondary-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-secondary) 50%, var(--color-secondary) 100%);
+}
+
+.has-white-accent-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-accent) 50%, var(--color-accent) 100%);
+}
+
+.has-white-warning-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-warning) 50%, var(--color-warning) 100%);
+}
+
+.has-white-error-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-error) 50%, var(--color-error) 100%);
+}
+
+.has-white-light-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-light) 50%, var(--color-light) 100%);
+}
+
+.has-white-dark-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-dark) 50%, var(--color-dark) 100%);
+}
+
+.has-white-white-gradient-background {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-white) 50%, var(--color-white) 100%);
 }
 
 .wp-block-paragraph {
@@ -742,6 +1185,12 @@
   display: block !important;
 }
 
+.wp-block-comet-steps > .block-editor-inner-blocks {
+  display: contents;
+}
+.wp-block-comet-steps > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  display: contents;
+}
 :where(.editor-styles-wrapper) p {
   line-height: inherit !important;
   font-size: 1rem;

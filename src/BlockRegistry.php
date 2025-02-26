@@ -238,8 +238,8 @@ class BlockRegistry extends JavaScriptImplementation {
 			'label'  => __('Colour theme'),
 			'property' => 'background',
 			// TODO: Support for comet/panels
-			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group',
-			'blocks' => ['core/button', 'comet/callout', 'comet/file-group'],
+			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps',
+			'blocks' => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps'],
 		]);
 
 		Block_Supports_Extended\register('color', 'inline', [
