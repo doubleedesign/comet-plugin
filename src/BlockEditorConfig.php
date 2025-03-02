@@ -38,7 +38,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		add_filter('wp_theme_json_data_theme', function ($theme_json) {
 			$plugin_theme_json_path = plugin_dir_path(__FILE__) . 'theme.json';
 			$plugin_theme_json_data = json_decode(file_get_contents($plugin_theme_json_path), true);
-			if (is_array($plugin_theme_json_data)) {
+			if(is_array($plugin_theme_json_data)) {
 				return new WP_Theme_JSON_Data(Utils::array_merge_deep($plugin_theme_json_data, $theme_json->get_data()));
 			}
 
@@ -74,7 +74,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		$custom_categories = $block_support['categories'];
 		$new_categories = [];
 
-		foreach ($custom_categories as $cat) {
+		foreach($custom_categories as $cat) {
 			$new_categories[] = [
 				'slug'  => $cat['slug'],
 				'title' => $cat['name'],
@@ -99,18 +99,18 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	function assign_blocks_to_categories($settings, $name): array {
 		static $block_category_map = null;
 
-		if ($block_category_map === null) {
+		if($block_category_map === null) {
 			$block_support = json_decode(file_get_contents(plugin_dir_path(__FILE__) . 'block-support.json'), true);
 			$block_category_map = [];
 
-			foreach ($block_support['categories'] as $category) {
-				foreach ($category['blocks'] as $block_name) {
+			foreach($block_support['categories'] as $category) {
+				foreach($category['blocks'] as $block_name) {
 					$block_category_map[$block_name] = $category['slug'];
 				}
 			}
 		}
 
-		if (isset($block_category_map[$name])) {
+		if(isset($block_category_map[$name])) {
 			$settings['category'] = $block_category_map[$name];
 		}
 
@@ -138,7 +138,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	 * @return bool
 	 */
 	function selective_gutenberg($current_status, $post_type): bool {
-		if ($post_type === 'page' || $post_type === 'shared_content' || $post_type === 'post') {
+		if($post_type === 'page' || $post_type === 'shared_content' || $post_type === 'post') {
 			return true;
 		}
 

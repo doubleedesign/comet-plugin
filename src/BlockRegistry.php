@@ -42,19 +42,19 @@ class BlockRegistry extends JavaScriptImplementation {
 	function register_blocks(): void {
 		$block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
 
-		foreach ($block_folders as $block_name) {
+		foreach($block_folders as $block_name) {
 			$folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
 			$className = BlockRenderer::get_comet_component_class($block_name);
-			if (!file_exists("$folder/block.json")) continue;
+			if(!file_exists("$folder/block.json")) continue;
 
 			$block_json = json_decode(file_get_contents("$folder/block.json"));
 
 			// This is an ACF block and we want to use a render template
-			if (isset($block_json->acf->renderTemplate)) {
+			if(isset($block_json->acf->renderTemplate)) {
 				register_block_type($folder);
 			}
 			// Block name -> direct translation to component name
-			else if (isset($className) && BlockRenderer::can_render_comet_component($className)) {
+			else if(isset($className) && BlockRenderer::can_render_comet_component($className)) {
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
 				]);
@@ -62,7 +62,7 @@ class BlockRegistry extends JavaScriptImplementation {
 				$shortName = $block_name; // folder name in this case
 				$pascalCaseName = Utils::pascal_case($shortName); // should match the class name without the namespace
 				$cssPath = dirname(__DIR__, 1) . "/vendor/doubleedesign/comet-components-core/src/components/$pascalCaseName/$shortName.css";
-				if (file_exists($cssPath)) {
+				if(file_exists($cssPath)) {
 					$handle = Utils::kebab_case($block_name) . '-style';
 					$pluginFilePath = dirname(plugin_dir_url(__FILE__)) . "/vendor/doubleedesign/comet-components-core/src/components/$pascalCaseName/$shortName.css";
 					wp_register_style(
@@ -76,18 +76,18 @@ class BlockRegistry extends JavaScriptImplementation {
 				}
 			}
 			// Block has variations that align to a component name, without the overarching block name being used for a rendering class
-			else if (isset($block_json->variations)) {
+			else if(isset($block_json->variations)) {
 				// TODO: Actually check for matching component classes
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
 				]);
 
-				foreach ($block_json->variations as $variation) {
+				foreach($block_json->variations as $variation) {
 					$shortName = Utils::pascal_case(array_reverse(explode('/', $variation->name))[0]);
 					$shortNameLower = strtolower($shortName);
 					$filePath = dirname(__DIR__, 1) . "/vendor/doubleedesign/comet-components-core/src/components/$shortName/$shortNameLower.css";
 
-					if (file_exists($filePath)) {
+					if(file_exists($filePath)) {
 						$handle = Utils::kebab_case($variation->name) . '-style';
 						$pluginFilePath = dirname(plugin_dir_url(__FILE__)) . "/vendor/doubleedesign/comet-components-core/src/components/$shortName/$shortNameLower.css";
 						wp_register_style(
@@ -103,7 +103,7 @@ class BlockRegistry extends JavaScriptImplementation {
 
 			}
 			// Block is an inner component of a variation, and we want to use a Comet Component according to the variation
-			else if (isset($block_json->parent)) {
+			else if(isset($block_json->parent)) {
 				// TODO: Actually check for matching component classes
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
@@ -123,10 +123,10 @@ class BlockRegistry extends JavaScriptImplementation {
 	function register_block_fields(): void {
 		$block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
 
-		foreach ($block_folders as $block_name) {
+		foreach($block_folders as $block_name) {
 			$file = dirname(__DIR__, 1) . '/src/blocks/' . $block_name . '/fields.php';
 
-			if (file_exists($file) && function_exists('acf_add_local_field_group')) {
+			if(file_exists($file) && function_exists('acf_add_local_field_group')) {
 				require_once $file;
 			}
 		}
@@ -180,8 +180,8 @@ class BlockRegistry extends JavaScriptImplementation {
 		$supported_core_blocks = $this->block_support_json['core']['supported'];
 		$blocks_with_variations = array_filter($supported_core_blocks, fn($block) => isset($block['variations']));
 
-		foreach ($blocks_with_variations as $block_name => $data) {
-			if ($metadata['name'] === $block_name) {
+		foreach($blocks_with_variations as $block_name => $data) {
+			if($metadata['name'] === $block_name) {
 				$metadata['variations'] = array_merge(
 					$metadata['variations'] ?? array(),
 					$data['variations']
@@ -197,8 +197,8 @@ class BlockRegistry extends JavaScriptImplementation {
 		$blocks = $this->block_support_json['core']['supported'];
 		$blocks_to_update = array_filter($blocks, fn($block) => isset($block['description']));
 
-		foreach ($blocks_to_update as $block_name => $data) {
-			if ($metadata['name'] === $block_name) {
+		foreach($blocks_to_update as $block_name => $data) {
+			if($metadata['name'] === $block_name) {
 				$metadata['description'] = $data['description'];
 			}
 		}
@@ -235,18 +235,18 @@ class BlockRegistry extends JavaScriptImplementation {
 	 */
 	function register_custom_attributes(): void {
 		Block_Supports_Extended\register('color', 'theme', [
-			'label'  => __('Colour theme'),
+			'label'    => __('Colour theme'),
 			'property' => 'background',
 			// TODO: Support for comet/panels
 			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote',
-			'blocks' => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote'],
+			'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote'],
 		]);
 
 		Block_Supports_Extended\register('color', 'inline', [
-			'label'  => __('Text (override default)'),
+			'label'    => __('Text (override default)'),
 			'property' => 'text',
 			'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote',
-			'blocks' => ['core/heading', 'core/paragraph', 'core/pullquote'],
+			'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote'],
 		]);
 
 		// Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
@@ -280,13 +280,13 @@ class BlockRegistry extends JavaScriptImplementation {
 		))[0]['blocks'] ?? null;
 
 		// Remove support for some things from all blocks
-		if (isset($metadata['supports'])) {
+		if(isset($metadata['supports'])) {
 			$metadata['supports'] = array_diff_key(
 				$metadata['supports'],
 				array_flip(['spacing', 'typography', 'shadow', 'dimensions'])
 			);
 		}
-		if (isset($metadata['attributes']['isStackedOnMobile'])) {
+		if(isset($metadata['attributes']['isStackedOnMobile'])) {
 			$metadata['attributes'] = array_diff_key(
 				$metadata['attributes'],
 				array_flip(['isStackedOnMobile'])
@@ -294,7 +294,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 
 		// All layout blocks
-		if (in_array($name, $layout_blocks)) {
+		if(in_array($name, $layout_blocks)) {
 			$metadata['supports']['color']['background'] = true;
 			$metadata['supports']['color']['gradients'] = false;
 			$metadata['supports']['color']['text'] = false;
@@ -305,18 +305,18 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 
 		// All typography blocks
-		if (in_array($name, $typography_blocks)) {
+		if(in_array($name, $typography_blocks)) {
 			$metadata['supports']['color']['background'] = false;
 			$metadata['supports']['color']['gradients'] = false;
 			$metadata['supports']['color']['__experimentalDefaultControls'] = [
-				'text' => false, // replaced with custom attribute because it wasn't working
+				'text'       => false, // replaced with custom attribute because it wasn't working
 				'background' => false
 			];
 			$metadata['supports']['__experimentalBorder'] = false;
 			$metadata['supports']['border'] = false;
 		}
 
-		if ($name === 'core/buttons') {
+		if($name === 'core/buttons') {
 			$metadata['supports']['layout'] = array_merge(
 				$metadata['supports']['layout'],
 				[
@@ -328,7 +328,7 @@ class BlockRegistry extends JavaScriptImplementation {
 				]
 			);
 		}
-		if ($name === 'core/button') {
+		if($name === 'core/button') {
 			$metadata['attributes'] = array_diff_key(
 				$metadata['attributes'],
 				array_flip(['textAlign', 'textColor', 'width'])
@@ -346,7 +346,7 @@ class BlockRegistry extends JavaScriptImplementation {
 
 		// Group block
 		// Remember: Row, Stack, and Grid are variations of Group so any settings here will affect all of those
-		if ($name === 'core/group') {
+		if($name === 'core/group') {
 			$metadata['supports'] = array_diff_key(
 				$metadata['supports'],
 				array_flip(['__experimentalSettings', 'align', 'position'])
@@ -365,13 +365,13 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 
 		// Columns
-		if ($name === 'core/columns') {
+		if($name === 'core/columns') {
 			$metadata['attributes']['tagName'] = [
 				'type'    => 'string',
 				'default' => 'div'
 			];
 		}
-		if ($name === 'core/columns' && isset($metadata['supports']['layout'])) {
+		if($name === 'core/columns' && isset($metadata['supports']['layout'])) {
 			$metadata['supports']['layout'] = array_merge(
 				$metadata['supports']['layout'],
 				[
@@ -383,8 +383,8 @@ class BlockRegistry extends JavaScriptImplementation {
 				]
 			);
 		}
-		if ($name === 'core/column') {
-			if (!is_array($metadata['supports']['layout'])) {
+		if($name === 'core/column') {
+			if(!is_array($metadata['supports']['layout'])) {
 				$metadata['supports']['layout'] = [];
 			}
 			$metadata['supports']['layout'] = array_merge(
@@ -440,36 +440,36 @@ class BlockRegistry extends JavaScriptImplementation {
 			fn($category) => $category['slug'] === 'content'
 		))[0]['blocks'] ?? [];
 
-		if (in_array($name, $layout_blocks)) {
+		if(in_array($name, $layout_blocks)) {
 			$supported = ['comet/container', 'comet/panel-content'];
-			if (isset($metadata['parent'])) {
+			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
 			}
 			else {
 				$metadata['parent'] = $supported;
 			}
 		}
-		if (in_array($name, array_merge($typography_blocks, $media_blocks))) {
+		if(in_array($name, array_merge($typography_blocks, $media_blocks))) {
 			$supported = ['comet/container', 'core/column', 'core/group'];
 
-			if (isset($metadata['parent'])) {
+			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
 			}
 			else {
 				$metadata['parent'] = $supported;
 			}
 		}
-		if (in_array($name, array_merge($content_blocks, ['core/embed']))) {
+		if(in_array($name, array_merge($content_blocks, ['core/embed']))) {
 			$supported = ['comet/container', 'core/column', 'core/group', 'core/details', 'comet/panel-content'];
 
-			if (isset($metadata['parent'])) {
+			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
 			}
 			else {
 				$metadata['parent'] = $supported;
 			}
 		}
-		if ($name === 'core/freeform') {
+		if($name === 'core/freeform') {
 			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column', 'comet/panel-content'];
 		}
 

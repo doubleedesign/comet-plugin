@@ -7,9 +7,9 @@ class EmbeddedPlugins {
 	];
 
 	function __construct() {
-		foreach ($this->embedded_plugins as $plugin) {
+		foreach($this->embedded_plugins as $plugin) {
 			$full_path = dirname(__DIR__, 1) . $plugin;
-			if (file_exists($full_path)) {
+			if(file_exists($full_path)) {
 				require_once $full_path;
 			}
 			else {
@@ -25,7 +25,7 @@ class EmbeddedPlugins {
 		// Where this is called from can yield slightly different results which is weird
 		// but I don't know why and am just going to work around it
 		$path = str_replace('\\', '/', (dirname(__FILE__, 3) . '/' . $plugin_path));
-		if (!file_exists($path)) {
+		if(!file_exists($path)) {
 			$path = str_replace('\\', '/', (dirname(__FILE__, 2) . '/' . $plugin_path));
 		}
 
@@ -50,12 +50,12 @@ class EmbeddedPlugins {
 	 */
 	public function add_to_cache(): void {
 		$plugin_cache = wp_cache_get('plugins', 'plugins');
-		if (!$plugin_cache) return;
+		if(!$plugin_cache) return;
 
 		$defs = [];
 		$relative_paths = array_map([$this, 'get_relative_path'], $this->embedded_plugins);
-		foreach ($relative_paths as $relative_path) {
-			if (isset($plugin_cache[''][$relative_path])) continue;
+		foreach($relative_paths as $relative_path) {
+			if(isset($plugin_cache[''][$relative_path])) continue;
 			$defs[$relative_path] = $this->get_plugin_definition($relative_path);
 		}
 
@@ -64,7 +64,7 @@ class EmbeddedPlugins {
 	}
 
 	public function list_in_admin($plugins): array {
-		foreach ($this->embedded_plugins as $plugin_path) {
+		foreach($this->embedded_plugins as $plugin_path) {
 			$plugin_data = $this->get_plugin_definition($plugin_path);
 			$relative_path = $this->get_relative_path($plugin_path);
 

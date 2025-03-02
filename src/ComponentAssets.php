@@ -8,7 +8,7 @@ namespace Doubleedesign\Comet\WordPress;
 class ComponentAssets {
 
 	function __construct() {
-		if (!function_exists('register_block_type')) {
+		if(!function_exists('register_block_type')) {
 			// Block editor is not available.
 			return;
 		}
@@ -20,7 +20,7 @@ class ComponentAssets {
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
 		add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
 
-		if (is_admin()) {
+		if(is_admin()) {
 			// Editor CSS
 			add_action('enqueue_block_assets', [$this, 'enqueue_comet_global_css'], 10);
 			add_action('enqueue_block_assets', [$this, 'enqueue_wp_block_css'], 10);
@@ -78,7 +78,7 @@ class ComponentAssets {
 	 * @return mixed|string
 	 */
 	function script_type_module($tag, $handle, $src): mixed {
-		if (str_starts_with($handle, 'comet-')) {
+		if(str_starts_with($handle, 'comet-')) {
 			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
 		}
 
@@ -102,7 +102,7 @@ class ComponentAssets {
 	 * @return array
 	 */
 	function remove_gutenberg_inline_styles($editor_settings): array {
-		if (!empty($editor_settings['styles'])) {
+		if(!empty($editor_settings['styles'])) {
 			$editor_settings['styles'] = [];
 		}
 

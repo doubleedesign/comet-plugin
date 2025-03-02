@@ -52,7 +52,7 @@ class BlockPatternHandler {
 	 * @return array
 	 */
 	function remove_patterns_from_inserter($editor_settings): array {
-		if (isset($editor_settings['__experimentalFeatures'])) {
+		if(isset($editor_settings['__experimentalFeatures'])) {
 			$editor_settings['__experimentalFeatures']['showPatternsList'] = false;
 		}
 		return $editor_settings;

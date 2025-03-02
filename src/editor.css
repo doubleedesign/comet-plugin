@@ -450,20 +450,20 @@
   margin-block: var(--spacing-lg);
   position: relative;
 }
-.pullquote:before, .wp-block-pullquote blockquote:before, .pullquote:after, .wp-block-pullquote blockquote:after {
+.pullquote::before, .wp-block-pullquote blockquote::before, .pullquote::after, .wp-block-pullquote blockquote::after {
   font-family: var(--font-family-accent);
   font-size: 12rem;
   position: absolute;
   height: 4rem;
 }
-.pullquote:before, .wp-block-pullquote blockquote:before {
+.pullquote::before, .wp-block-pullquote blockquote::before {
   content: open-quote;
   top: 0;
   left: 0;
   transform: rotate(15deg) translateY(-2.5rem) translateX(-1rem);
   transform-origin: center center;
 }
-.pullquote:after, .wp-block-pullquote blockquote:after {
+.pullquote::after, .wp-block-pullquote blockquote::after {
   content: close-quote;
   bottom: var(--spacing-lg);
   transform: rotate(15deg) translateX(1rem);
@@ -473,56 +473,56 @@
   color: var(--color-primary);
   background: color-mix(in srgb, var(--color-primary) 5%, white);
 }
-.pullquote[data-color-theme=primary]:before, .wp-block-pullquote blockquote[data-color-theme=primary]:before, .pullquote[data-color-theme=primary]:after, .wp-block-pullquote blockquote[data-color-theme=primary]:after {
+.pullquote[data-color-theme=primary]::before, .wp-block-pullquote blockquote[data-color-theme=primary]::before, .pullquote[data-color-theme=primary]::after, .wp-block-pullquote blockquote[data-color-theme=primary]::after {
   color: color-mix(in srgb, var(--color-primary) 25%, white);
 }
 .pullquote[data-color-theme=secondary], .wp-block-pullquote blockquote[data-color-theme=secondary] {
   color: var(--color-secondary);
   background: color-mix(in srgb, var(--color-secondary) 5%, white);
 }
-.pullquote[data-color-theme=secondary]:before, .wp-block-pullquote blockquote[data-color-theme=secondary]:before, .pullquote[data-color-theme=secondary]:after, .wp-block-pullquote blockquote[data-color-theme=secondary]:after {
+.pullquote[data-color-theme=secondary]::before, .wp-block-pullquote blockquote[data-color-theme=secondary]::before, .pullquote[data-color-theme=secondary]::after, .wp-block-pullquote blockquote[data-color-theme=secondary]::after {
   color: color-mix(in srgb, var(--color-secondary) 25%, white);
 }
 .pullquote[data-color-theme=accent], .wp-block-pullquote blockquote[data-color-theme=accent] {
   color: var(--color-accent);
   background: color-mix(in srgb, var(--color-accent) 5%, white);
 }
-.pullquote[data-color-theme=accent]:before, .wp-block-pullquote blockquote[data-color-theme=accent]:before, .pullquote[data-color-theme=accent]:after, .wp-block-pullquote blockquote[data-color-theme=accent]:after {
+.pullquote[data-color-theme=accent]::before, .wp-block-pullquote blockquote[data-color-theme=accent]::before, .pullquote[data-color-theme=accent]::after, .wp-block-pullquote blockquote[data-color-theme=accent]::after {
   color: color-mix(in srgb, var(--color-accent) 25%, white);
 }
 .pullquote[data-color-theme=warning], .wp-block-pullquote blockquote[data-color-theme=warning] {
   color: var(--color-warning);
   background: color-mix(in srgb, var(--color-warning) 5%, white);
 }
-.pullquote[data-color-theme=warning]:before, .wp-block-pullquote blockquote[data-color-theme=warning]:before, .pullquote[data-color-theme=warning]:after, .wp-block-pullquote blockquote[data-color-theme=warning]:after {
+.pullquote[data-color-theme=warning]::before, .wp-block-pullquote blockquote[data-color-theme=warning]::before, .pullquote[data-color-theme=warning]::after, .wp-block-pullquote blockquote[data-color-theme=warning]::after {
   color: color-mix(in srgb, var(--color-warning) 25%, white);
 }
 .pullquote[data-color-theme=error], .wp-block-pullquote blockquote[data-color-theme=error] {
   color: var(--color-error);
   background: color-mix(in srgb, var(--color-error) 5%, white);
 }
-.pullquote[data-color-theme=error]:before, .wp-block-pullquote blockquote[data-color-theme=error]:before, .pullquote[data-color-theme=error]:after, .wp-block-pullquote blockquote[data-color-theme=error]:after {
+.pullquote[data-color-theme=error]::before, .wp-block-pullquote blockquote[data-color-theme=error]::before, .pullquote[data-color-theme=error]::after, .wp-block-pullquote blockquote[data-color-theme=error]::after {
   color: color-mix(in srgb, var(--color-error) 25%, white);
 }
 .pullquote[data-color-theme=light], .wp-block-pullquote blockquote[data-color-theme=light] {
   color: var(--color-light);
   background: color-mix(in srgb, var(--color-light) 5%, white);
 }
-.pullquote[data-color-theme=light]:before, .wp-block-pullquote blockquote[data-color-theme=light]:before, .pullquote[data-color-theme=light]:after, .wp-block-pullquote blockquote[data-color-theme=light]:after {
+.pullquote[data-color-theme=light]::before, .wp-block-pullquote blockquote[data-color-theme=light]::before, .pullquote[data-color-theme=light]::after, .wp-block-pullquote blockquote[data-color-theme=light]::after {
   color: color-mix(in srgb, var(--color-light) 25%, white);
 }
 .pullquote[data-color-theme=dark], .wp-block-pullquote blockquote[data-color-theme=dark] {
   color: var(--color-dark);
   background: color-mix(in srgb, var(--color-dark) 5%, white);
 }
-.pullquote[data-color-theme=dark]:before, .wp-block-pullquote blockquote[data-color-theme=dark]:before, .pullquote[data-color-theme=dark]:after, .wp-block-pullquote blockquote[data-color-theme=dark]:after {
+.pullquote[data-color-theme=dark]::before, .wp-block-pullquote blockquote[data-color-theme=dark]::before, .pullquote[data-color-theme=dark]::after, .wp-block-pullquote blockquote[data-color-theme=dark]::after {
   color: color-mix(in srgb, var(--color-dark) 25%, white);
 }
 .pullquote[data-color-theme=white], .wp-block-pullquote blockquote[data-color-theme=white] {
   color: var(--color-white);
   background: color-mix(in srgb, var(--color-white) 5%, white);
 }
-.pullquote[data-color-theme=white]:before, .wp-block-pullquote blockquote[data-color-theme=white]:before, .pullquote[data-color-theme=white]:after, .wp-block-pullquote blockquote[data-color-theme=white]:after {
+.pullquote[data-color-theme=white]::before, .wp-block-pullquote blockquote[data-color-theme=white]::before, .pullquote[data-color-theme=white]::after, .wp-block-pullquote blockquote[data-color-theme=white]::after {
   color: color-mix(in srgb, var(--color-white) 25%, white);
 }
 .pullquote p, .wp-block-pullquote blockquote p {
@@ -919,42 +919,42 @@
   position: relative;
   z-index: 10;
 }
-[data-color-theme=primary] .steps__step__inner:before {
+[data-color-theme=primary] .steps__step__inner::before {
   background-color: var(--color-primary);
   color: var(--readable-color-primary);
 }
-[data-color-theme=secondary] .steps__step__inner:before {
+[data-color-theme=secondary] .steps__step__inner::before {
   background-color: var(--color-secondary);
   color: var(--readable-color-secondary);
 }
-[data-color-theme=accent] .steps__step__inner:before {
+[data-color-theme=accent] .steps__step__inner::before {
   background-color: var(--color-accent);
   color: var(--readable-color-accent);
 }
-[data-color-theme=warning] .steps__step__inner:before {
+[data-color-theme=warning] .steps__step__inner::before {
   background-color: var(--color-warning);
   color: var(--readable-color-warning);
 }
-[data-color-theme=error] .steps__step__inner:before {
+[data-color-theme=error] .steps__step__inner::before {
   background-color: var(--color-error);
   color: var(--readable-color-error);
 }
-[data-color-theme=light] .steps__step__inner:before {
+[data-color-theme=light] .steps__step__inner::before {
   background-color: var(--color-light);
   color: var(--readable-color-light);
 }
-[data-color-theme=dark] .steps__step__inner:before {
+[data-color-theme=dark] .steps__step__inner::before {
   background-color: var(--color-dark);
   color: var(--readable-color-dark);
 }
-[data-color-theme=white] .steps__step__inner:before {
+[data-color-theme=white] .steps__step__inner::before {
   background-color: var(--color-white);
   color: var(--readable-color-white);
 }
 .steps--numbered .steps__step__inner, .wp-block-comet-steps.is-style-numbered .steps__step__inner {
   counter-increment: step-counter;
 }
-.steps--numbered .steps__step__inner:before, .wp-block-comet-steps.is-style-numbered .steps__step__inner:before {
+.steps--numbered .steps__step__inner::before, .wp-block-comet-steps.is-style-numbered .steps__step__inner::before {
   content: counter(step-counter);
   height: 2rem;
   width: 2rem;
@@ -970,7 +970,7 @@
   margin-block-end: var(--spacing-xs);
   margin-inline-end: var(--spacing-md);
 }
-.steps__step__inner:after {
+.steps__step__inner::after {
   content: "";
   position: absolute;
   width: var(--spacing-lg);
@@ -979,17 +979,17 @@
   transform: rotate(45deg);
   transform-origin: center center;
 }
-[data-orientation=vertical] .steps__step__inner:after {
+[data-orientation=vertical] .steps__step__inner::after {
   left: 50%;
   bottom: 100%;
   transform: translateY(-50%) translateX(-50%) rotate(45deg);
 }
-[data-orientation=horizontal] .steps__step__inner:after {
+[data-orientation=horizontal] .steps__step__inner::after {
   top: 50%;
   left: 100%;
   transform: translateY(-50%) translateX(-50%) rotate(45deg);
 }
-.steps__step:last-child .steps__step__inner:after {
+.steps__step:last-child .steps__step__inner::after {
   display: none;
 }
 

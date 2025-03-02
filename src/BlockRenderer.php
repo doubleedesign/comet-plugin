@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{Callout,Paragraph,Renderable,Utils,NotImplemented};
+use Doubleedesign\Comet\Core\{Callout, Paragraph, Renderable, Utils, NotImplemented};
 use DOMDocument;
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -66,26 +66,26 @@ class BlockRenderer {
 
 		// Check rendering prerequisites and bail early if one is not met
 		// Otherwise, do nothing - the original WP block render function will be used
-		foreach ($core_blocks as $core_block_name) {
+		foreach($core_blocks as $core_block_name) {
 			// core/block is for reusable blocks (synced patterns), and does not have a Comet component
 			// so we don't want to override it like we do with other core blocks
-			if ($core_block_name === 'core/block') continue;
+			if($core_block_name === 'core/block') continue;
 
 			// WP block type exists
 			$block_type = WP_Block_Type_Registry::get_instance()->get_registered($core_block_name);
-			if (!$block_type) continue;
+			if(!$block_type) continue;
 
 			// Corresponding Comet Component class exists
 			$ComponentClass = self::get_comet_component_class($core_block_name); // returns the namespaced class name
-			if (!$ComponentClass) continue;
+			if(!$ComponentClass) continue;
 
 			//...and the render method has been implemented
 			$ready_to_render = $this->can_render_comet_component($ComponentClass);
-			if (!$ready_to_render) continue;
+			if(!$ready_to_render) continue;
 
 			//...and one or more of the expected content fields is present
 			$content_types = $this->get_comet_component_content_type($ComponentClass); // so we know what to pass to it
-			if (!$content_types) continue;
+			if(!$content_types) continue;
 
 			// If all of those conditions were met, override the block's render callback
 			// Unregister the original block
@@ -119,7 +119,7 @@ class BlockRenderer {
 				$dom = new DOMDocument();
 				@$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 				$element = $dom->getElementsByTagName($tag)->item(0);
-				if($element &&  $element->getAttribute('id')) {
+				if($element && $element->getAttribute('id')) {
 					$attributes['id'] = $element->getAttribute('id');
 					$block_instance->attributes['id'] = $element->getAttribute('id');
 				}
@@ -154,7 +154,7 @@ class BlockRenderer {
 			|| in_array($block_name, ['comet/file-group', 'comet/link-group'])
 		) {
 			try {
-				if ($block_instance->block_type->render_callback) {
+				if($block_instance->block_type->render_callback) {
 					$rendered = call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
 					return $rendered;
 				}
@@ -162,7 +162,7 @@ class BlockRenderer {
 					throw new RuntimeException("Problem rendering $block_name in BlockRenderer->render_block()");
 				}
 			}
-			catch (RuntimeException $e) {
+			catch(RuntimeException $e) {
 				return self::handle_error($e);
 			}
 		}
@@ -173,7 +173,7 @@ class BlockRenderer {
 			$component->render();
 			return ob_get_clean();
 		}
-		catch (RuntimeException $e) {
+		catch(RuntimeException $e) {
 			return self::handle_error($e);
 		}
 	}
@@ -187,7 +187,7 @@ class BlockRenderer {
 		$blockNameTrimmed = array_reverse(explode('/', $blockName))[0];
 		$className = Utils::get_class_name($blockNameTrimmed);
 
-		if (class_exists($className)) {
+		if(class_exists($className)) {
 			return $className;
 		}
 
@@ -207,14 +207,14 @@ class BlockRenderer {
 		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
 
 		// Block-specific handling of attributes and content
-		if ($block_name === 'core/button') {
+		if($block_name === 'core/button') {
 			$this->process_button_block($block_instance);
 			$content = $block_instance->attributes['content'];
 		}
-		if ($block_name === 'core/image') {
+		if($block_name === 'core/image') {
 			$this->process_image_block($block_instance);
 		}
-		if ($block_name === 'core/pullquote') {
+		if($block_name === 'core/pullquote') {
 			$quoteContent = $block_instance->parsed_block['innerHTML'];
 			// Create a simple DOM parser and find the quote and citation elements
 			// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
@@ -241,23 +241,24 @@ class BlockRenderer {
 
 		// Figure out the component class to use:
 		// This is a block variant at the top level, such as an Accordion (variant of Panels)
-		if (isset($block_instance->attributes['variant'])) {
+		if(isset($block_instance->attributes['variant'])) {
 			// use the namespaced class name matching the variant name
 			if($block_instance->attributes['variant'] === 'tab') {
 				$ComponentClass = self::get_comet_component_class('comet/tabs');
-			} else {
+			}
+			else {
 				$ComponentClass = self::get_comet_component_class($block_instance->attributes['variant']);
 			}
 		}
 		// This is a block within a variant that is providing its namespaced name via the providesContext property
-		else if (isset($block_instance->context['comet/variant'])) {
+		else if(isset($block_instance->context['comet/variant'])) {
 			// use the namespaced class name matching the variant name + the block name (e.g. Accordion variant + Panel block = AccordionPanel)
 			$variant = $block_instance->context['comet/variant'];
 			$transformed_name = Utils::pascal_case("$variant-$block_name_trimmed");
 			$ComponentClass = self::get_comet_component_class($transformed_name);
 		}
 		// For the core group block, detect variation based on layout attributes and use that class instead
-		else if ($block_name_trimmed === 'group') {
+		else if($block_name_trimmed === 'group') {
 			$layout = $block_instance->attributes['layout'];
 			$variation = match ($layout['type']) {
 				'flex' => isset($layout['orientation']) && $layout['orientation'] === 'vertical' ? 'stack' : 'row',
@@ -280,17 +281,17 @@ class BlockRenderer {
 
 		// Create the component object
 		// Self-closing tag components, e.g. <img>, only have attributes
-		if ($content_type[0] === 'is-self-closing') {
+		if($content_type[0] === 'is-self-closing') {
 			$component = new $ComponentClass($block_instance->attributes);
 		}
 		// Most components will have string content or an array of inner components
-		else if (count($content_type) === 1) {
+		else if(count($content_type) === 1) {
 			$component = $content_type[0] === 'array'
 				? new $ComponentClass($block_instance->attributes, $innerComponents)
 				: new $ComponentClass($block_instance->attributes, $content);
 		}
 		// Some can have both, e.g. list items can have text content and nested lists
-		else if (count($content_type) === 2) {
+		else if(count($content_type) === 2) {
 			$component = new $ComponentClass($block_instance->attributes, $content, $innerComponents);
 		}
 
@@ -309,7 +310,7 @@ class BlockRenderer {
 		}
 
 		$innerBlocks = $block_instance->inner_blocks ?? null;
-		if ($innerBlocks) {
+		if($innerBlocks) {
 			$transformed = array_map(function ($block) {
 				// Handle reusable blocks/synced patterns
 				// TODO: handle these not being Comet Components blocks
@@ -334,7 +335,7 @@ class BlockRenderer {
 						$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
 						return new PreprocessedHTML($block->attributes, $html);
 					}
-					catch (RuntimeException $e) {
+					catch(RuntimeException $e) {
 						self::handle_error($e);
 						return null;
 					}
@@ -363,7 +364,7 @@ class BlockRenderer {
 					$block_instance = new WP_Block($block);
 					return $this->block_to_comet_component_object($block_instance);
 				}
-				catch (RuntimeException $e) {
+				catch(RuntimeException $e) {
 					self::handle_error($e);
 					return null;
 				}
@@ -371,7 +372,7 @@ class BlockRenderer {
 
 			return $components;
 		}
-		catch (RuntimeException $e) {
+		catch(RuntimeException $e) {
 			self::handle_error($e);
 			return [];
 		}
@@ -390,7 +391,7 @@ class BlockRenderer {
 			$attribute = $method->getAttributes(NotImplemented::class);
 			return empty($attribute);
 		}
-		catch (ReflectionException $e) {
+		catch(ReflectionException $e) {
 			return false;
 		}
 	}
@@ -403,26 +404,26 @@ class BlockRenderer {
 	 * @return array<string>|null
 	 */
 	private function get_comet_component_content_type(string $className): ?array {
-		if (!$className || !class_exists($className)) return null;
+		if(!$className || !class_exists($className)) return null;
 
 		$fields = [];
 		$reflectionClass = new ReflectionClass($className);
 		$properties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
 
-		foreach ($properties as $property) {
+		foreach($properties as $property) {
 			$fields[$property->getName()] = $property->getType()->getName();
 		}
 
 		$stringContent = isset($fields['content']) && $fields['content'] === 'string';
 		$innerComponents = isset($fields['innerComponents']) && $fields['innerComponents'] === 'array';
 
-		if ($stringContent && $innerComponents) {
+		if($stringContent && $innerComponents) {
 			return ['string', 'array'];
 		}
-		else if ($stringContent) {
+		else if($stringContent) {
 			return ['string'];
 		}
-		else if ($innerComponents) {
+		else if($innerComponents) {
 			return ['array'];
 		}
 		return ['is-self-closing']; // Assuming if we get this far, it's something like the Image block
@@ -468,7 +469,7 @@ class BlockRenderer {
 		// Turn style classes into attributes
 		if(isset($attributes['className'])) {
 			$classes = explode(' ', $attributes['className']);
-			if (in_array('is-style-outline', $classes)) {
+			if(in_array('is-style-outline', $classes)) {
 				$attributes['isOutline'] = true;
 			}
 		}
@@ -487,7 +488,7 @@ class BlockRenderer {
 		$dom->loadHTML($clean_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 		$links = $dom->getElementsByTagName('a');
 		$link = $links->item(0);
-		foreach ($link->attributes as $attr) {
+		foreach($link->attributes as $attr) {
 			$attributes[$attr->name] = $attr->value;
 		}
 
@@ -495,7 +496,7 @@ class BlockRenderer {
 		unset($attributes['type']);
 
 		// Get inner HTML with any nested tags
-		foreach ($link->childNodes as $child) {
+		foreach($link->childNodes as $child) {
 			$content .= $dom->saveHTML($child);
 		}
 
@@ -513,15 +514,15 @@ class BlockRenderer {
 	 * @return void
 	 */
 	protected function apply_variant_context($variant_name, &$blocks): void {
-		foreach ($blocks as &$block) {
-			if (!str_starts_with($block['blockName'], 'comet/')) return; // Apply only to Comet component blocks
+		foreach($blocks as &$block) {
+			if(!str_starts_with($block['blockName'], 'comet/')) return; // Apply only to Comet component blocks
 
 			$short_name = explode('/', $block['blockName'])[1];
 			$block['blockName'] = "comet/$variant_name-$short_name";
 			$block['attrs']['context'] = $variant_name;
 
 			// Recurse into inner blocks
-			if (isset($block['innerBlocks'])) {
+			if(isset($block['innerBlocks'])) {
 				$this->apply_variant_context($variant_name, $block['innerBlocks']);
 			}
 		}

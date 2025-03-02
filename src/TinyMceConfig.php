@@ -25,13 +25,13 @@ class TinyMceConfig {
 		$plugin = __DIR__ . '/theme.json';
 		$json = null;
 
-		if (file_exists($theme)) {
+		if(file_exists($theme)) {
 			$json = file_get_contents($theme);
 		}
-		else if (file_exists($parent)) {
+		else if(file_exists($parent)) {
 			$json = file_get_contents($parent);
 		}
-		else if (file_exists($plugin)) {
+		else if(file_exists($plugin)) {
 			$json = file_get_contents($plugin);
 		}
 
@@ -56,8 +56,8 @@ class TinyMceConfig {
 			$theme_editor_css
 		];
 
-		foreach ($css as $file) {
-			if (file_exists($file)) {
+		foreach($css as $file) {
+			if(file_exists($file)) {
 				add_editor_style($file);
 			}
 		}
@@ -90,7 +90,7 @@ class TinyMceConfig {
 		$version = filemtime(get_stylesheet_directory() . $content_css);
 		$content_css = get_template_directory_uri() . $content_css . '?v=' . $version; // it caches hard, use this to force a refresh
 
-		if (isset($mce_init['content_css'])) {
+		if(isset($mce_init['content_css'])) {
 			$content_css_new = $mce_init['content_css'] . ',' . $content_css;
 			$mce_init['content_css'] = $content_css_new;
 		}
@@ -108,9 +108,9 @@ class TinyMceConfig {
 	function add_theme_colours($settings): array {
 		$colours = $this->get_theme();
 
-		if (!empty($colours)) {
+		if(!empty($colours)) {
 			$map = array();
-			foreach ($colours as $slug => $value) {
+			foreach($colours as $slug => $value) {
 				$map[] = '"' . $value . '","' . $slug . '"';
 			}
 
@@ -127,8 +127,8 @@ class TinyMceConfig {
 	 * @param array $plugins An array of default TinyMCE plugins.
 	 */
 	function remove_custom_colours(array $plugins): array {
-		foreach ($plugins as $key => $plugin_name) {
-			if ('colorpicker' === $plugin_name) {
+		foreach($plugins as $key => $plugin_name) {
+			if('colorpicker' === $plugin_name) {
 				unset($plugins[$key]);
 
 				return $plugins;
@@ -153,8 +153,8 @@ class TinyMceConfig {
 			// Toggle for the "kitchen sink" i.e. second toolbar row, which is set to stay open in starterkit_tinymce_init_settings
 		);
 
-		foreach ($buttons as $index => $button) {
-			if (in_array($button, $to_remove)) {
+		foreach($buttons as $index => $button) {
+			if(in_array($button, $to_remove)) {
 				unset($buttons[$index]);
 			}
 		}

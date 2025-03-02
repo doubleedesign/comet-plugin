@@ -38,7 +38,7 @@ abstract class JavaScriptImplementation {
 	 * @return mixed|string
 	 */
 	function script_type_module($tag, $handle, $src): mixed {
-		if (str_starts_with($handle, 'comet-')) {
+		if(str_starts_with($handle, 'comet-')) {
 			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
 		}
 

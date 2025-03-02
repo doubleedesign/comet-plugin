@@ -33,7 +33,7 @@
   opacity: 1;
   text-decoration-color: currentColor;
 }
-.breadcrumbs__list__item:after {
+.breadcrumbs__list__item::after {
   content: "/";
   padding-inline-start: var(--spacing-xs);
   opacity: 0.4;
