@@ -306,12 +306,14 @@ class BlockRegistry extends JavaScriptImplementation {
 
 		// All typography blocks
 		if(in_array($name, $typography_blocks)) {
-			$metadata['supports']['color']['background'] = false;
-			$metadata['supports']['color']['gradients'] = false;
-			$metadata['supports']['color']['__experimentalDefaultControls'] = [
-				'text'       => false, // replaced with custom attribute because it wasn't working
-				'background' => false
-			];
+			if($name !== 'comet/call-to-action') {
+				$metadata['supports']['color']['background'] = false;
+				$metadata['supports']['color']['gradients'] = false;
+				$metadata['supports']['color']['__experimentalDefaultControls'] = [
+					'text'       => false, // replaced with custom attribute because it wasn't working
+					'background' => false
+				];
+			}
 			$metadata['supports']['__experimentalBorder'] = false;
 			$metadata['supports']['border'] = false;
 		}

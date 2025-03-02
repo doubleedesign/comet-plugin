@@ -63,6 +63,10 @@
   color: var(--readable-color-white);
 }
 
+.site-header {
+  position: relative;
+  z-index: 500;
+}
 .site-header .container {
   display: flex;
   flex-wrap: nowrap;
@@ -104,11 +108,21 @@
   text-decoration-color: transparent;
   transition: all 0.2s ease-in-out;
 }
-.site-header__menu-list__item__link:hover, .site-header__menu-list__item__link:focus, .site-header__menu-list__item__link:active,
-.site-header__menu-list__item__link [aria-current=page] {
+.site-header__menu-list__item__link:hover, .site-header__menu-list__item__link:focus, .site-header__menu-list__item__link:active, .site-header__menu-list__item__link[aria-current=page] {
   text-decoration-color: currentColor;
 }
-.site-header__menu-list__item:has(.menu-list__item__link[aria-current=page]) a {
+.site-header__menu-list__item__link[target=_blank] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.site-header__menu-list__item__link[target=_blank]:after {
+  content: "\f061";
+  font-family: "Font Awesome 6 Pro Solid";
+  padding-inline-start: var(--spacing-xs);
+}
+.site-header__menu-list__item:has(.menu-list__item__link[aria-current=page]) > a {
   text-decoration-color: currentColor;
 }
 .site-header__menu-list__item .menu-list {
@@ -139,6 +153,19 @@
 .site-header__menu-list__item .menu-list__item__link:hover, .site-header__menu-list__item .menu-list__item__link:focus, .site-header__menu-list__item .menu-list__item__link:active {
   text-decoration-color: currentColor;
   background: rgba(0, 0, 0, 0.25);
+}
+.site-header__menu-list__item .menu-list__item__link[target=_blank] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.site-header__menu-list__item .menu-list__item__link[target=_blank]:after {
+  content: "\f08e";
+  font-family: "Font Awesome 6 Pro Solid";
+  display: inline-block;
+  padding-inline-start: var(--spacing-xs);
+  font-size: 0.85em;
 }
 .site-header__menu-list__item:hover .menu-list, .site-header__menu-list__item:focus-within .menu-list {
   opacity: 1;

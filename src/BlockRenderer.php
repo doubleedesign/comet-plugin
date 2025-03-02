@@ -111,7 +111,7 @@ class BlockRenderer {
 	 * @return Closure
 	 */
 	public static function render_block_callback(string $block_name): Closure {
-		return function ($attributes, $content, $block_instance) use ($block_name) {
+		return function($attributes, $content, $block_instance) use ($block_name) {
 			if($block_instance->block_type->supports['anchor']) {
 				$tag = trim($attributes['tagName'] ?? 'div');
 				// Create a simple DOM parser to process the $content and find the first instance of $tag, and extract the ID if it has one
@@ -311,7 +311,7 @@ class BlockRenderer {
 
 		$innerBlocks = $block_instance->inner_blocks ?? null;
 		if($innerBlocks) {
-			$transformed = array_map(function ($block) {
+			$transformed = array_map(function($block) {
 				// Handle reusable blocks/synced patterns
 				// TODO: handle these not being Comet Components blocks
 				if($block->name === 'core/block') {
@@ -359,7 +359,7 @@ class BlockRenderer {
 			$blockObjects = array_values(array_filter($blockObjects, fn($block) => !empty($block['blockName'])));
 
 			// Convert to Comet component objects and return those
-			$components = array_map(function ($block) {
+			$components = array_map(function($block) {
 				try {
 					$block_instance = new WP_Block($block);
 					return $this->block_to_comet_component_object($block_instance);
@@ -478,7 +478,6 @@ class BlockRenderer {
 		$config = HTMLPurifier_Config::createDefault();
 		$config->set('HTML.Allowed', 'a[href|target|title|rel],span,i,b,strong,em');
 		$config->set('Attr.AllowedFrameTargets', ['_blank', '_self', '_parent', '_top']);
-		$config->set('HTML.TargetBlank', true);
 		$purifier = new HTMLPurifier($config);
 		$clean_html = $purifier->purify($raw_content);
 
@@ -536,7 +535,7 @@ class BlockRenderer {
 	private function hex_to_theme_color_name($hex): ?string {
 		$theme = $this->theme_json['settings']['color']['palette'];
 
-		return array_reduce($theme, function ($carry, $item) use ($hex) {
+		return array_reduce($theme, function($carry, $item) use ($hex) {
 			return strtoupper($item['color']) === strtoupper($hex) ? $item['slug'] : $carry;
 		}, null);
 	}
