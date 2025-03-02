@@ -439,11 +439,13 @@ class BlockRenderer {
 
 		$size = $block_instance->attributes['sizeSlug'] ?? 'full';
 		$id = $block_instance->attributes['id'];
-
 		$block_instance->attributes['src'] = wp_get_attachment_image_url($id, $size);
-		$block_instance->attributes['alt'] = get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
 		$block_instance->attributes['caption'] = wp_get_attachment_caption($id) ?? null;
-		$block_instance->attributes['title'] = get_the_title($id) ?? null;
+		// If the alt or title are set on the block, use those; otherwise use the image's alt/title from the media library
+		$blockAlt = $block_instance->attributes['alt'] ?? null;
+		$blockTitle = $block_instance->attributes['title'] ?? null;
+		$block_instance->attributes['alt'] = $blockAlt ?? get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
+		$block_instance->attributes['title'] = $blockTitle ?? get_the_title($id) ?? null;
 
 		$block_content = $block_instance->parsed_block['innerHTML'];
 		preg_match('/href="([^"]+)"/', $block_content, $matches);
