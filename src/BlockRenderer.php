@@ -113,7 +113,7 @@ class BlockRenderer {
 	public static function render_block_callback(string $block_name): Closure {
 		return function ($attributes, $content, $block_instance) use ($block_name) {
 			if($block_instance->block_type->supports['anchor']) {
-				$tag = trim($attributes['tagName']);
+				$tag = trim($attributes['tagName'] ?? 'div');
 				// Create a simple DOM parser to process the $content and find the first instance of $tag, and extract the ID if it has one
 				// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
 				$dom = new DOMDocument();
