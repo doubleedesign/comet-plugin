@@ -286,12 +286,6 @@ class BlockRegistry extends JavaScriptImplementation {
 				array_flip(['spacing', 'typography', 'shadow', 'dimensions'])
 			);
 		}
-		if(isset($metadata['attributes']['isStackedOnMobile'])) {
-			$metadata['attributes'] = array_diff_key(
-				$metadata['attributes'],
-				array_flip(['isStackedOnMobile'])
-			);
-		}
 
 		// All layout blocks
 		if(in_array($name, $layout_blocks)) {
@@ -347,7 +341,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 
 		// Group block
-		// Remember: Row, Stack, and Grid are variations of Group so any settings here will affect all of those
+		// Remember: Row, Stack, and Grid are variations of Group so any settings here will affect all of those if you enable those variations
 		if($name === 'core/group') {
 			$metadata['supports'] = array_diff_key(
 				$metadata['supports'],
@@ -357,11 +351,11 @@ class BlockRegistry extends JavaScriptImplementation {
 			$metadata['supports']['layout'] = array_merge(
 				$metadata['supports']['layout'],
 				[
-					'allowEditing'           => true, // allow selection of the enabled layout options
-					'allowSwitching'         => false, // disables selection of flow/flex/constrained/grid because we're deciding that with CSS
-					'allowOrientation'       => false, // disable vertical stacking option
-					'allowJustification'     => true,
-					'allowVerticalAlignment' => true,
+					'allowEditing'           => false, // allow selection of the enabled layout options
+//					'allowSwitching'         => false, // disables selection of flow/flex/constrained/grid because we're deciding that with CSS
+//					'allowOrientation'       => false, // disable vertical stacking option
+//					'allowJustification'     => true,
+//					'allowVerticalAlignment' => true,
 				]
 			);
 		}
@@ -473,6 +467,9 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 		if($name === 'core/freeform') {
 			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column', 'comet/panel-content'];
+		}
+		if($name === 'core/group') {
+			$metadata['parent'] = ['comet/container', 'comet/column', 'comet/panel-content'];
 		}
 
 		return $metadata;

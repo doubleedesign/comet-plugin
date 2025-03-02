@@ -4,9 +4,6 @@
 			"core/group": {},
 			"core/columns": {},
 			"core/column": {},
-			"core/grid": {},
-			"core/stack": {},
-			"core/row": {},
 			"core/details": {},
 			"core/image": {},
 			"core/heading": {},
@@ -53,12 +50,8 @@
 			"slug": "design",
 			"icon": "",
 			"blocks": [
-				"core/group",
 				"core/columns",
-				"core/column",
-				"core/grid",
-				"core/stack",
-				"core/row"
+				"core/column"
 			]
 		},
 		{
@@ -67,6 +60,7 @@
 			"icon": "",
 			"blocks": [
 				"comet/container",
+				"core/group",
 				"comet/panels"
 			]
 		},
