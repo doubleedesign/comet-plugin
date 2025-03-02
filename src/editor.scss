@@ -141,9 +141,12 @@
 	}
 }
 
-:where(.editor-styles-wrapper) p {
+:where(.editor-styles-wrapper) p, li {
 	line-height: inherit !important;
 	font-size: 1rem;
 	font-family: var(--font-family-body);
 }
 
+.wp-submenu ul {
+	margin-inline-start: 0;
+}

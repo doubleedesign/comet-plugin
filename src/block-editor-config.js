@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 		const { getSelectedBlock } = select('core/editor');
 
 		if (getSelectedBlock()) {
-			hideBlockOptionToggleByLabelText('Stack on mobile');
+			relabelBlockOption('Stack on mobile', 'Stack when adapting to a narrow container or viewport');
 			hideBlockOptionToggleByLabelText('Allow to wrap to multiple lines');
 		}
 	});
@@ -41,3 +41,13 @@ function hideBlockOptionToggleByLabelText(labelText) {
 		}
 	});
 }
+
+function relabelBlockOption(labelText, newLabelText) {
+	const toggles = document.getElementsByClassName('components-toggle-control');
+	Object.values(toggles).forEach((toggle) => {
+		if (toggle.querySelector('.components-toggle-control__label').textContent.trim() === labelText) {
+			toggle.querySelector('.components-toggle-control__label').textContent = newLabelText;
+		}
+	});
+}
+
