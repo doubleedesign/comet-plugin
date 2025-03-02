@@ -686,8 +686,7 @@
   color: var(--color-white);
 }
 .file-group__file__content__title {
-  font-weight: var(--font-weight-bold);
-  font-size: 1.125rem;
+  font-weight: var(--font-weight-semibold);
   display: block;
 }
 [data-color-theme=primary] .file-group__file__content__title {
@@ -713,6 +712,12 @@
 }
 [data-color-theme=white] .file-group__file__content__title {
   color: var(--color-white);
+}
+.file-group__file__content__description {
+  display: block;
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+  font-weight: var(--font-weight-light);
 }
 .file-group__file__content__meta {
   margin-block-start: var(--spacing-xxs);
@@ -991,6 +996,62 @@
 }
 .steps__step:last-child .steps__step__inner::after {
   display: none;
+}
+
+.icon-with-text {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-block: var(--spacing-xs);
+}
+.icon-with-text__icon {
+  width: 2rem;
+  min-width: 2rem;
+  flex-basis: 2rem;
+  overflow-x: hidden;
+}
+.icon-with-text__icon i, .icon-with-text__icon svg {
+  font-size: 2rem;
+}
+[data-color-theme=primary] .icon-with-text__icon {
+  color: var(--color-primary);
+}
+[data-color-theme=secondary] .icon-with-text__icon {
+  color: var(--color-secondary);
+}
+[data-color-theme=accent] .icon-with-text__icon {
+  color: var(--color-accent);
+}
+[data-color-theme=warning] .icon-with-text__icon {
+  color: var(--color-warning);
+}
+[data-color-theme=error] .icon-with-text__icon {
+  color: var(--color-error);
+}
+[data-color-theme=light] .icon-with-text__icon {
+  color: var(--color-light);
+}
+[data-color-theme=dark] .icon-with-text__icon {
+  color: var(--color-dark);
+}
+[data-color-theme=white] .icon-with-text__icon {
+  color: var(--color-white);
+}
+.icon-with-text__content {
+  flex-grow: 1;
+  flex-basis: auto;
+}
+.icon-with-text__content p {
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+.icon-with-text__content p span {
+  display: block;
+}
+.icon-with-text__content p span:first-child {
+  font-size: var(--font-size-sm);
+  color: color-mix(in srgb, var(--color-dark) 80%, white);
 }
 
 .page-header, .editor-visual-editor__post-title-wrapper {
