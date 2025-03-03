@@ -77,7 +77,7 @@
 			"allowOrientation": true,
 			"allowInheriting": false,
 			"default": {
-				"type": "flow",
+				"type": "flex",
 				"orientation": "vertical"
 			}
 		}

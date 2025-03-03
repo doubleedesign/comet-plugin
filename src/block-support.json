@@ -42,7 +42,8 @@
 			"blocks": [
 				"comet/call-to-action",
 				"comet/callout",
-				"core/pullquote"
+				"core/pullquote",
+				"comet/image-and-text"
 			]
 		},
 		{

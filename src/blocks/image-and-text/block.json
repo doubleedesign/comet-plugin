@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/image-and-text",
+	"title": "Featured text + image",
+	"editorScript": "file:./index.js",
+	"parent": [
+		"comet/container"
+	],
+	"category": "featured-text",
+	"icon": "cover-image",
+	"description": "Pair a featured text block with an image",
+	"keywords": [
+		"image",
+		"call-to-action",
+		"pullquote",
+		"featured"
+	],
+	"textdomain": "comet",
+	"providesContext": {
+		"comet/orientation": "orientation"
+	},
+	"editorStyle": [
+		"comet-image-and-text-style"
+	],
+	"supports": {
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"layout": {
+			"allowEditing": true,
+			"allowSwitching": false,
+			"allowJustification": false,
+			"allowVerticalAlignment": false,
+			"allowHorizontalAlignment": true,
+			"allowOrientation": true,
+			"allowInheriting": false,
+			"default": {
+				"type": "flex",
+				"orientation": "vertical",
+				"flexWrap": "nowrap"
+			}
+		}
+	}
+}

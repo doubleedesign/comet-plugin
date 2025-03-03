@@ -16,8 +16,8 @@ wp.domReady(() => {
 			const blockProps = useBlockProps({
 				'className': 'steps',
 				'data-color-theme': colorThemeName,
-				'data-orientation': attributes.layout.orientation,
-				'data-max-per-row': attributes.layout.orientation === 'horizontal' ? maxPerRow : null
+				'data-orientation': attributes?.layout?.orientation ?? 'vertical',
+				'data-max-per-row': attributes?.layout?.orientation === 'horizontal' ? maxPerRow : null
 			});
 
 			const template = [

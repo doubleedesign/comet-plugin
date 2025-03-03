@@ -10,7 +10,7 @@
 	"usesContext": [
 		"comet/variant"
 	],
-	"category": "layout",
+	"category": "text",
 	"icon": "text",
 	"description": "Content area for a Panel",
 	"keywords": [
