@@ -116,7 +116,10 @@ wp.domReady(() => {
 
 			const blockProps = useBlockProps({
 				className: 'image-and-text__content',
-				style: maxWidth ? { maxWidth: maxWidth + '%' } : {}
+				style: {
+					maxWidth: maxWidth + '%',
+					'--overlay-amount': `-${overlayAmount}px`
+				}
 			});
 
 			return createElement(
@@ -180,7 +183,6 @@ wp.domReady(() => {
 		edit: ({ attributes }) => {
 			const blockProps = useBlockProps({
 				className: 'image-and-text',
-				'data-orientation': attributes?.layout?.orientation ?? 'vertical',
 			});
 			const template = [
 				['comet/image-and-text-image-wrapper', { 'lock': { 'remove': true } }],

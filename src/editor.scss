@@ -34,13 +34,16 @@
 	font-family: var(--font-family-body);
 }
 
-.wp-submenu {
-	margin-inline-start: 0;
+.components-resizable-box__container {
+	max-width: 100% !important;
+
+	img {
+		max-width: 100% !important;
+	}
 }
 
-
-.wp-block-comet-container {
-	@extend .page-section;
+.wp-submenu {
+	margin-inline-start: 0;
 }
 
 .wp-block-comet-container {
@@ -159,9 +162,45 @@
 .wp-block-comet-image-and-text {
 	.block-editor-block-list__block {
 		width: 100%;
+		display: flex;
+
+		&:has(.is-content-justification-center) {
+			justify-content: center;
+		}
+
+		&:has(.is-content-justification-right) {
+			justify-content: flex-end;
+		}
 	}
 
 	.block-editor-inner-blocks {
 		width: 100%;
 	}
+
+
+	// Account for the different HTML structure that breaks the overlay margins
+	.image-and-text__content {
+		margin: 0 !important;
+	}
+
+	.block-editor-block-list__block:has(.image-and-text__image) {
+	}
+
+	.block-editor-block-list__block:has(.image-and-text__content) {
+		&:nth-of-type(1) {
+			.image-and-text__content {
+				margin-block-end: var(--overlay-amount) !important;
+				margin-block-start: 0;
+			}
+		}
+
+		&:nth-of-type(2) {
+			.image-and-text__content {
+				margin-block-start: var(--overlay-amount) !important;
+				margin-block-end: 0;
+			}
+		}
+		}
+	// end layout fixes
 }
+

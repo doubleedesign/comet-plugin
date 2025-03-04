@@ -17,9 +17,6 @@
 		"featured"
 	],
 	"textdomain": "comet",
-	"providesContext": {
-		"comet/orientation": "orientation"
-	},
 	"editorStyle": [
 		"comet-image-and-text-style"
 	],
@@ -28,19 +25,6 @@
 		"innerBlocks": true,
 		"anchor": true,
 		"ariaLabel": true,
-		"layout": {
-			"allowEditing": true,
-			"allowSwitching": false,
-			"allowJustification": false,
-			"allowVerticalAlignment": false,
-			"allowHorizontalAlignment": true,
-			"allowOrientation": true,
-			"allowInheriting": false,
-			"default": {
-				"type": "flex",
-				"orientation": "vertical",
-				"flexWrap": "nowrap"
-			}
-		}
+		"layout": false
 	}
 }
