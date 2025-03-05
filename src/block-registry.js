@@ -20,6 +20,8 @@ function removeSomeCoreStylesAndVariations() {
 		wp.blocks.unregisterBlockVariation('core/group', 'group-stack');
 		wp.blocks.unregisterBlockVariation('core/group', 'group-row');
 
+		wp.blocks.unregisterBlockStyle('core/separator', 'wide');
+
 		// TODO: Can this be an explicit allow list rather than filtering out?
 		// eslint-disable-next-line max-len
 		(['wordpress', 'issuu', 'spotify', 'soundcloud', 'flickr', 'animoto', 'cloudup', 'crowdsignal', 'dailymotion', 'imgur', 'kickstarter', 'mixcloud', 'pocket-casts', 'reddit', 'reverbnation', 'screencast', 'scribd', 'smugmug', 'speaker-deck', 'ted', 'tumblr', 'videopress', 'amazon-kindle', 'wolfram-cloud', 'pinterest', 'wordpress-tv']).forEach((embed) => {

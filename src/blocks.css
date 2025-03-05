@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .page-section {
   padding-block: var(--spacing-md);
 }
@@ -33,6 +34,9 @@
   padding-block-start: 0;
 }
 .page-section[data-background=white] + .page-section[data-background=white] {
+  padding-block-start: 0;
+}
+.page-section:not([data-background]) + .page-section:not([data-background]) {
   padding-block-start: 0;
 }
 
@@ -1113,6 +1117,70 @@
   .banner__content__inner {
     max-width: 100% !important;
   }
+}
+
+.separator {
+  border: 0;
+  margin: var(--spacing-lg) 0;
+  height: 2px;
+}
+.separator[data-color-theme=primary] {
+  background-color: var(--color-primary);
+}
+.separator[data-color-theme=secondary] {
+  background-color: var(--color-secondary);
+}
+.separator[data-color-theme=accent] {
+  background-color: var(--color-accent);
+}
+.separator[data-color-theme=warning] {
+  background-color: var(--color-warning);
+}
+.separator[data-color-theme=error] {
+  background-color: var(--color-error);
+}
+.separator[data-color-theme=light] {
+  background-color: var(--color-light);
+}
+.separator[data-color-theme=dark] {
+  background-color: var(--color-dark);
+}
+.separator[data-color-theme=white] {
+  background-color: var(--color-white);
+}
+.separator--dots {
+  background-color: transparent !important;
+  text-align: center;
+  height: 2rem;
+}
+.separator--dots[data-color-theme=primary]:before {
+  color: var(--color-primary);
+}
+.separator--dots[data-color-theme=secondary]:before {
+  color: var(--color-secondary);
+}
+.separator--dots[data-color-theme=accent]:before {
+  color: var(--color-accent);
+}
+.separator--dots[data-color-theme=warning]:before {
+  color: var(--color-warning);
+}
+.separator--dots[data-color-theme=error]:before {
+  color: var(--color-error);
+}
+.separator--dots[data-color-theme=light]:before {
+  color: var(--color-light);
+}
+.separator--dots[data-color-theme=dark]:before {
+  color: var(--color-dark);
+}
+.separator--dots[data-color-theme=white]:before {
+  color: var(--color-white);
+}
+.separator--dots:before {
+  content: "······";
+  font-size: 2rem;
+  letter-spacing: 2rem;
 }
 
 /*# sourceMappingURL=blocks.css.map */

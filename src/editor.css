@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .page-section {
   padding-block: var(--spacing-md);
 }
@@ -1118,6 +1119,70 @@
   }
 }
 
+.separator, .wp-block-separator {
+  border: 0;
+  margin: var(--spacing-lg) 0;
+  height: 2px;
+}
+.separator[data-color-theme=primary], [data-color-theme=primary].wp-block-separator {
+  background-color: var(--color-primary);
+}
+.separator[data-color-theme=secondary], [data-color-theme=secondary].wp-block-separator {
+  background-color: var(--color-secondary);
+}
+.separator[data-color-theme=accent], [data-color-theme=accent].wp-block-separator {
+  background-color: var(--color-accent);
+}
+.separator[data-color-theme=warning], [data-color-theme=warning].wp-block-separator {
+  background-color: var(--color-warning);
+}
+.separator[data-color-theme=error], [data-color-theme=error].wp-block-separator {
+  background-color: var(--color-error);
+}
+.separator[data-color-theme=light], [data-color-theme=light].wp-block-separator {
+  background-color: var(--color-light);
+}
+.separator[data-color-theme=dark], [data-color-theme=dark].wp-block-separator {
+  background-color: var(--color-dark);
+}
+.separator[data-color-theme=white], [data-color-theme=white].wp-block-separator {
+  background-color: var(--color-white);
+}
+.separator--dots, .wp-block-separator.is-style-dots {
+  background-color: transparent !important;
+  text-align: center;
+  height: 2rem;
+}
+.separator--dots[data-color-theme=primary]:before, [data-color-theme=primary].wp-block-separator.is-style-dots:before {
+  color: var(--color-primary);
+}
+.separator--dots[data-color-theme=secondary]:before, [data-color-theme=secondary].wp-block-separator.is-style-dots:before {
+  color: var(--color-secondary);
+}
+.separator--dots[data-color-theme=accent]:before, [data-color-theme=accent].wp-block-separator.is-style-dots:before {
+  color: var(--color-accent);
+}
+.separator--dots[data-color-theme=warning]:before, [data-color-theme=warning].wp-block-separator.is-style-dots:before {
+  color: var(--color-warning);
+}
+.separator--dots[data-color-theme=error]:before, [data-color-theme=error].wp-block-separator.is-style-dots:before {
+  color: var(--color-error);
+}
+.separator--dots[data-color-theme=light]:before, [data-color-theme=light].wp-block-separator.is-style-dots:before {
+  color: var(--color-light);
+}
+.separator--dots[data-color-theme=dark]:before, [data-color-theme=dark].wp-block-separator.is-style-dots:before {
+  color: var(--color-dark);
+}
+.separator--dots[data-color-theme=white]:before, [data-color-theme=white].wp-block-separator.is-style-dots:before {
+  color: var(--color-white);
+}
+.separator--dots:before, .wp-block-separator.is-style-dots:before {
+  content: "······";
+  font-size: 2rem;
+  letter-spacing: 2rem;
+}
+
 .page-header, .editor-visual-editor__post-title-wrapper {
   padding-block: var(--spacing-md);
 }
@@ -1502,6 +1567,54 @@
   align-items: flex-end;
 }
 
+.wp-block-separator.has-primary-background-color {
+  background-color: var(--color-primary);
+}
+.wp-block-separator.has-primary-background-color:before {
+  color: var(--color-primary);
+}
+.wp-block-separator.has-secondary-background-color {
+  background-color: var(--color-secondary);
+}
+.wp-block-separator.has-secondary-background-color:before {
+  color: var(--color-secondary);
+}
+.wp-block-separator.has-accent-background-color {
+  background-color: var(--color-accent);
+}
+.wp-block-separator.has-accent-background-color:before {
+  color: var(--color-accent);
+}
+.wp-block-separator.has-warning-background-color {
+  background-color: var(--color-warning);
+}
+.wp-block-separator.has-warning-background-color:before {
+  color: var(--color-warning);
+}
+.wp-block-separator.has-error-background-color {
+  background-color: var(--color-error);
+}
+.wp-block-separator.has-error-background-color:before {
+  color: var(--color-error);
+}
+.wp-block-separator.has-light-background-color {
+  background-color: var(--color-light);
+}
+.wp-block-separator.has-light-background-color:before {
+  color: var(--color-light);
+}
+.wp-block-separator.has-dark-background-color {
+  background-color: var(--color-dark);
+}
+.wp-block-separator.has-dark-background-color:before {
+  color: var(--color-dark);
+}
+.wp-block-separator.has-white-background-color {
+  background-color: var(--color-white);
+}
+.wp-block-separator.has-white-background-color:before {
+  color: var(--color-white);
+}
 .wp-block-comet-banner {
   max-width: 100%;
   height: max-content;

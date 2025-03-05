@@ -100,6 +100,24 @@
 	align-items: flex-end;
 }
 
+.wp-block-separator {
+	@extend .separator;
+
+	@each $name, $color in $colors {
+		&.has-#{$name}-background-color {
+			background-color: var(--color-#{$name});
+
+			&:before {
+				color: var(--color-#{$name});
+			}
+		}
+	}
+
+	&.is-style-dots {
+		@extend .separator--dots;
+	}
+}
+
 .wp-block-comet-banner {
 	max-width: 100%;
 	height: max-content;

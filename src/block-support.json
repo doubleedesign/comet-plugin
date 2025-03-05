@@ -17,7 +17,8 @@
 			"core/gallery": {},
 			"core/embed": {},
 			"core/freeform": {},
-			"core/footnotes": {}
+			"core/footnotes": {},
+			"core/separator": {}
 		}
 	},
 	"categories": [
