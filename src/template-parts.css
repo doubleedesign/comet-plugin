@@ -27,6 +27,7 @@
   justify-content: flex-start;
   gap: var(--spacing-xs);
   margin-block: var(--spacing-md);
+  margin-inline: 0;
 }
 .breadcrumbs__list__item {
   display: flex;
