@@ -23,8 +23,11 @@ wp.domReady(() => {
 				allowSwitching: false,
 				allowJustification: true,
 				allowOrientation: false,
+				allowSizingOnChildren: false,
+				allowCustomContentAndWideSize: false,
+				allowInheriting: false,
 				default: {
-					type: 'flex'
+					type: 'constrained'
 				}
 			}
 		},
@@ -105,8 +108,11 @@ wp.domReady(() => {
 				allowSwitching: false,
 				allowJustification: true,
 				allowOrientation: false,
+				allowSizingOnChildren: false,
+				allowCustomContentAndWideSize: false,
+				allowInheriting: false,
 				default: {
-					type: 'flex'
+					type: 'constrained'
 				}
 			}
 		},
