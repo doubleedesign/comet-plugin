@@ -242,6 +242,13 @@ class BlockRegistry extends JavaScriptImplementation {
 			'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote'],
 		]);
 
+		Block_Supports_Extended\register('color', 'overlay', [
+			'label'    => __('Overlay'),
+			'property' => 'background',
+			'selector' => '.%1$s wp-block-banner',
+			'blocks'   => ['comet/banner'],
+		]);
+
 		Block_Supports_Extended\register('color', 'inline', [
 			'label'    => __('Text (override default)'),
 			'property' => 'text',
@@ -446,13 +453,14 @@ class BlockRegistry extends JavaScriptImplementation {
 			}
 		}
 		if(in_array($name, array_merge($typography_blocks, $media_blocks))) {
-			$supported = ['comet/container', 'core/column', 'core/group'];
-
-			if(isset($metadata['parent'])) {
-				$metadata['parent'] = array_merge($metadata['parent'], $supported);
-			}
-			else {
-				$metadata['parent'] = $supported;
+			if($name !== 'comet/banner') { // let banner be used at the top level
+				$supported = ['comet/container', 'core/column', 'core/group'];
+				if(isset($metadata['parent'])) {
+					$metadata['parent'] = array_merge($metadata['parent'], $supported);
+				}
+				else {
+					$metadata['parent'] = $supported;
+				}
 			}
 		}
 		if(in_array($name, array_merge($content_blocks, ['core/embed']))) {

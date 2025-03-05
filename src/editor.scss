@@ -42,12 +42,71 @@
 	}
 }
 
+// Custom vertical alignment used for the banner block (and possibly others added after this)
+.components-base-control:has([aria-label="Change vertical alignment"]) {
+	// Hack it into position next to the horizontal justification in the layout panel above
+	padding: 1rem;
+	width: max-content;
+	margin-left: auto;
+	margin-top: -96px;
+	margin-bottom: 0;
+
+	// Make the button match the horizontal justification one
+	.components-dropdown-menu__toggle {
+		border: 1px solid transparent;
+		margin-top: 1px;
+
+		&:hover, &:focus, &:active {
+			border-color: var(--wp-components-color-gray-700, #757575);
+		}
+	}
+}
+
+// When the layout panel is closed, hide the custom vertical alignment and container size so they appear like they're in the layout panel
+.components-panel__body {
+	+ .comet-custom-layout-controls {
+		display: none;
+	}
+
+	&.is-opened {
+		+ .comet-custom-layout-controls {
+			display: block;
+		}
+	}
+}
+
+
 .wp-submenu {
 	margin-inline-start: 0;
 }
 
 .wp-block-comet-container {
 	margin: 0 auto;
+}
+
+[data-halign="left"] {
+	justify-content: flex-start;
+}
+
+[data-halign="right"] {
+	justify-content: flex-end;
+}
+
+[data-valign="top"] {
+	align-items: flex-start;
+}
+
+[data-valign="bottom"] {
+	align-items: flex-end;
+}
+
+.wp-block-comet-banner {
+	max-width: 100%;
+	height: max-content;
+
+	.banner {
+		height: max-content !important;
+	}
 }
 
 .wp-block-buttons {
@@ -164,11 +223,11 @@
 		width: 100%;
 		display: flex;
 
-		&:has(.is-content-justification-center) {
+		&:has(.wp-block-comet-image-and-text-content-is-layout-constrained.is-content-justification-center) {
 			justify-content: center;
 		}
 
-		&:has(.is-content-justification-right) {
+		&:has(.wp-block-comet-image-and-text-content-is-layout-constrained.is-content-justification-right) {
 			justify-content: flex-end;
 		}
 	}
@@ -200,7 +259,7 @@
 				margin-block-end: 0;
 			}
 		}
-		}
+	}
+
 	// end layout fixes
 }
-

@@ -75,7 +75,8 @@
 				"core/gallery",
 				"core/cover",
 				"comet/file-group",
-				"comet/link-group"
+				"comet/link-group",
+				"comet/banner"
 			]
 		},
 		{

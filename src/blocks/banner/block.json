@@ -1,0 +1,105 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "comet/banner",
+	"title": "Banner",
+	"editorScript": "file:./index.js",
+	"category": "media",
+	"icon": "cover-image",
+	"description": "A full-width image with optional colour and text overlays",
+	"keywords": [
+		"image",
+		"banner",
+		"featured"
+	],
+	"textdomain": "comet",
+	"editorStyle": [
+		"comet-banner-style"
+	],
+	"attributes": {
+		"imageId": {
+			"type": "number",
+			"default": 0
+		},
+		"imageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"overlayOpacity": {
+			"type": "number",
+			"default": 50
+		},
+		"isParallax": {
+			"type": "boolean",
+			"default": false
+		},
+		"containerSize": {
+			"type": "string",
+			"enum": [
+				"default",
+				"fullwidth",
+				"wide",
+				"narrow"
+			],
+			"default": "default"
+		},
+		"contentMaxWidth": {
+			"type": "number",
+			"default": 50
+		},
+		"minHeight": {
+			"type": "number",
+			"default": 600
+		},
+		"maxHeight": {
+			"type": "number",
+			"default": 600
+		},
+		"focalPoint": {
+			"type": "object",
+			"default": {
+				"x": 0.5,
+				"y": 0.5
+			}
+		},
+		"verticalAlignment": {
+			"type": "string",
+			"enum": [
+				"top",
+				"center",
+				"bottom"
+			]
+		}
+	},
+	"supports": {
+		"jsx": true,
+		"innerBlocks": true,
+		"anchor": true,
+		"ariaLabel": true,
+		"color": {
+			"gradients": false,
+			"text": false,
+			"background": true,
+			"overlay": true,
+			"__experimentalDefaultControls": {
+				"overlay": true,
+				"background": true
+			}
+		},
+		"layout": {
+			"allowEditing": true,
+			"allowSwitching": false,
+			"allowJustification": true,
+			"allowVerticalAlignment": false,
+			"allowOrientation": false,
+			"allowInheriting": false,
+			"allowSizingOnChildren": false,
+			"allowCustomContentAndWideSize": false,
+			"default": {
+				"type": "constrained",
+				"justifyContent": "center",
+				"verticalAlignment": "center"
+			}
+		}
+	}
+}

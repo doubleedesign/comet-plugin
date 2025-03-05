@@ -207,6 +207,9 @@ class BlockRenderer {
 		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
 
 		// Block-specific handling of attributes and content
+		if($block_name === 'comet/banner') {
+			$this->process_banner_block($block_instance);
+		}
 		if($block_name === 'core/button') {
 			$this->process_button_block($block_instance);
 			$content = $block_instance->attributes['content'];
@@ -231,6 +234,11 @@ class BlockRenderer {
 		if(isset($block_instance->attributes['style']['elements']['theme'])) {
 			$color = $block_instance->attributes['style']['elements']['theme']['color']['background'];
 			$block_instance->attributes['colorTheme'] = $this->hex_to_theme_color_name($color) ?? null;
+			unset($block_instance->attributes['style']);
+		}
+		if(isset($block_instance->attributes['style']['elements']['overlay'])) {
+			$color = $block_instance->attributes['style']['elements']['overlay']['color']['background'];
+			$block_instance->attributes['overlayColor'] = $this->hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
 		}
 		if(isset($block_instance->attributes['style']['elements']['inline'])) {
@@ -504,6 +512,14 @@ class BlockRenderer {
 		$block_instance->attributes = $attributes;
 		$block_instance->attributes['content'] = $content;
 	}
+
+
+	protected function process_banner_block(WP_Block $block_instance): void {
+		$attributes = $block_instance->attributes;
+		$id = $attributes['imageId'] ?? null;
+		$block_instance->attributes['imageAlt'] = get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
+	}
+
 
 	/**
 	 * Loop through an array of inner blocks and prepend the given variant name to the block name,
