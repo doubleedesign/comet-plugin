@@ -12,26 +12,17 @@
 	"editorStyle": [
 		"comet-container-style"
 	],
-	"styles": [
-		{
-			"name": "default",
-			"label": "Default",
-			"isDefault": true
-		},
-		{
-			"name": "fullwidth",
-			"label": "Full Width"
-		},
-		{
-			"name": "wide",
-			"label": "Wide"
-		},
-		{
-			"name": "narrow",
-			"label": "Narrow"
-		}
-	],
 	"attributes": {
+		"size": {
+			"type": "string",
+			"enum": [
+				"default",
+				"fullwidth",
+				"wide",
+				"narrow"
+			],
+			"default": "default"
+		},
 		"tagName": {
 			"type": "string",
 			"default": "section",
