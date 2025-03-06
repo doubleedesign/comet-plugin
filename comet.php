@@ -34,3 +34,19 @@ new BlockEditorConfig();
 new ComponentAssets();
 new BlockPatternHandler();
 new TinyMceConfig();
+
+// Hackily disable (well, hide) the Style Book (Appearance > Design > Styles)
+// because it's not accurate and really possible to customise
+add_action('admin_head', function() { ?>
+	<style>
+		#stylebook-navigation-item {
+			display: none !important;
+			pointer-events: none !important;
+		}
+
+		.edit-site-style-book__iframe {
+			display: none !important;
+		}
+	</style>
+	<?php
+});
