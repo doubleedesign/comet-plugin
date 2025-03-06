@@ -160,6 +160,12 @@
 	}
 }
 
+@each $colorName, $value in $colors {
+	.color-#{$colorName} {
+		color: var(--color-#{$colorName});
+	}
+}
+
 .wp-block-button__link {
 	padding: 0 !important;
 	border: 0 !important;

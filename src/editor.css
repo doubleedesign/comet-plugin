@@ -70,31 +70,31 @@
     grid-gap: var(--spacing-lg);
   }
 }
-.columns--2[data-allow-layout-stacking=true], .columns--4[data-allow-layout-stacking=true], .columns--6[data-allow-layout-stacking=true] {
+.columns[data-count="2"][data-allow-layout-stacking=true], .columns[data-count="4"][data-allow-layout-stacking=true], .columns[data-count="6"][data-allow-layout-stacking=true] {
   grid-template-columns: repeat(1, 1fr);
 }
 @container (min-width: 600px) {
-  .columns--2[data-allow-layout-stacking=true], .columns--4[data-allow-layout-stacking=true], .columns--6[data-allow-layout-stacking=true] {
+  .columns[data-count="2"][data-allow-layout-stacking=true], .columns[data-count="4"][data-allow-layout-stacking=true], .columns[data-count="6"][data-allow-layout-stacking=true] {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @container (min-width: 960px) {
-  .columns--4[data-allow-layout-stacking=true] {
+  .columns[data-count="4"][data-allow-layout-stacking=true] {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 @container (min-width: 768px) {
-  .columns--3[data-allow-layout-stacking=true], .columns--6[data-allow-layout-stacking=true] {
+  .columns[data-count="3"][data-allow-layout-stacking=true], .columns[data-count="6"][data-allow-layout-stacking=true] {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @container (min-width: 960px) {
-  .columns--5[data-allow-layout-stacking=true] {
+  .columns[data-count="5"][data-allow-layout-stacking=true] {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 @container (min-width: 960px) {
-  .columns--6[data-allow-layout-stacking=true] {
+  .columns[data-count="6"][data-allow-layout-stacking=true] {
     grid-template-columns: repeat(5, 1fr);
   }
 }
@@ -1673,6 +1673,38 @@
 .block-editor-inner-blocks .button.button--white--outline {
   color: var(--color-white);
   border-color: var(--color-white);
+}
+
+.color-primary {
+  color: var(--color-primary);
+}
+
+.color-secondary {
+  color: var(--color-secondary);
+}
+
+.color-accent {
+  color: var(--color-accent);
+}
+
+.color-warning {
+  color: var(--color-warning);
+}
+
+.color-error {
+  color: var(--color-error);
+}
+
+.color-light {
+  color: var(--color-light);
+}
+
+.color-dark {
+  color: var(--color-dark);
+}
+
+.color-white {
+  color: var(--color-white);
 }
 
 .wp-block-button__link {
