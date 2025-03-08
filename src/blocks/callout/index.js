@@ -14,9 +14,7 @@ wp.domReady(() => {
 				className: ['callout', `callout--${colorThemeName}`].join(' ')
 			});
 			const template = [
-				['core/paragraph', {
-					'lock': { 'remove': true }
-				}],
+				['core/paragraph']
 			];
 
 			return createElement('div',
