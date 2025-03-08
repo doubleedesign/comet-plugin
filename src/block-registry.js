@@ -20,6 +20,11 @@ function removeSomeCoreStylesAndVariations() {
 		wp.blocks.unregisterBlockVariation('core/group', 'group-stack');
 		wp.blocks.unregisterBlockVariation('core/group', 'group-row');
 
+		wp.blocks.registerBlockStyle('core/group', {
+			name: 'breakout',
+			label: 'Breakout (ignore sidebars)',
+		});
+
 		wp.blocks.unregisterBlockStyle('core/separator', 'wide');
 
 		// TODO: Can this be an explicit allow list rather than filtering out?
