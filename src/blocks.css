@@ -127,6 +127,46 @@
 .container > .columns {
   padding-inline: 0;
 }
+.columns + .columns {
+  padding-block: var(--spacing-md);
+}
+@media (min-width: 960px) {
+  .columns + .columns {
+    padding-block: var(--spacing-xl);
+  }
+}
+@media (min-width: 1440px) {
+  .columns + .columns {
+    padding-block: var(--spacing-xxl);
+  }
+}
+.columns + .columns[data-background=primary] + .columns + .columns[data-background=primary] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=secondary] + .columns + .columns[data-background=secondary] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=accent] + .columns + .columns[data-background=accent] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=warning] + .columns + .columns[data-background=warning] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=error] + .columns + .columns[data-background=error] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=light] + .columns + .columns[data-background=light] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=dark] + .columns + .columns[data-background=dark] {
+  padding-block-start: 0;
+}
+.columns + .columns[data-background=white] + .columns + .columns[data-background=white] {
+  padding-block-start: 0;
+}
+.columns + .columns:not([data-background]) + .columns + .columns:not([data-background]) {
+  padding-block-start: 0;
+}
 @container (min-width: 960px) {
   .columns {
     grid-gap: var(--spacing-lg);
