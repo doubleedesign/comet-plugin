@@ -1,12 +1,40 @@
 /* global wp */
 
 wp.domReady(() => {
-	const { registerBlockType } = wp.blocks;
+	const { registerBlockType, createBlock } = wp.blocks;
 	const { InspectorControls, useBlockProps, InnerBlocks } = wp.blockEditor;
 	const { createElement } = wp.element;
 	const { PanelBody, SelectControl } = wp.components;
 
 	registerBlockType('comet/container', {
+		transforms: {
+			from: [
+				{
+					type: 'block',
+					blocks: ['core/group'],
+					transform: (blockAttributes, innerBlocks) => {
+						return createBlock(
+							'comet/container',
+							{ size: 'default' },
+							innerBlocks
+						);
+					},
+				},
+			],
+			to: [
+				{
+					type: 'block',
+					blocks: ['core/group'],
+					transform: (blockAttributes, innerBlocks) => {
+						return createBlock(
+							'core/group',
+							{},
+							innerBlocks
+						);
+					},
+				},
+			],
+		},
 		edit: ({ attributes, setAttributes }) => {
 
 			const containerSizeControl = createElement(
