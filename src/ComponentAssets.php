@@ -64,8 +64,10 @@ class ComponentAssets {
 	function enqueue_comet_combined_component_js(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
-		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core/';
-		wp_enqueue_script('comet-component-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
+		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core';
+		wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
+		// Alternatively you can import individual components' JS like so:
+		//wp_enqueue_script('comet-gallery', "$libraryDir/src/components/Gallery/gallery.js", array(), COMET_VERSION, true);
 	}
 
 	/**

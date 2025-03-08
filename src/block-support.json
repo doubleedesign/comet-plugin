@@ -1,7 +1,9 @@
 {
 	"core": {
 		"supported": {
-			"core/group": {},
+			"core/group": {
+				"description": "Group blocks together for layout, structure, or navigation purposes."
+			},
 			"core/columns": {},
 			"core/column": {},
 			"core/details": {},
@@ -14,7 +16,9 @@
 			"core/list-item": {},
 			"core/buttons": {},
 			"core/button": {},
-			"core/gallery": {},
+			"core/gallery": {
+				"description": "Display images in a gallery."
+			},
 			"core/embed": {},
 			"core/freeform": {},
 			"core/footnotes": {},

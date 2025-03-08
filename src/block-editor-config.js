@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 		if (getSelectedBlock()) {
 			relabelBlockOption('Stack on mobile', 'Stack when adapting to a narrow container or viewport');
 			hideBlockOptionToggleByLabelText('Allow to wrap to multiple lines');
+
+			// Gallery block
+			hideBlockOptionToggleByLabelText('Randomize order');
+			hideBlockOptionToggleByLabelText('Open images in new tab');
 		}
 	});
 });

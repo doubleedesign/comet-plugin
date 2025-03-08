@@ -1,6 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
-use Doubleedesign\Comet\Core\{Callout, Paragraph, Renderable, Utils, NotImplemented};
+use Doubleedesign\Comet\Core\{Callout, Paragraph, Renderable, Settings, Utils, NotImplemented};
 use DOMDocument;
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -206,6 +206,7 @@ class BlockRenderer {
 		$content = $block_instance->parsed_block['innerHTML'] ?? '';
 		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
 
+
 		// Block-specific handling of attributes and content
 		if($block_name === 'comet/banner') {
 			$this->process_banner_block($block_instance);
@@ -216,6 +217,9 @@ class BlockRenderer {
 		}
 		if($block_name === 'core/image') {
 			$this->process_image_block($block_instance);
+		}
+		if($block_name === 'core/gallery') {
+			$this->process_gallery_block($block_instance);
 		}
 		if($block_name === 'core/pullquote') {
 			$quoteContent = $block_instance->parsed_block['innerHTML'];
@@ -449,15 +453,39 @@ class BlockRenderer {
 		$id = $block_instance->attributes['id'];
 		$block_instance->attributes['src'] = wp_get_attachment_image_url($id, $size);
 		$block_instance->attributes['caption'] = wp_get_attachment_caption($id) ?? null;
-		// If the alt or title are set on the block, use those; otherwise use the image's alt/title from the media library
-		$blockAlt = $block_instance->attributes['alt'] ?? null;
-		$blockTitle = $block_instance->attributes['title'] ?? null;
-		$block_instance->attributes['alt'] = $blockAlt ?? get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
-		$block_instance->attributes['title'] = $blockTitle ?? get_the_title($id) ?? null;
 
+		// If the alt/title/caption are set on the block, use those; otherwise use the image's alt/title/caption from the media library
+		$blockAlt = $block_instance->attributes['alt'] ?? null;
+		$block_instance->attributes['alt'] = $blockAlt ?? get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
+		$blockTitle = $block_instance->attributes['title'] ?? null;
+		$block_instance->attributes['title'] = $blockTitle ?? get_the_title($id) ?? null;
 		$block_content = $block_instance->parsed_block['innerHTML'];
+		$dom = new DOMDocument();
+		$dom->loadHTML($block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		$blockCaption = $dom->getElementsByTagName('figcaption')->item(0);
+		$block_instance->attributes['caption'] = $blockCaption
+			? Utils::sanitise_content($blockCaption->textContent, Settings::INLINE_PHRASING_ELEMENTS)
+			: get_post_meta($id, '_wp_attachment_image_caption', true) ?? '';
+
+		// Similarly extract the link
 		preg_match('/href="([^"]+)"/', $block_content, $matches);
 		$block_instance->attributes['href'] = $matches[1] ?? null;
+	}
+
+	/**
+	 * Process gallery blocks to add the relevant attributes as Comet expects
+	 * @param WP_Block $block_instance
+	 * @return void
+	 */
+	protected function process_gallery_block(WP_Block &$block_instance): void {
+		// If the gallery itself has a caption, it's probably the last element in the block's inner content array
+		$maybe_caption = end($block_instance->inner_content);
+		if(!empty($maybe_caption) && gettype($maybe_caption) === 'string') {
+			// Strip the <figcaption> tag because Comet will add its own
+			$maybe_caption = Utils::sanitise_content($maybe_caption, Settings::INLINE_PHRASING_ELEMENTS);
+			// Add it as an attribute
+			$block_instance->attributes['caption'] = $maybe_caption;
+		}
 	}
 
 	/**

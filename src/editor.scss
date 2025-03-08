@@ -287,3 +287,18 @@
 
 	// end layout fixes
 }
+
+.wp-block-gallery {
+	display: grid !important;
+	grid-gap: var(--spacing-md);
+
+	@for $i from 1 through 8 {
+		&.columns-#{$i} {
+			grid-template-columns: repeat(#{$i}, 1fr);
+		}
+	}
+
+	.wp-block-image {
+		width: 100% !important;
+	}
+}

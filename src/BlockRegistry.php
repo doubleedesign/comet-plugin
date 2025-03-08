@@ -196,7 +196,7 @@ class BlockRegistry extends JavaScriptImplementation {
 	function update_some_core_block_descriptions($metadata): array {
 		$blocks = $this->block_support_json['core']['supported'];
 		$blocks_to_update = array_filter($blocks, fn($block) => isset($block['description']));
-
+		
 		foreach($blocks_to_update as $block_name => $data) {
 			if($metadata['name'] === $block_name) {
 				$metadata['description'] = $data['description'];
@@ -400,6 +400,17 @@ class BlockRegistry extends JavaScriptImplementation {
 					'allowVerticalAlignment' => false // also use the attribute here, don't add a class name
 				]
 			);
+		}
+
+		// Gallery
+		if($name === 'core/gallery') {
+			$metadata['supports']['align'] = false;
+			$metadata['supports']['color']['background'] = false;
+			$metadata['supports']['color']['gradients'] = false;
+
+			// This removes some attributes from the definition but doesn't remove them from the editor; that's done in JS
+			unset($metadata['attributes']['linkTarget']);
+			unset($metadata['attributes']['randomOrder']);
 		}
 
 		return $metadata;
