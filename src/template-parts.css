@@ -74,6 +74,239 @@
   color: var(--readable-color-white);
 }
 
+.section-navigation[data-color-theme=primary] {
+  background: color-mix(in srgb, var(--color-primary) 5%, white);
+  border-left: 0.125rem solid var(--color-primary);
+}
+.section-navigation[data-color-theme=primary] a {
+  color: var(--color-primary);
+}
+.section-navigation[data-color-theme=secondary] {
+  background: color-mix(in srgb, var(--color-secondary) 5%, white);
+  border-left: 0.125rem solid var(--color-secondary);
+}
+.section-navigation[data-color-theme=secondary] a {
+  color: var(--color-secondary);
+}
+.section-navigation[data-color-theme=accent] {
+  background: color-mix(in srgb, var(--color-accent) 5%, white);
+  border-left: 0.125rem solid var(--color-accent);
+}
+.section-navigation[data-color-theme=accent] a {
+  color: var(--color-accent);
+}
+.section-navigation[data-color-theme=warning] {
+  background: color-mix(in srgb, var(--color-warning) 5%, white);
+  border-left: 0.125rem solid var(--color-warning);
+}
+.section-navigation[data-color-theme=warning] a {
+  color: var(--color-warning);
+}
+.section-navigation[data-color-theme=error] {
+  background: color-mix(in srgb, var(--color-error) 5%, white);
+  border-left: 0.125rem solid var(--color-error);
+}
+.section-navigation[data-color-theme=error] a {
+  color: var(--color-error);
+}
+.section-navigation[data-color-theme=light] {
+  background: color-mix(in srgb, var(--color-light) 5%, white);
+  border-left: 0.125rem solid var(--color-light);
+}
+.section-navigation[data-color-theme=light] a {
+  color: var(--color-light);
+}
+.section-navigation[data-color-theme=dark] {
+  background: color-mix(in srgb, var(--color-dark) 5%, white);
+  border-left: 0.125rem solid var(--color-dark);
+}
+.section-navigation[data-color-theme=dark] a {
+  color: var(--color-dark);
+}
+.section-navigation[data-color-theme=white] {
+  background: color-mix(in srgb, var(--color-white) 5%, white);
+  border-left: 0.125rem solid var(--color-white);
+}
+.section-navigation[data-color-theme=white] a {
+  color: var(--color-white);
+}
+.section-navigation__menu-list {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.section-navigation__menu-list__item {
+  display: block;
+}
+.section-navigation__menu-list__item__link {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-family-accent);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.25rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+.section-navigation__menu-list__item__link:hover, .section-navigation__menu-list__item__link:focus, .section-navigation__menu-list__item__link:active {
+  text-decoration-color: currentColor;
+}
+[data-color-theme=primary] .section-navigation__menu-list__item__link:hover, [data-color-theme=primary] .section-navigation__menu-list__item__link:focus, [data-color-theme=primary] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-primary) 20%, white);
+  border-color: var(--color-primary);
+}
+[data-color-theme=secondary] .section-navigation__menu-list__item__link:hover, [data-color-theme=secondary] .section-navigation__menu-list__item__link:focus, [data-color-theme=secondary] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-secondary) 20%, white);
+  border-color: var(--color-secondary);
+}
+[data-color-theme=accent] .section-navigation__menu-list__item__link:hover, [data-color-theme=accent] .section-navigation__menu-list__item__link:focus, [data-color-theme=accent] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-accent) 20%, white);
+  border-color: var(--color-accent);
+}
+[data-color-theme=warning] .section-navigation__menu-list__item__link:hover, [data-color-theme=warning] .section-navigation__menu-list__item__link:focus, [data-color-theme=warning] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-warning) 20%, white);
+  border-color: var(--color-warning);
+}
+[data-color-theme=error] .section-navigation__menu-list__item__link:hover, [data-color-theme=error] .section-navigation__menu-list__item__link:focus, [data-color-theme=error] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-error) 20%, white);
+  border-color: var(--color-error);
+}
+[data-color-theme=light] .section-navigation__menu-list__item__link:hover, [data-color-theme=light] .section-navigation__menu-list__item__link:focus, [data-color-theme=light] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-light) 20%, white);
+  border-color: var(--color-light);
+}
+[data-color-theme=dark] .section-navigation__menu-list__item__link:hover, [data-color-theme=dark] .section-navigation__menu-list__item__link:focus, [data-color-theme=dark] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-dark) 20%, white);
+  border-color: var(--color-dark);
+}
+[data-color-theme=white] .section-navigation__menu-list__item__link:hover, [data-color-theme=white] .section-navigation__menu-list__item__link:focus, [data-color-theme=white] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-white) 20%, white);
+  border-color: var(--color-white);
+}
+.section-navigation__menu-list__item .menu-list {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+[data-color-theme=primary] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-primary) 20%, white);
+  border-color: var(--color-primary);
+}
+[data-color-theme=secondary] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-secondary) 20%, white);
+  border-color: var(--color-secondary);
+}
+[data-color-theme=accent] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-accent) 20%, white);
+  border-color: var(--color-accent);
+}
+[data-color-theme=warning] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-warning) 20%, white);
+  border-color: var(--color-warning);
+}
+[data-color-theme=error] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-error) 20%, white);
+  border-color: var(--color-error);
+}
+[data-color-theme=light] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-light) 20%, white);
+  border-color: var(--color-light);
+}
+[data-color-theme=dark] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-dark) 20%, white);
+  border-color: var(--color-dark);
+}
+[data-color-theme=white] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-white) 20%, white);
+  border-color: var(--color-white);
+}
+.section-navigation__menu-list__item .menu-list__item {
+  display: block;
+}
+.section-navigation__menu-list__item .menu-list__item__link {
+  display: flex;
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  border-left: 0.25rem solid transparent;
+}
+.section-navigation__menu-list__item .menu-list__item__link:hover, .section-navigation__menu-list__item .menu-list__item__link:focus, .section-navigation__menu-list__item .menu-list__item__link:active {
+  text-decoration-color: currentColor;
+}
+[data-color-theme=primary] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=primary] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=primary] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-primary) 20%, white);
+  border-color: var(--color-primary);
+}
+[data-color-theme=secondary] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=secondary] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=secondary] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-secondary) 20%, white);
+  border-color: var(--color-secondary);
+}
+[data-color-theme=accent] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=accent] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=accent] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-accent) 20%, white);
+  border-color: var(--color-accent);
+}
+[data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-warning) 20%, white);
+  border-color: var(--color-warning);
+}
+[data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-error) 20%, white);
+  border-color: var(--color-error);
+}
+[data-color-theme=light] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=light] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=light] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-light) 20%, white);
+  border-color: var(--color-light);
+}
+[data-color-theme=dark] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=dark] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=dark] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-dark) 20%, white);
+  border-color: var(--color-dark);
+}
+[data-color-theme=white] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=white] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=white] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-white) 20%, white);
+  border-color: var(--color-white);
+}
+[data-color-theme=primary] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-primary) 20%, white);
+  border-color: var(--color-primary);
+}
+[data-color-theme=secondary] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-secondary) 20%, white);
+  border-color: var(--color-secondary);
+}
+[data-color-theme=accent] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-accent) 20%, white);
+  border-color: var(--color-accent);
+}
+[data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-warning) 20%, white);
+  border-color: var(--color-warning);
+}
+[data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-error) 20%, white);
+  border-color: var(--color-error);
+}
+[data-color-theme=light] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-light) 20%, white);
+  border-color: var(--color-light);
+}
+[data-color-theme=dark] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-dark) 20%, white);
+  border-color: var(--color-dark);
+}
+[data-color-theme=white] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-white) 20%, white);
+  border-color: var(--color-white);
+}
+.section-navigation__menu-list__item .menu-list__item__link[target=_blank]::after {
+  font-family: "Font Awesome 6 Pro Light";
+  content: "\f08e";
+  font-size: 0.8rem;
+}
+.section-navigation__menu-list__item .menu-list__item .menu-list__item {
+  font-size: 0.9rem;
+}
+
 .site-header {
   position: relative;
   z-index: 500;

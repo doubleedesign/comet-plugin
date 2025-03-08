@@ -358,7 +358,7 @@ class BlockRegistry extends JavaScriptImplementation {
 			$metadata['supports']['layout'] = array_merge(
 				$metadata['supports']['layout'],
 				[
-					'allowEditing'           => false, // allow selection of the enabled layout options
+					'allowEditing' => false, // allow selection of the enabled layout options
 //					'allowSwitching'         => false, // disables selection of flow/flex/constrained/grid because we're deciding that with CSS
 //					'allowOrientation'       => false, // disable vertical stacking option
 //					'allowJustification'     => true,
@@ -444,7 +444,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		))[0]['blocks'] ?? [];
 
 		if(in_array($name, $layout_blocks)) {
-			$supported = ['comet/container', 'comet/panel-content'];
+			$supported = ['comet/container', 'core/group', 'comet/panel-content'];
 			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
 			}
@@ -475,9 +475,6 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 		if($name === 'core/freeform') {
 			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column', 'comet/panel-content'];
-		}
-		if($name === 'core/group') {
-			$metadata['parent'] = ['comet/container', 'comet/column', 'comet/panel-content'];
 		}
 
 		return $metadata;
