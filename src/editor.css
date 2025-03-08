@@ -602,39 +602,38 @@
   font-size: var(--font-size-sm);
 }
 
-.image:not(:first-child):not(:last-child) {
-  margin-top: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
+.image:not(.gallery .image):not(:first-child):not(:last-child) {
+  margin-block: var(--spacing-md);
 }
 .image img {
   display: block;
   max-width: 100%;
 }
-.image--aspect-ratio-square {
+.image[data-aspect-ratio=square] {
   aspect-ratio: 1/1;
 }
-.image--aspect-radio-standard {
+.image[data-aspect-ratio=standard] {
   aspect-ratio: 4/3;
 }
-.image--aspect-radio-portrait {
+.image[data-aspect-ratio=portrait] {
   aspect-ratio: 3/4;
 }
-.image--aspect-ratio-16-9 {
+.image[data-aspect-ratio="16-9"] {
   aspect-ratio: 16/9;
 }
-.image--aspect-ratio-classic {
+.image[data-aspect-ratio=classic] {
   aspect-ratio: 3/2;
 }
-.image--aspect-ratio-classic-portrait {
+.image[data-aspect-ratio=classic-portrait] {
   aspect-ratio: 2/3;
 }
-.image--scale-cover img {
+.image[data-behaviour=cover] img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
 }
-.image--scale-contain img {
+.image[data-behaviour=contain] img {
   width: 100%;
   height: auto;
   object-fit: contain;
