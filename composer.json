@@ -14,8 +14,7 @@
 	},
 	"require": {
 		"doubleedesign/comet-components-core": "*",
-		"composer/installers": "^2.0",
-		"humanmade/block-supports-extended": "^0.2.0"
+		"composer/installers": "^2.0"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -29,16 +28,9 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/humanmade/block-supports-extended"
+			"url": "https://github.com/doubleedesign/baguetteBox.js"
 		}
 	],
-	"extra": {
-		"installer-paths": {
-			"vendor/humanmade/block-supports-extended": [
-				"type:wordpress-plugin"
-			]
-		}
-	},
 	"config": {
 		"allow-plugins": {
 			"composer/installers": true

@@ -18,13 +18,6 @@ from December 2024.
 
 ## Developer notes
 
-### Embedded plugins
-
-Some required plugins are "embedded" in this one as Composer dependencies, rather than being installed in WordPress in
-the usual way.
-
-- [Block Supports Extended](https://github.com/humanmade/block-supports-extended) by Human Made
-
 ### File structure
 
 Due to the way that some things for the block editor can be done in PHP and others must be done in JavaScript, some of

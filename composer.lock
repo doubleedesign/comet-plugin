@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e43ff9a792437cef0ebffb4acd59402",
+    "content-hash": "1c13f29287d97fe6f9821e6863373b2e",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -318,10 +318,11 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "40e8fed15d6010f2aa2445b5ab098da9ee85bc1e"
+                "reference": "fd47ef1817c4a39b3c6aeb6765f1f1ad0e9f0d38"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
+                "feimosi/baguettebox.js": "^1.12.1",
                 "illuminate/container": "^10.0",
                 "illuminate/events": "^10.0",
                 "illuminate/filesystem": "^10.0",
@@ -420,29 +421,46 @@
             "time": "2024-11-01T03:51:45+00:00"
         },
         {
-            "name": "humanmade/block-supports-extended",
-            "version": "0.2.0",
+            "name": "feimosi/baguettebox.js",
+            "version": "v1.12.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/humanmade/block-supports-extended.git",
-                "reference": "818ba1d1e915df0b54c4685e2291875eea60f61e"
+                "url": "https://github.com/doubleedesign/baguetteBox.js.git",
+                "reference": "98488128ee10a26af391b263c4431448fba35935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/block-supports-extended/zipball/818ba1d1e915df0b54c4685e2291875eea60f61e",
-                "reference": "818ba1d1e915df0b54c4685e2291875eea60f61e",
+                "url": "https://api.github.com/repos/doubleedesign/baguetteBox.js/zipball/98488128ee10a26af391b263c4431448fba35935",
+                "reference": "98488128ee10a26af391b263c4431448fba35935",
                 "shasum": ""
             },
-            "type": "wordpress-plugin",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "Block supports extension helpers",
-            "support": {
-                "source": "https://github.com/humanmade/block-supports-extended/tree/0.2.0",
-                "issues": "https://github.com/humanmade/block-supports-extended/issues"
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "dist/"
+                ]
             },
-            "time": "2024-01-16T11:38:39+00:00"
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "feimosi",
+                    "homepage": "https://github.com/feimosi"
+                }
+            ],
+            "description": "Simple and easy to use lightbox script",
+            "homepage": "https://github.com/feimosi/baguetteBox.js",
+            "keywords": [
+                "gallery",
+                "image",
+                "javascript",
+                "lightbox"
+            ],
+            "support": {
+                "source": "https://github.com/doubleedesign/baguetteBox.js/tree/v1.12.1"
+            },
+            "time": "2025-03-08T05:27:52+00:00"
         },
         {
             "name": "illuminate/bus",

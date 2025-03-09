@@ -8,7 +8,7 @@
  * Version:             0.0.1
  * Requires at least:   6.7.0
  * Requires PHP:        8.2.23
- * Requires plugins:    advanced-custom-fields-pro
+ * Requires plugins:    advanced-custom-fields-pro, block-supports-extended
  * Text Domain:         comet
  *
  * @package Comet
@@ -18,7 +18,6 @@ const COMET_VERSION = '0.0.1';
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Doubleedesign\Comet\WordPress\{
-	EmbeddedPlugins,
 	BlockRegistry,
 	BlockRenderer,
 	BlockEditorConfig,
@@ -27,7 +26,6 @@ use Doubleedesign\Comet\WordPress\{
 	TinyMceConfig
 };
 
-new EmbeddedPlugins();
 new BlockRegistry();
 new BlockRenderer();
 new BlockEditorConfig();
