@@ -3,12 +3,16 @@
  * Plugin name: Comet Components
  * Description: Double-E Design's foundational components and customisations for the WordPress block editor.
  *
+ * Dev note: The dependency on Gutenberg is because at the time of development, justification controls incorrectly show up for the Panels block.
+ *             This was fixed in version 19.8.0 which had not yet been merged into WordPress core.
+ *             See https://github.com/WordPress/gutenberg/pull/67059
+ *
  * Author:              Double-E Design
  * Author URI:          https://www.doubleedesign.com.au
  * Version:             0.0.1
  * Requires at least:   6.7.0
  * Requires PHP:        8.2.23
- * Requires plugins:    advanced-custom-fields-pro, block-supports-extended
+ * Requires plugins:    advanced-custom-fields-pro, block-supports-extended, gutenberg
  * Text Domain:         comet
  *
  * @package Comet
