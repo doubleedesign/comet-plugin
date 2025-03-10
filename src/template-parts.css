@@ -61,6 +61,9 @@
 .bg-warning .breadcrumbs__list {
   color: var(--readable-color-warning);
 }
+.bg-success .breadcrumbs__list {
+  color: var(--readable-color-success);
+}
 .bg-error .breadcrumbs__list {
   color: var(--readable-color-error);
 }
@@ -101,6 +104,13 @@
 }
 .section-navigation[data-color-theme=warning] a {
   color: var(--color-warning);
+}
+.section-navigation[data-color-theme=success] {
+  background: color-mix(in srgb, var(--color-success) 5%, white);
+  border-left: 0.125rem solid var(--color-success);
+}
+.section-navigation[data-color-theme=success] a {
+  color: var(--color-success);
 }
 .section-navigation[data-color-theme=error] {
   background: color-mix(in srgb, var(--color-error) 5%, white);
@@ -166,6 +176,10 @@
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
 }
+[data-color-theme=success] .section-navigation__menu-list__item__link:hover, [data-color-theme=success] .section-navigation__menu-list__item__link:focus, [data-color-theme=success] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-success) 20%, white);
+  border-color: var(--color-success);
+}
 [data-color-theme=error] .section-navigation__menu-list__item__link:hover, [data-color-theme=error] .section-navigation__menu-list__item__link:focus, [data-color-theme=error] .section-navigation__menu-list__item__link:active {
   background: color-mix(in srgb, var(--color-error) 20%, white);
   border-color: var(--color-error);
@@ -202,6 +216,10 @@
 [data-color-theme=warning] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
+}
+[data-color-theme=success] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-success) 20%, white);
+  border-color: var(--color-success);
 }
 [data-color-theme=error] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
   background: color-mix(in srgb, var(--color-error) 20%, white);
@@ -250,6 +268,10 @@
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
 }
+[data-color-theme=success] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=success] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=success] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-success) 20%, white);
+  border-color: var(--color-success);
+}
 [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link:active {
   background: color-mix(in srgb, var(--color-error) 20%, white);
   border-color: var(--color-error);
@@ -281,6 +303,10 @@
 [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
+}
+[data-color-theme=success] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-success) 20%, white);
+  border-color: var(--color-success);
 }
 [data-color-theme=error] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
   background: color-mix(in srgb, var(--color-error) 20%, white);
@@ -424,12 +450,6 @@ body .site-header__responsive--overlay .site-header__responsive__content[data-op
   .site-header__menu-list {
     display: flex;
     justify-content: flex-end;
-    gap: var(--spacing-xs);
-  }
-}
-@container (min-width: 720px) {
-  .site-header__menu-list {
-    gap: var(--spacing-md);
   }
 }
 .site-header__menu--responsive .site-header__menu-list {

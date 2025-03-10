@@ -155,8 +155,11 @@ class BlockRenderer {
 		) {
 			try {
 				if($block_instance->block_type->render_callback) {
-					$rendered = call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
-					return $rendered;
+					return call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
+				}
+				// blocks to render-as-is, at least for now
+				else if($block_instance->block_type->name === 'flexible-table-block/table') {
+					return $block_instance->parsed_block['innerHTML'];
 				}
 				else {
 					throw new RuntimeException("Problem rendering $block_name in BlockRenderer->render_block()");

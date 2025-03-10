@@ -14,7 +14,7 @@ wp.domReady(() => {
 
 			const element = createElement(RichText, {
 				...blockProps,
-				tagName: variant === 'tab' ? 'li' : 'summary',
+				tagName: 'span',
 				value: attributes.content,
 				onChange: (content) => setAttributes({ content }),
 				placeholder: attributes.placeholder

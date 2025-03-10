@@ -20,6 +20,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		add_action('block_type_metadata', [$this, 'update_some_core_block_descriptions'], 10);
 		add_action('init', [$this, 'register_custom_attributes'], 5);
 		add_filter('block_type_metadata', [$this, 'customise_core_block_options'], 15, 1);
+		add_filter('block_type_metadata', [$this, 'customise_plugin_block_options'], 120, 1);
 		add_filter('block_type_metadata', [$this, 'control_block_parents'], 15, 1);
 	}
 
@@ -149,7 +150,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		// Custom blocks in this plugin
 		$custom = $this->get_custom_block_names();
 		// Third-party plugin block types
-		$plugin = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, 'ninja-forms/'));
+		$plugin = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, 'ninja-forms/') || str_starts_with($block_type->name, 'flexible-table-block/'));
 		// Block types for the current site - based on theme textdomain matching block prefix
 		$theme = wp_get_theme()->get('TextDomain');
 		$current_site = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, "$theme/"));
@@ -196,7 +197,7 @@ class BlockRegistry extends JavaScriptImplementation {
 	function update_some_core_block_descriptions($metadata): array {
 		$blocks = $this->block_support_json['core']['supported'];
 		$blocks_to_update = array_filter($blocks, fn($block) => isset($block['description']));
-		
+
 		foreach($blocks_to_update as $block_name => $data) {
 			if($metadata['name'] === $block_name) {
 				$metadata['description'] = $data['description'];
@@ -413,6 +414,15 @@ class BlockRegistry extends JavaScriptImplementation {
 			unset($metadata['attributes']['randomOrder']);
 		}
 
+		return $metadata;
+	}
+
+	/**
+	 * Override block.json configuration for some supported plugins
+	 * @param $metadata
+	 * @return array
+	 */
+	function customise_plugin_block_options($metadata): array {
 		return $metadata;
 	}
 
