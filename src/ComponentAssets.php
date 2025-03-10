@@ -19,6 +19,7 @@ class ComponentAssets {
 		// Front-end JS
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_comet_combined_component_js'], 10);
 		add_filter('script_loader_tag', [$this, 'script_type_module'], 10, 3);
+		add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 3);
 
 		if(is_admin()) {
 			// Editor CSS
@@ -82,6 +83,26 @@ class ComponentAssets {
 	function script_type_module($tag, $handle, $src): mixed {
 		if(str_starts_with($handle, 'comet-')) {
 			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" ></script>';
+		}
+
+		return $tag;
+	}
+
+	/**
+	 * Add data-base-path attribute to Comet Components script tag
+	 * so Vue SFC loader can find its templates
+	 * @param $tag
+	 * @param $handle
+	 * @param $src
+	 * @return mixed|string
+	 */
+	function script_base_path($tag, $handle, $src): mixed {
+		if($handle === 'comet-components-js') {
+			$currentDir = plugin_dir_url(__FILE__);
+			$pluginDir = dirname($currentDir, 1);
+			$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core';
+			$libraryDirShort = str_replace(get_site_url(), '', $libraryDir);
+			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" data-base-path="' . $libraryDirShort . '" ></script>';
 		}
 
 		return $tag;

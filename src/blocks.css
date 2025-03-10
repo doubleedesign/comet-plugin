@@ -437,9 +437,11 @@
 .tabs__tab-list {
   margin: 0;
   padding: 0;
+  display: flex;
 }
 .tabs__tab-list__item {
   display: block;
+  margin-block: 0;
 }
 .tabs__tab-list__item strong {
   display: block;
@@ -464,6 +466,7 @@
 }
 .tabs__content {
   background: white;
+  padding-block: 0;
 }
 .tabs__content__tab-panel {
   display: none;
@@ -509,7 +512,12 @@
     width: 14rem;
     flex-basis: 14rem;
     min-width: 14rem;
+    flex-direction: column;
   }
+}
+.tabs[data-orientation=vertical] .tabs__tab-list__item {
+  width: 100%;
+  flex-basis: 100%;
 }
 .tabs[data-orientation=vertical] .tabs__content {
   width: 100%;
