@@ -7,9 +7,9 @@ wp.domReady(() => {
 
 	registerBlockType('comet/panel-title', {
 		edit: function({ context, attributes, setAttributes }) {
-			const variant = context['comet/variant'];
+			const variant = context['comet/variant'] ?? 'accordion';
 			const blockProps = useBlockProps({
-				className: variant === 'tab' ? 'tabs__tab-list__item' : `${variant}__panel__title`
+				className: variant === 'tab' ? 'tabs__tab-list__item' : `${variant}__panel__title`,
 			});
 
 			const element = createElement(RichText, {

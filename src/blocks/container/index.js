@@ -35,8 +35,7 @@ wp.domReady(() => {
 				},
 			],
 		},
-		edit: ({ attributes, setAttributes }) => {
-
+		edit: ({ attributes, setAttributes, ...props }) => {
 			const containerSizeControl = createElement(
 				PanelBody,
 				{ title: 'Layout' },

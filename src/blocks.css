@@ -229,6 +229,9 @@
   display: flow-root;
   width: 100%;
 }
+.column__inner > .container {
+  padding-inline: 0;
+}
 
 .button-group {
   display: flex;
@@ -429,6 +432,98 @@
 }
 .call-to-action .button-group:last-child {
   padding-block-end: 0;
+}
+
+.accordion__panel {
+  display: contents;
+}
+.accordion__panel__title {
+  cursor: pointer;
+  transition: all 0.2s linear;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: var(--spacing-xxs);
+}
+[data-color-theme=primary] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+[data-color-theme=primary] .accordion__panel__title:hover, [data-color-theme=primary] .accordion__panel__title:focus, [data-color-theme=primary] .accordion__panel__title:active {
+  background: var(--color-primary);
+  color: var(--readable-color-primary);
+}
+[data-color-theme=secondary] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-secondary) 10%, white);
+}
+[data-color-theme=secondary] .accordion__panel__title:hover, [data-color-theme=secondary] .accordion__panel__title:focus, [data-color-theme=secondary] .accordion__panel__title:active {
+  background: var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+[data-color-theme=accent] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-accent) 10%, white);
+}
+[data-color-theme=accent] .accordion__panel__title:hover, [data-color-theme=accent] .accordion__panel__title:focus, [data-color-theme=accent] .accordion__panel__title:active {
+  background: var(--color-accent);
+  color: var(--readable-color-accent);
+}
+[data-color-theme=warning] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-warning) 10%, white);
+}
+[data-color-theme=warning] .accordion__panel__title:hover, [data-color-theme=warning] .accordion__panel__title:focus, [data-color-theme=warning] .accordion__panel__title:active {
+  background: var(--color-warning);
+  color: var(--readable-color-warning);
+}
+[data-color-theme=error] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-error) 10%, white);
+}
+[data-color-theme=error] .accordion__panel__title:hover, [data-color-theme=error] .accordion__panel__title:focus, [data-color-theme=error] .accordion__panel__title:active {
+  background: var(--color-error);
+  color: var(--readable-color-error);
+}
+[data-color-theme=light] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-light) 10%, white);
+}
+[data-color-theme=light] .accordion__panel__title:hover, [data-color-theme=light] .accordion__panel__title:focus, [data-color-theme=light] .accordion__panel__title:active {
+  background: var(--color-light);
+  color: var(--readable-color-light);
+}
+[data-color-theme=dark] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-dark) 10%, white);
+}
+[data-color-theme=dark] .accordion__panel__title:hover, [data-color-theme=dark] .accordion__panel__title:focus, [data-color-theme=dark] .accordion__panel__title:active {
+  background: var(--color-dark);
+  color: var(--readable-color-dark);
+}
+[data-color-theme=white] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-white) 10%, white);
+}
+[data-color-theme=white] .accordion__panel__title:hover, [data-color-theme=white] .accordion__panel__title:focus, [data-color-theme=white] .accordion__panel__title:active {
+  background: var(--color-white);
+  color: var(--readable-color-white);
+}
+.accordion__panel__title::marker {
+  display: none;
+  visibility: hidden;
+  font-size: 0;
+}
+.accordion__panel__title i, .accordion__panel__title svg {
+  transition: all 0.2s linear;
+  transform-origin: center center;
+}
+[open] .accordion__panel__title i, [open] .accordion__panel__title svg {
+  transform: rotate(45deg);
+}
+.accordion__panel__content {
+  padding-block: var(--spacing-md);
+}
+.accordion__panel__content.collapse:not(.show) {
+  display: none;
+}
+.accordion__panel__content.collapsing {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
 .tabs {
