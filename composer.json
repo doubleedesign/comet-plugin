@@ -27,6 +27,13 @@
 			}
 		},
 		{
+			"type": "path",
+			"url": "../../plugins/vue-wrapper",
+			"options": {
+				"symlink": true
+			}
+		},
+		{
 			"type": "vcs",
 			"url": "https://github.com/doubleedesign/baguetteBox.js"
 		}

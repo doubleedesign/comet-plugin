@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c13f29287d97fe6f9821e6863373b2e",
+    "content-hash": "f67b02a479eeae7c52c31b95d536f09a",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -318,9 +318,10 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "fd47ef1817c4a39b3c6aeb6765f1f1ad0e9f0d38"
+                "reference": "1cca59f6da9d23934f72ec5d92cdb526d6c1dbd2"
             },
             "require": {
+                "doubleedesign/comet-vue-wrapper": "dev-master",
                 "ezyang/htmlpurifier": "^4.18",
                 "feimosi/baguettebox.js": "^1.12.1",
                 "illuminate/container": "^10.0",
@@ -348,6 +349,26 @@
                     ]
                 }
             },
+            "authors": [
+                {
+                    "name": "Leesa Ward",
+                    "email": "leesa@doubleedesign.com.au"
+                }
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "doubleedesign/comet-vue-wrapper",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../plugins/vue-wrapper",
+                "reference": "5263dfd47c987781f72a7d73290b1afb002ef026"
+            },
+            "type": "library",
             "authors": [
                 {
                     "name": "Leesa Ward",

@@ -235,6 +235,11 @@ class BlockRegistry extends JavaScriptImplementation {
 	 * @return void
 	 */
 	function register_custom_attributes(): void {
+		if(!function_exists('Block_Supports_Extended\register')) {
+			error_log("Can't register custom attributes because Block Supports Extended is not available", true);
+			return;
+		}
+
 		Block_Supports_Extended\register('color', 'theme', [
 			'label'    => __('Colour theme'),
 			'property' => 'background',
