@@ -209,10 +209,12 @@ class BlockRenderer {
 		$content = $block_instance->parsed_block['innerHTML'] ?? '';
 		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
 
-
 		// Block-specific handling of attributes and content
 		if($block_name === 'comet/banner') {
 			$this->process_banner_block($block_instance);
+		}
+		if($block_name === 'comet/table') {
+			$this->process_table_block($block_instance);
 		}
 		if($block_name === 'core/button') {
 			$this->process_button_block($block_instance);
@@ -298,6 +300,11 @@ class BlockRenderer {
 		// Self-closing tag components, e.g. <img>, only have attributes
 		if($content_type[0] === 'is-self-closing') {
 			$component = new $ComponentClass($block_instance->attributes);
+		}
+		else if($block_name === 'comet/table') {
+			// Table HTML is converted into an array and put into inner_blocks by transform_table_block even though they aren't complete blocks
+			// TODO: They could probably be made into complete blocks by having a Comet object for a Row, Cell, etc - but that might be over-abstracting it
+			$component = new $ComponentClass($block_instance->attributes, $block_instance->inner_blocks);
 		}
 		// Most components will have string content or an array of inner components
 		else if(count($content_type) === 1) {
@@ -420,6 +427,10 @@ class BlockRenderer {
 	 */
 	private function get_comet_component_content_type(string $className): ?array {
 		if(!$className || !class_exists($className)) return null;
+
+		if($className === 'Doubleedesign\Comet\Core\Table') {
+			return ['array'];
+		}
 
 		$fields = [];
 		$reflectionClass = new ReflectionClass($className);
@@ -549,6 +560,95 @@ class BlockRenderer {
 		$attributes = $block_instance->attributes;
 		$id = $attributes['imageId'] ?? null;
 		$block_instance->attributes['imageAlt'] = get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
+	}
+
+	protected function process_table_block(WP_Block $block_instance): void {
+		$filteredAttributes = array_filter($block_instance->attributes, function($key) {
+			return !in_array($key, ['head', 'body', 'foot']);
+		}, ARRAY_FILTER_USE_KEY);
+
+		// Create a simple DOM parser to process the WP-saved HTML
+		// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+		$dom = new DOMDocument();
+		@$dom->loadHTML($block_instance->inner_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+		// Extract the caption and store it as an attribute
+		$caption = $dom->getElementsByTagName('caption')->item(0);
+		if($caption) {
+			$filteredAttributes['tableCaption'] = array(
+				'content'    => Utils::sanitise_content($this->domdocument_node_to_html($caption, $dom), Settings::INLINE_PHRASING_ELEMENTS),
+				'attributes' => array(
+					'textAlign' => $filteredAttributes['captionStyles']['textAlign'] ?? null,
+					'position'  => $filteredAttributes['captionStyles']['captionSide'] ?? null,
+				)
+			);
+		}
+		unset($filteredAttributes['captionStyles']);
+		$block_instance->attributes = $filteredAttributes;
+
+		// Process the table HTML and transform it into an array of rows, which are each an array of cells
+		$table = $dom->getElementsByTagName('table')->item(0);
+		$thead = $table->getElementsByTagName('thead')->item(0);
+		$tbody = $table->getElementsByTagName('tbody')->item(0);
+		$tfoot = $table->getElementsByTagName('tfoot')->item(0);
+		$headRows = $thead !== null ? $thead->getElementsByTagName('tr') : [];
+		$bodyRows = $tbody !== null ? $tbody->getElementsByTagName('tr') : [];
+		$footRows = $tfoot !== null ? $tfoot->getElementsByTagName('tr') : [];
+
+		$transformed = array(
+			'thead' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($headRows)),
+			'tbody' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($bodyRows)),
+			'tfoot' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($footRows)),
+		);
+
+		$block_instance->inner_blocks = $transformed;
+	}
+
+	private function get_table_row_cells($row, $dom): array {
+		$cells = $row->childNodes;
+
+		// Build an array of cells with their own attributes and content
+		return array_map(function($cell) use ($dom) {
+			// Find what attributes are available and their values
+//			if($cell->hasAttributes()) {
+//				echo '<pre>';
+//				echo print_r(Utils::pick_object_properties($cell->attributes, ['nodeName', 'nodeValue'], false), true);
+//				echo '</pre>';
+//			}
+
+			$inlineStyles = $cell->getAttribute('style') ? Utils::array_flat(array_map(function($style) {
+				$split = explode(':', $style);
+				return [$split[0] => $split[1]];
+			}, explode(";", $cell->getAttribute('style')))) : [];
+
+			$attributes = [
+				'tagName'         => $cell->tagName,
+				'id'              => $cell->id,
+				'classes'         => !empty($cell->className) ? explode(' ', $cell->className) : null,
+				'scope'           => $cell->getAttribute('scope'),
+				'headers'         => $cell->getAttribute('headers'),
+				'colspan'         => $cell->getAttribute('colspan'),
+				'width'           => $inlineStyles['width'],
+				'backgroundColor' => $this->hex_to_theme_color_name($inlineStyles['background-color']),
+				'textAlign'       => $inlineStyles['text-align'],
+				'verticalAlign'   => $inlineStyles['vertical-align'],
+			];
+
+			return [
+				'attributes' => array_filter($attributes), // filter out empty values
+				'content'    => $this->domdocument_node_to_html($cell, $dom)
+			];
+		}, iterator_to_array($cells));
+	}
+
+	private function domdocument_node_to_html($node, $dom): string {
+		$content = $node->textContent;
+		// If the node has child nodes, get the HTML content as-is (this allows for inline tags like strong, em, images, etc)
+		if($node->childNodes) {
+			$content = $dom->saveHTML($node);
+		}
+
+		return $content;
 	}
 
 

@@ -44,6 +44,8 @@ class BlockRegistry extends JavaScriptImplementation {
 		$block_folders = scandir(dirname(__DIR__, 1) . '/src/blocks');
 
 		foreach($block_folders as $block_name) {
+			if($block_name === '.' || $block_name === '..') continue;
+
 			$folder = dirname(__DIR__, 1) . '/src/blocks/' . $block_name;
 			$className = BlockRenderer::get_comet_component_class($block_name);
 			if(!file_exists("$folder/block.json")) continue;

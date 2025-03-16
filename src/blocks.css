@@ -1776,4 +1776,14 @@
   letter-spacing: 2rem;
 }
 
+.table {
+  width: 100%;
+}
+.table__caption {
+  caption-side: bottom;
+}
+.table__caption[data-position=top] {
+  caption-side: top;
+}
+
 /*# sourceMappingURL=blocks.css.map */
