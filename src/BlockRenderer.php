@@ -628,10 +628,10 @@ class BlockRenderer {
 				'scope'           => $cell->getAttribute('scope'),
 				'headers'         => $cell->getAttribute('headers'),
 				'colspan'         => $cell->getAttribute('colspan'),
-				'width'           => $inlineStyles['width'],
-				'backgroundColor' => $this->hex_to_theme_color_name($inlineStyles['background-color']),
-				'textAlign'       => $inlineStyles['text-align'],
-				'verticalAlign'   => $inlineStyles['vertical-align'],
+				'width'           => $inlineStyles['width'] ?? null,
+				'backgroundColor' => isset($inlineStyles['background-color']) ? $this->hex_to_theme_color_name($inlineStyles['background-color']) : null,
+				'textAlign'       => $inlineStyles['text-align'] ?? null,
+				'verticalAlign'   => $inlineStyles['vertical-align'] ?? null,
 			];
 
 			return [

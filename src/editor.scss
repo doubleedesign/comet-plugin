@@ -75,6 +75,31 @@
 	}
 }
 
+.components-toggle-group-control {
+	transition: border 0.2s ease-in-out;
+	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
+	min-height: 32px !important; // default 36px is 2px too high for the buttons and I can't unsee it
+
+	&:hover, &:focus-within {
+		border-color: var(--wp-components-color-gray-700, #757575) !important;
+	}
+
+	.components-toggle-group-control-option-base {
+		transition: background 0.2s ease-in-out;
+
+		&:not([aria-checked="true"]):not([aria-pressed="true"]) {
+			&:hover, &:focus {
+				background: #EEE;
+			}
+		}
+	}
+}
+
+.components-toggle-control__help {
+	code {
+		font-size: 0.7rem;
+	}
+}
 
 .wp-submenu {
 	margin-inline-start: 0;
@@ -98,6 +123,14 @@
 
 [data-valign="bottom"] {
 	align-items: flex-end;
+}
+
+.wp-block-heading {
+	margin-block: var(--spacing-md);
+
+	&.is-style-default {
+		font-family: var(--font-family-body);
+	}
 }
 
 .wp-block-separator {
@@ -301,4 +334,9 @@
 	.wp-block-image {
 		width: 100% !important;
 	}
+}
+
+.wp-block-comet-table table {
+	border-collapse: collapse;
+	@extend .table;
 }

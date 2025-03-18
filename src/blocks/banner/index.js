@@ -77,7 +77,8 @@ wp.domReady(() => {
 							{ label: 'Wide', value: 'wide' },
 							{ label: 'Full-width', value: 'fullwidth' }
 						],
-						onChange: (newValue) => setAttributes({ containerSize: newValue })
+						onChange: (newValue) => setAttributes({ containerSize: newValue }),
+						__next40pxDefaultSize: true
 					}
 				));
 

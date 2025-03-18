@@ -52,7 +52,8 @@ wp.domReady(() => {
 						],
 						onChange: (newValue) => setAttributes({ size: newValue }),
 						// eslint-disable-next-line max-len
-						help: 'Note: Some page templates (such as those with a sidebar) have their own hard-coded container(s) and may ignore containers. The Group block may be more suitable for these cases.'
+						help: 'Note: Some page templates (such as those with a sidebar) have their own hard-coded container(s) and may ignore containers. The Group block may be more suitable for these cases.',
+						__next40pxDefaultSize: true
 					}
 				));
 

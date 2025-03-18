@@ -1776,14 +1776,35 @@
   letter-spacing: 2rem;
 }
 
-.table {
-  width: 100%;
+.table, .wp-block-comet-table table {
+  min-width: 100%;
+  width: fit-content;
+  font-family: var(--font-family-body);
+  border-collapse: collapse;
+  border: 1px solid color-mix(in srgb, var(--color-light) 90%, black);
+  font-size: 1rem;
+  margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+}
+.table:first-child, .wp-block-comet-table table:first-child {
+  margin-block-start: 0;
+}
+.table th, .wp-block-comet-table table th, .table td, .wp-block-comet-table table td {
+  text-align: start;
+  padding: var(--spacing-xs);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-light) 90%, black);
+  vertical-align: top;
+}
+.table th, .wp-block-comet-table table th {
+  background: var(--color-light);
 }
 .table__caption {
   caption-side: bottom;
 }
 .table__caption[data-position=top] {
   caption-side: top;
+}
+.table__header {
+  border-bottom: 3px solid color-mix(in srgb, var(--color-light) 80%, black);
 }
 .page-header, .editor-visual-editor__post-title-wrapper {
   padding-block: var(--spacing-md);
@@ -2218,6 +2239,25 @@
   display: block;
 }
 
+.components-toggle-group-control {
+  transition: border 0.2s ease-in-out;
+  border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
+  min-height: 32px !important;
+}
+.components-toggle-group-control:hover, .components-toggle-group-control:focus-within {
+  border-color: var(--wp-components-color-gray-700, #757575) !important;
+}
+.components-toggle-group-control .components-toggle-group-control-option-base {
+  transition: background 0.2s ease-in-out;
+}
+.components-toggle-group-control .components-toggle-group-control-option-base:not([aria-checked=true]):not([aria-pressed=true]):hover, .components-toggle-group-control .components-toggle-group-control-option-base:not([aria-checked=true]):not([aria-pressed=true]):focus {
+  background: #EEE;
+}
+
+.components-toggle-control__help code {
+  font-size: 0.7rem;
+}
+
 .wp-submenu {
   margin-inline-start: 0;
 }
@@ -2240,6 +2280,13 @@
 
 [data-valign=bottom] {
   align-items: flex-end;
+}
+
+.wp-block-heading {
+  margin-block: var(--spacing-md);
+}
+.wp-block-heading.is-style-default {
+  font-family: var(--font-family-body);
 }
 
 .wp-block-separator.has-primary-background-color {
@@ -2493,6 +2540,10 @@
 }
 .wp-block-gallery .wp-block-image {
   width: 100% !important;
+}
+
+.wp-block-comet-table table {
+  border-collapse: collapse;
 }
 
 /*# sourceMappingURL=editor.css.map */

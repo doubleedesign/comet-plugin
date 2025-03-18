@@ -37,7 +37,7 @@ class TinyMceConfig {
 
 		$colours = $json ? json_decode($json, true)['settings']['color']['palette'] : [];
 
-		return array_reduce($colours, function ($acc, $item) {
+		return array_reduce($colours, function($acc, $item) {
 			$acc[$item['slug']] = $item['color'];
 			return $acc;
 		}, []);
@@ -87,12 +87,14 @@ class TinyMceConfig {
 	 */
 	function editor_css_acf($mce_init): array {
 		$content_css = '/styles-editor.css';
-		$version = filemtime(get_stylesheet_directory() . $content_css);
-		$content_css = get_template_directory_uri() . $content_css . '?v=' . $version; // it caches hard, use this to force a refresh
 
-		if(isset($mce_init['content_css'])) {
-			$content_css_new = $mce_init['content_css'] . ',' . $content_css;
-			$mce_init['content_css'] = $content_css_new;
+		if(file_exists(get_stylesheet_directory() . $content_css)) {
+			$version = filemtime(get_stylesheet_directory() . $content_css);
+			$content_css = get_stylesheet_directory_uri() . $content_css . '?v=' . $version; // it caches hard, use this to force a refresh
+			if(isset($mce_init['content_css'])) {
+				$content_css_new = $mce_init['content_css'] . ',' . $content_css;
+				$mce_init['content_css'] = $content_css_new;
+			}
 		}
 
 		return $mce_init;
