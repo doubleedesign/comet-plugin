@@ -13,9 +13,8 @@ wp.domReady(() => {
 			const variant = attributes.variant === 'tab' ? 'tabs' : attributes.variant;
 
 			const blockProps = useBlockProps({
-				className: [
-					colorThemeName ? `${variant} ${variant}--theme-${colorThemeName}` : variant,
-				].filter(Boolean).join(' '),
+				className: variant,
+				'data-color-theme': colorThemeName ?? 'primary',
 				'data-orientation': attributes?.layout?.orientation,
 			});
 

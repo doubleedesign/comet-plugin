@@ -549,8 +549,11 @@
 [open] .accordion__panel__title i, [open] .accordion__panel__title svg {
   transform: rotate(45deg);
 }
-.accordion__panel__content {
-  padding-block: var(--spacing-md);
+.accordion__panel__content > :first-child {
+  padding-block-start: var(--spacing-md);
+}
+.accordion__panel__content > :last-child {
+  padding-block-end: var(--spacing-md);
 }
 .accordion__panel__content.collapse:not(.show) {
   display: none;

@@ -549,8 +549,11 @@
 [open] .accordion__panel__title i, [open] .accordion__panel__title svg {
   transform: rotate(45deg);
 }
-.accordion__panel__content {
-  padding-block: var(--spacing-md);
+.accordion__panel__content > :first-child {
+  padding-block-start: var(--spacing-md);
+}
+.accordion__panel__content > :last-child {
+  padding-block-end: var(--spacing-md);
 }
 .accordion__panel__content.collapse:not(.show) {
   display: none;
@@ -2453,9 +2456,50 @@
   display: block !important;
 }
 
-.accordion details > .block-editor-inner-blocks,
-.accordion details > .block-editor-inner-blocks > .block-editor-block-list__layout {
-  display: contents;
+.accordion__panel {
+  pointer-events: none !important;
+}
+.accordion__panel > .block-editor-inner-blocks {
+  margin-top: -2rem;
+}
+.accordion__panel__title {
+  justify-content: flex-start;
+}
+[data-color-theme=primary] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-primary);
+  color: var(--readable-color-primary);
+}
+[data-color-theme=secondary] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+[data-color-theme=accent] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-accent);
+  color: var(--readable-color-accent);
+}
+[data-color-theme=warning] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-warning);
+  color: var(--readable-color-warning);
+}
+[data-color-theme=success] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-success);
+  color: var(--readable-color-success);
+}
+[data-color-theme=error] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-error);
+  color: var(--readable-color-error);
+}
+[data-color-theme=light] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-light);
+  color: var(--readable-color-light);
+}
+[data-color-theme=dark] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-dark);
+  color: var(--readable-color-dark);
+}
+[data-color-theme=white] .accordion__panel.has-child-selected .accordion__panel__title {
+  background-color: var(--color-white);
+  color: var(--readable-color-white);
 }
 
 .tabs .block-editor-block-list__layout {

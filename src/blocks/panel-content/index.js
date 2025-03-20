@@ -9,7 +9,7 @@ wp.domReady(() => {
 		edit: ({ context }) => {
 			const variant = context['comet/variant'];
 			const blockProps = useBlockProps({
-				className: `${variant}__panel__content`
+				className: `${variant}__panel__content collapse`
 			});
 			const allowedBlocks = [
 				'core/group',

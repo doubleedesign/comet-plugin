@@ -9,7 +9,8 @@ wp.domReady(() => {
 		edit: ({ context }) => {
 			const variant = context['comet/variant'];
 			const blockProps = useBlockProps({
-				className: `${variant}__panel`
+				className: `${variant}__panel`,
+				open: true
 			});
 			const template = [
 				['comet/panel-title', {

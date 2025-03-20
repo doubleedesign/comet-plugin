@@ -212,16 +212,30 @@
 }
 
 .accordion {
-	details {
-		> .block-editor-inner-blocks,
-		> .block-editor-inner-blocks > .block-editor-block-list__layout {
-			display: contents;
+	&__panel {
+		pointer-events: none !important; // The JS for the block has the <details> default to open; this prevents it being closed in the editor
+
+		> .block-editor-inner-blocks {
+			margin-top: -2rem; // hackily hide the default "Details" header that happens because the <summary> isn't the direct first child in the editor
+		}
+
+		&__title {
+			justify-content: flex-start;
+
+			@each $colorName, $value in $colors {
+				[data-color-theme="#{$colorName}"] .accordion__panel.has-child-selected & {
+					background-color: var(--color-#{$colorName});
+					color: var(--readable-color-#{$colorName});
+				}
+			}
+
 		}
 	}
 }
 
 .tabs {
-	// Note: In the editor, the output is not quite the same as in the final rendering
+	// Note: In the editor, the output is not quite the same as in the final rendering when this is used as a native block
+	// (as opposed to a custom ACF block preview that renders the PHP components directly)
 	// Most notably, the tablist is not a single grouped list like the Comet rendering constructs
 	// - it's basically like each panel is its own instance.
 

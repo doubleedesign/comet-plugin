@@ -21,6 +21,18 @@ document.addEventListener('DOMContentLoaded', async function() {
 		}
 	});
 
+	// When list view is open and Accordion Panel block is expanded/collapsed, expand/collapse the actual panel
+	wp.domReady(() => {
+		const { select, dispatch } = wp.data;
+		const listViewIsOpen = select('core/editor').isListViewOpened();
+
+		if (listViewIsOpen) {
+			const panelBlocks = select('core/editor').getBlocks().filter(block => block.name === 'comet/panel');
+			console.log(panelBlocks);
+		}
+	});
+
+
 	// When block inspector is opened
 	wp.data.subscribe(() => {
 		const { select } = wp.data;

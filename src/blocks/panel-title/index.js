@@ -12,19 +12,30 @@ wp.domReady(() => {
 				className: variant === 'tab' ? 'tabs__tab-list__item' : `${variant}__panel__title`,
 			});
 
-			const element = createElement(RichText, {
-				...blockProps,
-				tagName: 'span',
-				value: attributes.content,
-				onChange: (content) => setAttributes({ content }),
-				placeholder: attributes.placeholder
-			});
-
-			if(variant === 'tab') {
-				return createElement('ul', { className: 'tabs__tab-list' }, element);
+			if(variant === 'accordion') {
+				return createElement(RichText, {
+					...blockProps,
+					tagName: 'summary',
+					value: attributes.content,
+					onChange: (content) => setAttributes({ content }),
+					onClick: (event) => {
+						event.preventDefault();
+						const content = event.target.closest('.accordion__panel').querySelector('.accordion__panel__content');
+						content.classList.toggle('show');
+					},
+					placeholder: attributes.placeholder
+				});
 			}
 
-			return element;
+			if(variant === 'tab') {
+				return createElement('ul', { className: 'tabs__tab-list' }, createElement(RichText, {
+					...blockProps,
+					tagName: 'span',
+					value: attributes.content,
+					onChange: (content) => setAttributes({ content }),
+					placeholder: attributes.placeholder
+				}));
+			}
 		},
 		save: function({ attributes }) {
 			return createElement(RichText.Content, {
