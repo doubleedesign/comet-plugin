@@ -14,7 +14,9 @@
 			"core/quote": {},
 			"core/list": {},
 			"core/list-item": {},
-			"core/buttons": {},
+			"core/buttons": {
+				"description": "Prompt users to take action from multiple options with a group of buttons or button-style links."
+			},
 			"core/button": {},
 			"core/gallery": {
 				"description": "Display images in a gallery."
@@ -47,7 +49,8 @@
 				"comet/call-to-action",
 				"comet/callout",
 				"core/pullquote",
-				"comet/image-and-text"
+				"comet/image-and-text",
+				"comet/table"
 			]
 		},
 		{
@@ -55,18 +58,12 @@
 			"slug": "design",
 			"icon": "",
 			"blocks": [
-				"core/columns",
-				"core/column"
-			]
-		},
-		{
-			"name": "Content grouping",
-			"slug": "grouping",
-			"icon": "",
-			"blocks": [
 				"comet/container",
+				"core/columns",
+				"core/column",
 				"core/group",
-				"comet/panels"
+				"comet/panels",
+				"core/separator"
 			]
 		},
 		{
@@ -96,7 +93,6 @@
 			"slug": "content",
 			"icon": "",
 			"blocks": [
-				"core/latest-posts",
 				"core/footnotes"
 			]
 		}
