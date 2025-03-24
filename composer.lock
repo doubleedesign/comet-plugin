@@ -318,7 +318,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "980fe4211f7ee7ffd742cf940a4f721f89c4d31a"
+                "reference": "a444538b0f7b842d26f0efa229cc7086c0013804"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
@@ -358,7 +358,8 @@
                     "rollup.index.js",
                     ".bladeformatterrc.json",
                     "**/*.spec.ts",
-                    "src/components/**/*.json"
+                    "src/components/**/*.json",
+                    "src/components/**/__tests__"
                 ]
             },
             "authors": [
