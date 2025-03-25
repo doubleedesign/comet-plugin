@@ -58,6 +58,9 @@
 .bg-accent .breadcrumbs__list {
   color: var(--readable-color-accent);
 }
+.bg-info .breadcrumbs__list {
+  color: var(--readable-color-info);
+}
 .bg-warning .breadcrumbs__list {
   color: var(--readable-color-warning);
 }
@@ -97,6 +100,13 @@
 }
 .section-navigation[data-color-theme=accent] a {
   color: var(--color-accent);
+}
+.section-navigation[data-color-theme=info] {
+  background: color-mix(in srgb, var(--color-info) 5%, white);
+  border-left: 0.125rem solid var(--color-info);
+}
+.section-navigation[data-color-theme=info] a {
+  color: var(--color-info);
 }
 .section-navigation[data-color-theme=warning] {
   background: color-mix(in srgb, var(--color-warning) 5%, white);
@@ -172,6 +182,10 @@
   background: color-mix(in srgb, var(--color-accent) 20%, white);
   border-color: var(--color-accent);
 }
+[data-color-theme=info] .section-navigation__menu-list__item__link:hover, [data-color-theme=info] .section-navigation__menu-list__item__link:focus, [data-color-theme=info] .section-navigation__menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-info) 20%, white);
+  border-color: var(--color-info);
+}
 [data-color-theme=warning] .section-navigation__menu-list__item__link:hover, [data-color-theme=warning] .section-navigation__menu-list__item__link:focus, [data-color-theme=warning] .section-navigation__menu-list__item__link:active {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
@@ -212,6 +226,10 @@
 [data-color-theme=accent] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
   background: color-mix(in srgb, var(--color-accent) 20%, white);
   border-color: var(--color-accent);
+}
+[data-color-theme=info] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
+  background: color-mix(in srgb, var(--color-info) 20%, white);
+  border-color: var(--color-info);
 }
 [data-color-theme=warning] .section-navigation__menu-list__item .menu-list :has([aria-current=page]) {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
@@ -264,6 +282,10 @@
   background: color-mix(in srgb, var(--color-accent) 20%, white);
   border-color: var(--color-accent);
 }
+[data-color-theme=info] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=info] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=info] .section-navigation__menu-list__item .menu-list__item__link:active {
+  background: color-mix(in srgb, var(--color-info) 20%, white);
+  border-color: var(--color-info);
+}
 [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:hover, [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:focus, [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link:active {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
   border-color: var(--color-warning);
@@ -299,6 +321,10 @@
 [data-color-theme=accent] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
   background: color-mix(in srgb, var(--color-accent) 20%, white);
   border-color: var(--color-accent);
+}
+[data-color-theme=info] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
+  background: color-mix(in srgb, var(--color-info) 20%, white);
+  border-color: var(--color-info);
 }
 [data-color-theme=warning] .section-navigation__menu-list__item .menu-list__item__link[aria-current=page] {
   background: color-mix(in srgb, var(--color-warning) 20%, white);
