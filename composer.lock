@@ -318,7 +318,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "a444538b0f7b842d26f0efa229cc7086c0013804"
+                "reference": "35fa3c040c67ea75e66d54d2c3f2ca19fe5e6117"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
@@ -359,7 +359,8 @@
                     ".bladeformatterrc.json",
                     "**/*.spec.ts",
                     "src/components/**/*.json",
-                    "src/components/**/__tests__"
+                    "src/components/**/__tests__",
+                    "README.md"
                 ]
             },
             "authors": [

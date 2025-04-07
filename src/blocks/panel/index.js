@@ -22,9 +22,7 @@ wp.domReady(() => {
 				}]
 			];
 
-			const tag = variant === 'accordion' ? 'details' : 'div';
-
-			return createElement(tag,
+			return createElement('div',
 				blockProps,
 				createElement(InnerBlocks, {
 					allowedBlocks: ['comet/panel-title', 'comet/panel-content'],

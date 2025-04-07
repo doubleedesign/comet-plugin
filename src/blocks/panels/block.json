@@ -19,6 +19,7 @@
 		"accordion",
 		"tabs",
 		"panels",
+		"responsive",
 		"container",
 		"wrapper",
 		"section",
@@ -32,7 +33,7 @@
 		},
 		"variant": {
 			"type": "string",
-			"default": "comet/accordion"
+			"default": "comet/responsive-panels"
 		}
 	},
 	"editorStyle": [
@@ -45,6 +46,24 @@
 	},
 	"variations": [
 		{
+			"name": "comet/responsive-panels",
+			"title": "Responsive Panels",
+			"icon": "layout",
+			"description": "Group related content in an expandable/collapsible interface that displays as an Accordion or Tabs based on available space",
+			"scope": [
+				"inserter",
+				"transform"
+			],
+			"isDefault": true,
+			"isActive": [
+				"variant",
+				"responsive"
+			],
+			"attributes": {
+				"variant": "responsive"
+			}
+		},
+		{
 			"name": "comet/accordion",
 			"title": "Accordion",
 			"icon": "list-view",
@@ -53,7 +72,6 @@
 				"inserter",
 				"transform"
 			],
-			"isDefault": true,
 			"isActive": [
 				"variant",
 				"accordion"
@@ -81,6 +99,7 @@
 		}
 	],
 	"supports": {
+		"multiple": false,
 		"mode": false,
 		"jsx": true,
 		"innerBlocks": true,

@@ -112,7 +112,7 @@ class BlockRenderer {
 	 */
 	public static function render_block_callback(string $block_name): Closure {
 		return function($attributes, $content, $block_instance) use ($block_name) {
-			if($block_instance->block_type->supports['anchor']) {
+			if(isset($block_instance->block_type->supports['anchor']) && $block_instance->block_type->supports['anchor']) {
 				$tag = trim($attributes['tagName'] ?? 'div');
 				// Create a simple DOM parser to process the $content and find the first instance of $tag, and extract the ID if it has one
 				// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
@@ -189,7 +189,6 @@ class BlockRenderer {
 	public static function get_comet_component_class(string $blockName): ?string {
 		$blockNameTrimmed = array_reverse(explode('/', $blockName))[0];
 		$className = Utils::get_class_name($blockNameTrimmed);
-
 		if(class_exists($className)) {
 			return $className;
 		}
@@ -263,6 +262,9 @@ class BlockRenderer {
 			if($block_instance->attributes['variant'] === 'tab') {
 				$ComponentClass = self::get_comet_component_class('comet/tabs');
 			}
+			else if($block_name === 'comet/panels' && $block_instance->attributes['variant'] === 'responsive') {
+				$ComponentClass = self::get_comet_component_class('responsive-panels');
+			}
 			else {
 				$ComponentClass = self::get_comet_component_class($block_instance->attributes['variant']);
 			}
@@ -271,7 +273,7 @@ class BlockRenderer {
 		else if(isset($block_instance->context['comet/variant'])) {
 			// use the namespaced class name matching the variant name + the block name (e.g. Accordion variant + Panel block = AccordionPanel)
 			$variant = $block_instance->context['comet/variant'];
-			$transformed_name = Utils::pascal_case("$variant-$block_name_trimmed");
+			$transformed_name = "$variant-$block_name_trimmed";
 			$ComponentClass = self::get_comet_component_class($transformed_name);
 		}
 		// For the core group block, detect variation based on layout attributes and use that class instead
@@ -284,7 +286,7 @@ class BlockRenderer {
 			};
 			$ComponentClass = self::get_comet_component_class($variation);
 		}
-		// This is a regular block that is not a Group or variation of a Group
+		// This is a regular block that is not a variant, something with variant context, a Group, or variation of a Group
 		else {
 			$ComponentClass = self::get_comet_component_class($block_name); // returns the namespaced class name matching the block name
 		}
@@ -475,7 +477,7 @@ class BlockRenderer {
 		$block_instance->attributes['title'] = $blockTitle ?? get_the_title($id) ?? null;
 		$block_content = $block_instance->parsed_block['innerHTML'];
 		$dom = new DOMDocument();
-		$dom->loadHTML($block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		@$dom->loadHTML($block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 		$blockCaption = $dom->getElementsByTagName('figcaption')->item(0);
 		$block_instance->attributes['caption'] = $blockCaption
 			? Utils::sanitise_content($blockCaption->textContent, Settings::INLINE_PHRASING_ELEMENTS)

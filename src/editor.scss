@@ -205,65 +205,6 @@
 	border-radius: 0 !important;
 }
 
-// flex layout support is used solely to enable the orientation setting in the editor,
-// but it then breaks the visual layout so we need to hack it here
-.wp-block-comet-panels-is-layout-flex {
-	display: block !important;
-}
-
-.accordion {
-	&__panel {
-		pointer-events: none !important; // The JS for the block has the <details> default to open; this prevents it being closed in the editor
-
-		> .block-editor-inner-blocks {
-			margin-top: -2rem; // hackily hide the default "Details" header that happens because the <summary> isn't the direct first child in the editor
-		}
-
-		&__title {
-			justify-content: flex-start;
-
-			@each $colorName, $value in $colors {
-				[data-color-theme="#{$colorName}"] .accordion__panel.has-child-selected & {
-					background-color: var(--color-#{$colorName});
-					color: var(--readable-color-#{$colorName});
-				}
-			}
-
-		}
-	}
-}
-
-.tabs {
-	// Note: In the editor, the output is not quite the same as in the final rendering when this is used as a native block
-	// (as opposed to a custom ACF block preview that renders the PHP components directly)
-	// Most notably, the tablist is not a single grouped list like the Comet rendering constructs
-	// - it's basically like each panel is its own instance.
-
-	.block-editor-block-list__layout {
-		margin-bottom: 1rem;
-	}
-
-	&[data-orientation="vertical"] {
-		.block-editor-block-list__layout {
-			display: flex;
-			flex-wrap: nowrap;
-
-			.tabs__tab-list {
-				width: 200px;
-				flex-basis: 200px;
-			}
-
-			.tab__panel__content {
-				flex-grow: 1;
-			}
-
-			.tabs__content__tab-panel {
-				display: block !important;
-			}
-		}
-	}
-}
-
 .wp-block-comet-steps {
 	> .block-editor-inner-blocks {
 		display: contents;

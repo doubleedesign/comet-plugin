@@ -7,35 +7,19 @@ wp.domReady(() => {
 
 	registerBlockType('comet/panel-title', {
 		edit: function({ context, attributes, setAttributes }) {
-			const variant = context['comet/variant'] ?? 'accordion';
+			const variant = context['comet/variant'] ?? 'responsive-panels';
+
 			const blockProps = useBlockProps({
-				className: variant === 'tab' ? 'tabs__tab-list__item' : `${variant}__panel__title`,
+				className: `${variant}__panel__title`,
 			});
 
-			if(variant === 'accordion') {
-				return createElement(RichText, {
-					...blockProps,
-					tagName: 'summary',
-					value: attributes.content,
-					onChange: (content) => setAttributes({ content }),
-					onClick: (event) => {
-						event.preventDefault();
-						const content = event.target.closest('.accordion__panel').querySelector('.accordion__panel__content');
-						content.classList.toggle('show');
-					},
-					placeholder: attributes.placeholder
-				});
-			}
-
-			if(variant === 'tab') {
-				return createElement('ul', { className: 'tabs__tab-list' }, createElement(RichText, {
-					...blockProps,
-					tagName: 'span',
-					value: attributes.content,
-					onChange: (content) => setAttributes({ content }),
-					placeholder: attributes.placeholder
-				}));
-			}
+			return createElement(RichText, {
+				...blockProps,
+				tagName: 'span',
+				value: attributes.content,
+				onChange: (content) => setAttributes({ content }),
+				placeholder: attributes.placeholder
+			});
 		},
 		save: function({ attributes }) {
 			return createElement(RichText.Content, {

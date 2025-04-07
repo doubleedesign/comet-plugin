@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .page-section {
   padding-block: var(--spacing-md);
+  padding-inline: 0;
 }
 @media (min-width: 960px) {
   .page-section {
@@ -11,39 +12,6 @@
   .page-section {
     padding-block: var(--spacing-xxl);
   }
-}
-.page-section[data-background=primary] + .page-section[data-background=primary] {
-  padding-block-start: 0;
-}
-.page-section[data-background=secondary] + .page-section[data-background=secondary] {
-  padding-block-start: 0;
-}
-.page-section[data-background=accent] + .page-section[data-background=accent] {
-  padding-block-start: 0;
-}
-.page-section[data-background=info] + .page-section[data-background=info] {
-  padding-block-start: 0;
-}
-.page-section[data-background=warning] + .page-section[data-background=warning] {
-  padding-block-start: 0;
-}
-.page-section[data-background=success] + .page-section[data-background=success] {
-  padding-block-start: 0;
-}
-.page-section[data-background=error] + .page-section[data-background=error] {
-  padding-block-start: 0;
-}
-.page-section[data-background=light] + .page-section[data-background=light] {
-  padding-block-start: 0;
-}
-.page-section[data-background=dark] + .page-section[data-background=dark] {
-  padding-block-start: 0;
-}
-.page-section[data-background=white] + .page-section[data-background=white] {
-  padding-block-start: 0;
-}
-.page-section:not([data-background]) + .page-section:not([data-background]) {
-  padding-block-start: 0;
 }
 
 .container {
@@ -63,58 +31,6 @@
   max-width: var(--width-narrow);
 }
 
-.group {
-  padding-block: var(--spacing-md);
-}
-@media (min-width: 960px) {
-  .group {
-    padding-block: var(--spacing-xl);
-  }
-}
-@media (min-width: 1440px) {
-  .group {
-    padding-block: var(--spacing-xxl);
-  }
-}
-.group[data-background=primary] + .group[data-background=primary] {
-  padding-block-start: 0;
-}
-.group[data-background=secondary] + .group[data-background=secondary] {
-  padding-block-start: 0;
-}
-.group[data-background=accent] + .group[data-background=accent] {
-  padding-block-start: 0;
-}
-.group[data-background=info] + .group[data-background=info] {
-  padding-block-start: 0;
-}
-.group[data-background=warning] + .group[data-background=warning] {
-  padding-block-start: 0;
-}
-.group[data-background=success] + .group[data-background=success] {
-  padding-block-start: 0;
-}
-.group[data-background=error] + .group[data-background=error] {
-  padding-block-start: 0;
-}
-.group[data-background=light] + .group[data-background=light] {
-  padding-block-start: 0;
-}
-.group[data-background=dark] + .group[data-background=dark] {
-  padding-block-start: 0;
-}
-.group[data-background=white] + .group[data-background=white] {
-  padding-block-start: 0;
-}
-.group:not([data-background]) + .group:not([data-background]) {
-  padding-block-start: 0;
-}
-.column .group:first-child {
-  padding-block-start: 0;
-}
-.column .group:last-child {
-  padding-block-end: 0;
-}
 .group--breakout {
   width: max-content;
 }
@@ -132,58 +48,8 @@
 }
 
 .columns {
-  padding-inline: var(--spacing-md);
   display: grid;
   grid-gap: var(--spacing-md);
-}
-.container > .columns {
-  padding-inline: 0;
-}
-.columns + .columns {
-  padding-block: var(--spacing-md);
-}
-@media (min-width: 960px) {
-  .columns + .columns {
-    padding-block: var(--spacing-xl);
-  }
-}
-@media (min-width: 1440px) {
-  .columns + .columns {
-    padding-block: var(--spacing-xxl);
-  }
-}
-.columns + .columns[data-background=primary] + .columns + .columns[data-background=primary] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=secondary] + .columns + .columns[data-background=secondary] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=accent] + .columns + .columns[data-background=accent] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=info] + .columns + .columns[data-background=info] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=warning] + .columns + .columns[data-background=warning] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=success] + .columns + .columns[data-background=success] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=error] + .columns + .columns[data-background=error] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=light] + .columns + .columns[data-background=light] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=dark] + .columns + .columns[data-background=dark] {
-  padding-block-start: 0;
-}
-.columns + .columns[data-background=white] + .columns + .columns[data-background=white] {
-  padding-block-start: 0;
-}
-.columns + .columns:not([data-background]) + .columns + .columns:not([data-background]) {
-  padding-block-start: 0;
 }
 @container (min-width: 960px) {
   .columns {
@@ -238,6 +104,279 @@
     gap: var(--spacing-lg);
   }
 }
+.columns[data-background="#845ec2"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#845ec2"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ba3caf"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00d2fc"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#f9c971"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#00c9a7"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#d23e3e"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#F0F0F2"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#4b4453"]:has(> [data-background="#ffffff"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#845ec2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#ba3caf"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#00d2fc"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#f9c971"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#00c9a7"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#d23e3e"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#F0F0F2"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns[data-background="#ffffff"]:has(> [data-background="#4b4453"]) .columns__column {
+  padding: var(--spacing-md);
+}
+.columns:not([data-background]):has(> [data-background]) .columns__column {
+  padding: var(--spacing-md);
+}
 
 .column {
   min-width: 0;
@@ -246,9 +385,6 @@
 .column__inner {
   display: flow-root;
   width: 100%;
-}
-.column__inner > .container {
-  padding-inline: 0;
 }
 
 .button-group {
@@ -615,9 +751,6 @@
   display: block;
 }
 .tabs__tab-list__item [role=tab] {
-  appearance: none;
-  border: 0;
-  background: unset;
   text-align: match-parent;
   cursor: pointer;
   display: block;
@@ -636,11 +769,21 @@
   background: white;
   padding-block: 0;
 }
-.tabs__content__tab-panel {
-  display: none;
+.tabs__content [role=tabpanel] {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.tabs__content__tab-panel.active {
-  display: block;
+.tabs__content [role=tabpanel][data-open=true] {
+  height: auto;
+  opacity: 1;
+  padding: var(--spacing-md);
+}
+@media (prefers-reduced-motion) {
+  .tabs__content [role=tabpanel] {
+    transition: none;
+  }
 }
 .tabs__content[data-color-theme=primary] h2, .tabs__content[data-color-theme=primary] h3 {
   color: var(--color-primary);
@@ -687,11 +830,11 @@
     flex-basis: 14rem;
     min-width: 14rem;
     flex-direction: column;
+    justify-content: flex-start;
   }
 }
 .tabs[data-orientation=vertical] .tabs__tab-list__item {
   width: 100%;
-  flex-basis: 100%;
 }
 .tabs[data-orientation=vertical] .tabs__content {
   width: 100%;
