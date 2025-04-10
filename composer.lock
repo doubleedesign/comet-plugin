@@ -314,11 +314,11 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "dev-master",
+            "version": "0.0.1",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "35fa3c040c67ea75e66d54d2c3f2ca19fe5e6117"
+                "reference": "fa13508cb2d0f0becd45851ae5948ff04f8ed1ae"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
@@ -327,8 +327,7 @@
                 "illuminate/events": "^10.0",
                 "illuminate/filesystem": "^10.0",
                 "illuminate/support": "^10.0",
-                "illuminate/view": "^10.0",
-                "twbs/bootstrap": "^5.3"
+                "illuminate/view": "^10.0"
             },
             "type": "library",
             "autoload": {
@@ -1793,56 +1792,6 @@
                 }
             ],
             "time": "2024-09-25T14:20:29+00:00"
-        },
-        {
-            "name": "twbs/bootstrap",
-            "version": "v5.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "85f23534bd2de8041354b297516cf21959091b31"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/85f23534bd2de8041354b297516cf21959091b31",
-                "reference": "85f23534bd2de8041354b297516cf21959091b31",
-                "shasum": ""
-            },
-            "replace": {
-                "twitter/bootstrap": "self.version"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                },
-                {
-                    "name": "Jacob Thornton",
-                    "email": "jacobthornton@gmail.com"
-                }
-            ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "homepage": "https://getbootstrap.com/",
-            "keywords": [
-                "JS",
-                "css",
-                "framework",
-                "front-end",
-                "mobile-first",
-                "responsive",
-                "sass",
-                "web"
-            ],
-            "support": {
-                "issues": "https://github.com/twbs/bootstrap/issues",
-                "source": "https://github.com/twbs/bootstrap/tree/v5.3.5"
-            },
-            "time": "2025-04-04T18:20:30+00:00"
         },
         {
             "name": "voku/portable-ascii",
