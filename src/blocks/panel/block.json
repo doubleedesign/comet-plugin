@@ -13,8 +13,13 @@
 		"comet/variant"
 	],
 	"allowedBlocks": [
-		"comet/panel-title",
-		"comet/panel-content"
+		"core/group",
+		"core/columns",
+		"core/heading",
+		"core/paragraph",
+		"core/list",
+		"core/image",
+		"core/file"
 	],
 	"description": "Panel within an accordion or tabbed interface",
 	"keywords": [
@@ -26,7 +31,16 @@
 		"group"
 	],
 	"textdomain": "comet",
-	"attributes": {},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitle": {
+			"type": "string",
+			"default": ""
+		}
+	},
 	"supports": {
 		"mode": false,
 		"jsx": true,
