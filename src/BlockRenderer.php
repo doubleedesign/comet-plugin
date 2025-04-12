@@ -249,7 +249,7 @@ class BlockRenderer {
 			$block_instance->attributes['overlayColor'] = $this->hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
 		}
-		if(isset($block_instance->attributes['style']['elements']['inline'])) {
+		if(isset($block_instance->attributes['style']['elements']['inline']['color']['text'])) {
 			$color = $block_instance->attributes['style']['elements']['inline']['color']['text'];
 			$block_instance->attributes['textColor'] = $this->hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
@@ -687,7 +687,10 @@ class BlockRenderer {
 		$theme = $this->theme_json['settings']['color']['palette'];
 
 		return array_reduce($theme, function($carry, $item) use ($hex) {
-			return strtoupper($item['color']) === strtoupper($hex) ? $item['slug'] : $carry;
+			if(isset($item['slug']) && isset($item['color'])) {
+				return strtoupper($item['color']) === strtoupper($hex) ? $item['slug'] : $carry;
+			}
+			return $carry;
 		}, null);
 	}
 
