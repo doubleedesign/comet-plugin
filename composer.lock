@@ -318,7 +318,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "dcf9e563246c0ceffbbfd04b8ad6877e98c44a5e"
+                "reference": "f02e5d693da0d6b2d7868bf84d340d51093f0d1d"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
