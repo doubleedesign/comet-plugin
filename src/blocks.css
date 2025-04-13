@@ -52,22 +52,29 @@
   container-type: inline-size;
   width: 100%;
   padding-inline: var(--spacing-md);
+  max-width: var(--width-contained);
+}
+.container:has(> .layout-block + .layout-block) {
   display: grid;
   gap: var(--spacing-md);
-  --current-maxwidth: var(--width-contained);
-  max-width: var(--current-maxwidth);
 }
-.container [data-size=fullwidth], [data-size=fullwidth] .container {
-  --current-maxwidth: 100vw;
+.container[data-size=fullwidth], [data-size=fullwidth] .container {
+  max-width: 100vw;
 }
-.container [data-size=wide], [data-size=wide] .container {
-  --current-maxwidth: var(--width-wide);
+.container[data-size=fullwidth][data-background], [data-background] .container[data-size=fullwidth], .page-section .container[data-size=fullwidth], .site-header .container[data-size=fullwidth], [data-size=fullwidth] .container[data-background], [data-background] [data-size=fullwidth] .container, .page-section [data-size=fullwidth] .container, .site-header [data-size=fullwidth] .container {
+  max-width: calc(100vw - var(--spacing-md) * 2);
 }
-.container [data-size=narrow], [data-size=narrow] .container {
-  --current-maxwidth: var(--width-narrow);
+.container[data-size=wide], [data-size=wide] .container {
+  max-width: var(--width-wide);
 }
-.container[data-background], [data-background] .container, .page-section .container {
-  max-width: calc(var(--current-maxwidth) - var(--spacing-md) * 2);
+.container[data-size=wide][data-background], [data-background] .container[data-size=wide], .page-section .container[data-size=wide], .site-header .container[data-size=wide], [data-size=wide] .container[data-background], [data-background] [data-size=wide] .container, .page-section [data-size=wide] .container, .site-header [data-size=wide] .container {
+  max-width: calc(var(--width-wide) - var(--spacing-md) * 2);
+}
+.container[data-size=narrow], [data-size=narrow] .container {
+  max-width: var(--width-narrow);
+}
+.container[data-size=narrow][data-background], [data-background] .container[data-size=narrow], .page-section .container[data-size=narrow], .site-header .container[data-size=narrow], [data-size=narrow] .container[data-background], [data-background] [data-size=narrow] .container, .page-section [data-size=narrow] .container, .site-header [data-size=narrow] .container {
+  max-width: calc(var(--width-narrow) - var(--spacing-md) * 2);
 }
 .container [data-background=primary] + [data-background*=gradient-primary] {
   padding-block-start: 0;

@@ -477,7 +477,7 @@ class BlockRegistry extends JavaScriptImplementation {
 		))[0]['blocks'] ?? [];
 
 		if(in_array($name, $layout_blocks)) {
-			$supported = ['comet/container', 'core/group', 'comet/panel-content'];
+			$supported = ['comet/container', 'core/group'];
 			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
 			}
@@ -497,7 +497,7 @@ class BlockRegistry extends JavaScriptImplementation {
 			}
 		}
 		if(in_array($name, array_merge($content_blocks, ['core/embed']))) {
-			$supported = ['comet/container', 'core/column', 'core/group', 'core/details', 'comet/panel-content'];
+			$supported = ['comet/container', 'core/column', 'core/group', 'core/details'];
 
 			if(isset($metadata['parent'])) {
 				$metadata['parent'] = array_merge($metadata['parent'], $supported);
@@ -507,7 +507,12 @@ class BlockRegistry extends JavaScriptImplementation {
 			}
 		}
 		if($name === 'core/freeform') {
-			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column', 'comet/panel-content'];
+			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column'];
+		}
+
+		// Allow group at to be used at the top level because some page templates need it in place of container being the root parent
+		if($name === 'core/group') {
+			unset($metadata['parent']);
 		}
 
 		return $metadata;
