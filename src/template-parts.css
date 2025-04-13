@@ -49,36 +49,6 @@
   padding-inline-start: var(--spacing-xs);
   opacity: 0.4;
 }
-.bg-primary .breadcrumbs__list {
-  color: var(--readable-color-primary);
-}
-.bg-secondary .breadcrumbs__list {
-  color: var(--readable-color-secondary);
-}
-.bg-accent .breadcrumbs__list {
-  color: var(--readable-color-accent);
-}
-.bg-info .breadcrumbs__list {
-  color: var(--readable-color-info);
-}
-.bg-warning .breadcrumbs__list {
-  color: var(--readable-color-warning);
-}
-.bg-success .breadcrumbs__list {
-  color: var(--readable-color-success);
-}
-.bg-error .breadcrumbs__list {
-  color: var(--readable-color-error);
-}
-.bg-light .breadcrumbs__list {
-  color: var(--readable-color-light);
-}
-.bg-dark .breadcrumbs__list {
-  color: var(--readable-color-dark);
-}
-.bg-white .breadcrumbs__list {
-  color: var(--readable-color-white);
-}
 
 .section-navigation[data-color-theme=primary] {
   background: color-mix(in srgb, var(--color-primary) 5%, white);

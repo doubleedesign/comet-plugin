@@ -13,24 +13,157 @@
     padding-block: var(--spacing-xxl);
   }
 }
+.page-section[data-background=primary] + .page-section[data-background=primary] {
+  padding-block-start: 0;
+}
+.page-section[data-background=secondary] + .page-section[data-background=secondary] {
+  padding-block-start: 0;
+}
+.page-section[data-background=accent] + .page-section[data-background=accent] {
+  padding-block-start: 0;
+}
+.page-section[data-background=info] + .page-section[data-background=info] {
+  padding-block-start: 0;
+}
+.page-section[data-background=warning] + .page-section[data-background=warning] {
+  padding-block-start: 0;
+}
+.page-section[data-background=success] + .page-section[data-background=success] {
+  padding-block-start: 0;
+}
+.page-section[data-background=error] + .page-section[data-background=error] {
+  padding-block-start: 0;
+}
+.page-section[data-background=light] + .page-section[data-background=light] {
+  padding-block-start: 0;
+}
+.page-section[data-background=dark] + .page-section[data-background=dark] {
+  padding-block-start: 0;
+}
+.page-section[data-background=white] + .page-section[data-background=white] {
+  padding-block-start: 0;
+}
+.page-section:not([data-background]) + .page-section:not([data-background]) {
+  padding-block-start: 0;
+}
 
 .container {
   margin: 0 auto;
   container-type: inline-size;
   width: 100%;
-  max-width: var(--width-contained);
-  padding-inline: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
+  display: grid;
+  gap: var(--spacing-md);
+  --current-maxwidth: var(--width-contained);
+  max-width: var(--current-maxwidth);
 }
 .container [data-size=fullwidth], [data-size=fullwidth] .container {
-  max-width: 100vw;
+  --current-maxwidth: 100vw;
 }
 .container [data-size=wide], [data-size=wide] .container {
-  max-width: var(--width-wide);
+  --current-maxwidth: var(--width-wide);
 }
 .container [data-size=narrow], [data-size=narrow] .container {
-  max-width: var(--width-narrow);
+  --current-maxwidth: var(--width-narrow);
+}
+.container[data-background], [data-background] .container, .page-section .container {
+  max-width: calc(var(--current-maxwidth) - var(--spacing-md) * 2);
+}
+.container [data-background=primary] + [data-background*=gradient-primary] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-primary] + [data-background=primary] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-primary] + [data-background*=gradient-primary] {
+  padding-block-start: 0;
+}
+.container [data-background=secondary] + [data-background*=gradient-secondary] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-secondary] + [data-background=secondary] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-secondary] + [data-background*=gradient-secondary] {
+  padding-block-start: 0;
+}
+.container [data-background=accent] + [data-background*=gradient-accent] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-accent] + [data-background=accent] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-accent] + [data-background*=gradient-accent] {
+  padding-block-start: 0;
+}
+.container [data-background=info] + [data-background*=gradient-info] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-info] + [data-background=info] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-info] + [data-background*=gradient-info] {
+  padding-block-start: 0;
+}
+.container [data-background=warning] + [data-background*=gradient-warning] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-warning] + [data-background=warning] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-warning] + [data-background*=gradient-warning] {
+  padding-block-start: 0;
+}
+.container [data-background=success] + [data-background*=gradient-success] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-success] + [data-background=success] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-success] + [data-background*=gradient-success] {
+  padding-block-start: 0;
+}
+.container [data-background=error] + [data-background*=gradient-error] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-error] + [data-background=error] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-error] + [data-background*=gradient-error] {
+  padding-block-start: 0;
+}
+.container [data-background=light] + [data-background*=gradient-light] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-light] + [data-background=light] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-light] + [data-background*=gradient-light] {
+  padding-block-start: 0;
+}
+.container [data-background=dark] + [data-background*=gradient-dark] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-dark] + [data-background=dark] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-dark] + [data-background*=gradient-dark] {
+  padding-block-start: 0;
+}
+.container [data-background=white] + [data-background*=gradient-white] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-][data-background*=-white] + [data-background=white] {
+  padding-block-start: 0;
+}
+.container [data-background*=gradient-white] + [data-background*=gradient-white] {
+  padding-block-start: 0;
 }
 
+.group:not(:has(.container)) {
+  display: grid;
+  gap: var(--spacing-md);
+}
 .group--breakout {
   width: max-content;
 }
@@ -104,275 +237,305 @@
     gap: var(--spacing-lg);
   }
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#845ec2"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=primary]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=primary] + .columns[data-background=primary] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=secondary]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=secondary]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
+}
+.columns[data-background=secondary] + .columns[data-background=secondary] {
+  margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ba3caf"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=accent]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=accent] + .columns[data-background=accent] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=info]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00d2fc"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=info]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=info] + .columns[data-background=info] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=warning]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#f9c971"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=warning]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
+}
+.columns[data-background=warning] + .columns[data-background=warning] {
+  margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#00c9a7"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=success]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=success] + .columns[data-background=success] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=error]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#d23e3e"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=error]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
+}
+.columns[data-background=error] + .columns[data-background=error] {
+  margin-block-start: calc(var(--spacing-md) * -2);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#F0F0F2"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=light]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=light] + .columns[data-background=light] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=dark]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#4b4453"]:has(> [data-background="#ffffff"]) .columns__column {
+.columns[data-background=dark]:has(> [data-background=white]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#845ec2"]) .columns__column {
+.columns[data-background=dark] + .columns[data-background=dark] {
+  margin-block-start: calc(var(--spacing-md) * -2);
+}
+.columns[data-background=white]:has(> [data-background=primary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=secondary]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#ba3caf"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=accent]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#00d2fc"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=info]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#f9c971"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=warning]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#00c9a7"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=success]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#d23e3e"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=error]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#F0F0F2"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=light]) .columns__column {
   padding: var(--spacing-md);
 }
-.columns[data-background="#ffffff"]:has(> [data-background="#4b4453"]) .columns__column {
+.columns[data-background=white]:has(> [data-background=dark]) .columns__column {
   padding: var(--spacing-md);
+}
+.columns[data-background=white] + .columns[data-background=white] {
+  margin-block-start: calc(var(--spacing-md) * -2);
 }
 .columns:not([data-background]):has(> [data-background]) .columns__column {
   padding: var(--spacing-md);
