@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 		if (listViewIsOpen) {
 			const panelBlocks = select('core/editor').getBlocks().filter(block => block.name === 'comet/panel');
-			console.log(panelBlocks);
 		}
 	});
 
