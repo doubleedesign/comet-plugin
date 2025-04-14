@@ -35,7 +35,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	function load_merged_theme_json(): void {
 		delete_option('wp_theme_json_data'); // clear cache
 
-		add_filter('wp_theme_json_data_theme', function ($theme_json) {
+		add_filter('wp_theme_json_data_theme', function($theme_json) {
 			$plugin_theme_json_path = plugin_dir_path(__FILE__) . 'theme.json';
 			$plugin_theme_json_data = json_decode(file_get_contents($plugin_theme_json_path), true);
 			if(is_array($plugin_theme_json_data)) {
@@ -83,7 +83,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		}
 
 		$preferred_order = array('design', 'grouping', 'text', 'featured-text', 'media', 'content', 'embeds');
-		usort($new_categories, function ($a, $b) use ($preferred_order) {
+		usort($new_categories, function($a, $b) use ($preferred_order) {
 			return array_search($a['slug'], $preferred_order) <=> array_search($b['slug'], $preferred_order);
 		});
 
@@ -138,7 +138,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	 * @return bool
 	 */
 	function selective_gutenberg($current_status, $post_type): bool {
-		if($post_type === 'page' || $post_type === 'shared_content' || $post_type === 'post') {
+		if(in_array($post_type, ['page', 'post', 'event'])) {
 			return true;
 		}
 
