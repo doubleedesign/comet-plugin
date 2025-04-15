@@ -25,7 +25,7 @@ class ComponentAssets {
 	 */
 	function enqueue_comet_combined_component_css(): void {
 		$libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
-		wp_enqueue_style('comet-components-js', "$libraryDir/dist/dist.css", array(), COMET_VERSION, true);
+		wp_enqueue_style('comet-components', "$libraryDir/dist/dist.css", array(), COMET_VERSION, 'all');
 	}
 
 	/**
