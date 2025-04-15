@@ -2,6 +2,7 @@
 	"name": "doubleedesign/comet-plugin",
 	"type": "wordpress-plugin",
 	"version": "0.0.2",
+	"homepage": "https://cometcomponents.io",
 	"authors": [
 		{
 			"name": "Leesa Ward",
