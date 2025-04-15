@@ -1,6 +1,7 @@
 {
 	"name": "doubleedesign/comet-plugin",
 	"type": "wordpress-plugin",
+	"description": "WordPress plugin implementing the Comet Components library and associated block editor customisations.",
 	"version": "0.0.2",
 	"homepage": "https://cometcomponents.io",
 	"authors": [
