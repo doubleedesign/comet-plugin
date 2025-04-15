@@ -307,7 +307,7 @@ class BlockRegistry extends JavaScriptImplementation {
 			);
 		}
 
-		// All layout blocks
+		// All layout blocks except ResponsivePanels/Accordion/Tabs
 		if(in_array($name, $layout_blocks) && $name !== 'comet/panels') {
 			$metadata['supports']['color']['background'] = true;
 			$metadata['supports']['color']['gradients'] = false;
