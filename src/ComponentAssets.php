@@ -39,7 +39,7 @@ class ComponentAssets {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
 
-		$global_css_path = $pluginDir . '/vendor/doubleedesign/comet-components-core/src/components/global.css';
+		$global_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css';
 		wp_enqueue_style('comet-global-styles', $global_css_path, array(), COMET_VERSION);
 
 		$template_css_path = $pluginDir . '/src/template-parts.css';
@@ -63,9 +63,7 @@ class ComponentAssets {
 	 * @return void
 	 */
 	function enqueue_comet_combined_component_js(): void {
-		$currentDir = plugin_dir_url(__FILE__);
-		$pluginDir = dirname($currentDir, 1);
-		$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core';
+		$libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
 		wp_enqueue_script('comet-components-js', "$libraryDir/dist/dist.js", array(), COMET_VERSION, true);
 		// Alternatively you can import individual components' JS like so:
 		//wp_enqueue_script('comet-gallery', "$libraryDir/src/components/Gallery/gallery.js", array(), COMET_VERSION, true);
@@ -98,9 +96,7 @@ class ComponentAssets {
 	 */
 	function script_base_path($tag, $handle, $src): mixed {
 		if($handle === 'comet-components-js') {
-			$currentDir = plugin_dir_url(__FILE__);
-			$pluginDir = dirname($currentDir, 1);
-			$libraryDir = $pluginDir . '/vendor/doubleedesign/comet-components-core';
+			$libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
 			$libraryDirShort = str_replace(get_site_url(), '', $libraryDir);
 			$tag = '<script type="module" src="' . esc_url($src) . '" id="' . $handle . '" data-base-path="' . $libraryDirShort . '" ></script>';
 		}

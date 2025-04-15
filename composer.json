@@ -4,6 +4,8 @@
 	"description": "WordPress plugin implementing the Comet Components library and associated block editor customisations.",
 	"version": "0.0.2",
 	"homepage": "https://cometcomponents.io",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Leesa Ward",
@@ -16,27 +18,18 @@
 		}
 	},
 	"require": {
-		"doubleedesign/comet-components-core": "*",
-		"composer/installers": "^2.0"
+		"doubleedesign/comet-components-core": "*"
 	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"repositories": [
-		{
-			"type": "path",
-			"url": "../core",
-			"options": {
-				"symlink": true
-			}
-		},
 		{
 			"type": "vcs",
 			"url": "https://github.com/doubleedesign/baguetteBox.js"
 		}
 	],
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
+	"archive": {
+		"exclude": [
+			"src/*.scss",
+			"src/*.css.map"
+		]
 	}
 }

@@ -18,7 +18,10 @@
  * @package Comet
  */
 
-const COMET_VERSION = '0.0.1';
+if(!defined('COMET_COMPOSER_VENDOR_URL')) {
+	define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin/vendor');
+}
+const COMET_VERSION = '0.0.2';
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Doubleedesign\Comet\WordPress\{
