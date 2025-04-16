@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6085df4e89fe21418fd97d2b901c1621",
+    "content-hash": "8bbe57fc31deee8b4477ad1056748203",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -168,17 +168,11 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doubleedesign/comet-components-core.git",
-                "reference": "58e9e18ddf373217de9250d88b9903568f5015b3"
-            },
+            "version": "0.0.2",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doubleedesign/comet-components-core/zipball/58e9e18ddf373217de9250d88b9903568f5015b3",
-                "reference": "58e9e18ddf373217de9250d88b9903568f5015b3",
-                "shasum": ""
+                "type": "path",
+                "url": "../core",
+                "reference": "6d079e910ea40eaa664b05ab1c3b272d1e2b71f1"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
@@ -189,9 +183,12 @@
                 "illuminate/support": "^10.0",
                 "illuminate/view": "^10.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
+                "classmap": [
+                    "src/components/",
+                    "src/components/**/"
+                ],
                 "psr-4": {
                     "Doubleedesign\\Comet\\Core\\": [
                         "src/base/types/",
@@ -202,13 +199,23 @@
                         "src/base/",
                         "src/services/"
                     ]
-                },
-                "classmap": [
-                    "src/components/",
-                    "src/components/**/"
+                }
+            },
+            "archive": {
+                "exclude": [
+                    "cache/",
+                    "node_modules",
+                    "package.json",
+                    "package-lock.json",
+                    "rollup.config.js",
+                    "rollup.index.js",
+                    ".bladeformatterrc.json",
+                    "**/*.spec.ts",
+                    "src/components/**/*.json",
+                    "src/components/**/__tests__",
+                    "README.md"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Leesa Ward",
@@ -217,10 +224,10 @@
             ],
             "description": "PHP-driven web UI component library focused on clean and accessible HTML, reusability, and structured flexibility.",
             "homepage": "https://cometcomponents.io",
-            "support": {
-                "source": "https://github.com/doubleedesign/comet-components-core/tree/master"
-            },
-            "time": "2025-04-15T14:01:48+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "ezyang/htmlpurifier",
