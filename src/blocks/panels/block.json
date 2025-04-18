@@ -12,7 +12,7 @@
 		"comet/panel"
 	],
 	"editorScript": "file:./index.js",
-	"category": "grouping",
+	"category": "layout",
 	"icon": "list-view",
 	"description": "Group related content into expandable/collapsible sections or a tabbed interface",
 	"keywords": [

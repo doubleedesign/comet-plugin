@@ -9,7 +9,7 @@ wp.domReady(() => {
 	// Custom wrapper for the image to allow finer-grained width and placement control
 	registerBlockType('comet/image-and-text-image-wrapper', {
 		title: 'Image wrapper',
-		category: 'featured-text',
+		category: 'layout',
 		icon: 'image-crop',
 		attributes: {
 			maxWidth: {
@@ -90,7 +90,7 @@ wp.domReady(() => {
 	// Custom wrapper for the content to restrict which blocks can be used here
 	registerBlockType('comet/image-and-text-content', {
 		title: 'Content',
-		category: 'featured-text',
+		category: 'layout',
 		icon: 'text',
 		attributes: {
 			maxWidth: {

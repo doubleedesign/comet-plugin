@@ -29,7 +29,7 @@
 	},
 	"categories": [
 		{
-			"name": "Basic text",
+			"name": "Text",
 			"slug": "text",
 			"icon": "",
 			"blocks": [
@@ -38,19 +38,20 @@
 				"core/quote",
 				"core/list",
 				"core/buttons",
-				"core/details"
-			]
-		},
-		{
-			"name": "Featured text",
-			"slug": "featured-text",
-			"icon": "",
-			"blocks": [
+				"core/details",
 				"comet/call-to-action",
 				"comet/callout",
 				"core/pullquote",
-				"comet/image-and-text",
 				"comet/table"
+			]
+		},
+		{
+			"name": "Structure",
+			"slug": "structure",
+			"icon": "",
+			"blocks": [
+				"comet/container",
+				"core/group"
 			]
 		},
 		{
@@ -58,11 +59,10 @@
 			"slug": "design",
 			"icon": "",
 			"blocks": [
-				"comet/container",
 				"core/columns",
 				"core/column",
-				"core/group",
 				"comet/panels",
+				"comet/image-and-text",
 				"core/separator"
 			]
 		},
@@ -71,20 +71,12 @@
 			"slug": "media",
 			"icon": "",
 			"blocks": [
+				"comet/banner",
 				"core/image",
 				"core/media-text",
 				"core/gallery",
-				"core/cover",
 				"comet/file-group",
 				"comet/link-group",
-				"comet/banner"
-			]
-		},
-		{
-			"name": "Media - Embedded",
-			"slug": "embeds",
-			"icon": "",
-			"blocks": [
 				"core/embed"
 			]
 		},

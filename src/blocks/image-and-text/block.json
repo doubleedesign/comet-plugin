@@ -7,7 +7,7 @@
 	"parent": [
 		"comet/container"
 	],
-	"category": "featured-text",
+	"category": "layout",
 	"icon": "cover-image",
 	"description": "Pair a featured text block with an image",
 	"keywords": [

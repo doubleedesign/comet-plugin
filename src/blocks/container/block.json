@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "comet/container",
 	"title": "Container",
-	"category": "grouping",
+	"category": "layout",
 	"icon": "align-wide",
 	"parent": [
 		null

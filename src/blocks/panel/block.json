@@ -5,7 +5,7 @@
 	"title": "Panel",
 	"icon": "open-folder",
 	"editorScript": "file:./index.js",
-	"category": "grouping",
+	"category": "layout",
 	"parent": [
 		"comet/panels"
 	],
