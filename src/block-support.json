@@ -21,7 +21,6 @@
 			"core/gallery": {
 				"description": "Display images in a gallery."
 			},
-			"core/embed": {},
 			"core/freeform": {},
 			"core/footnotes": {},
 			"core/separator": {}
