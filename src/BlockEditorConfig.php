@@ -6,16 +6,27 @@ use WP_Theme_JSON_Data;
 
 class BlockEditorConfig extends JavaScriptImplementation {
 	private array $final_theme_json = [];
+	private array $block_category_map = [];
+	private array $block_support_json = [];
 
 	function __construct() {
 		parent::__construct();
+		$this->block_support_json = json_decode(file_get_contents(plugin_dir_path(__FILE__) . 'block-support.json'), true);
+
+		// Set up block category map so it's not run every time assign_blocks_to_categories is called
+		foreach($this->block_support_json['categories'] as $category) {
+			foreach($category['blocks'] as $block_name) {
+				$this->block_category_map[$block_name] = $category['slug'];
+			}
+		}
+
 		remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
 		remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
 
 		add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
 		add_action('init', [$this, 'register_page_template'], 15, 2);
 
-		add_filter('block_categories_all', [$this, 'customise_block_categories'], 10, 1);
+		add_filter('block_categories_all', [$this, 'customise_block_categories'], 5, 1);
 		add_filter('register_block_type_args', [$this, 'assign_blocks_to_categories'], 11, 2);
 
 		add_filter('block_editor_settings_all', [$this, 'block_inspector_single_panel'], 10, 2);
@@ -70,8 +81,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	 * @return array
 	 */
 	function customise_block_categories($categories): array {
-		$block_support = json_decode(file_get_contents(plugin_dir_path(__FILE__) . 'block-support.json'), true);
-		$custom_categories = $block_support['categories'];
+		$custom_categories = $this->block_support_json['categories'];
 		$new_categories = [];
 
 		foreach($custom_categories as $cat) {
@@ -82,7 +92,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 			];
 		}
 
-		$preferred_order = array('design', 'grouping', 'text', 'featured-text', 'media', 'content', 'embeds');
+		$preferred_order = array('structure', 'ui', 'text', 'dynamic-content', 'media', 'forms');
 		usort($new_categories, function($a, $b) use ($preferred_order) {
 			return array_search($a['slug'], $preferred_order) <=> array_search($b['slug'], $preferred_order);
 		});
@@ -92,26 +102,16 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
 	/**
 	 * Modify block registration to set correct categories
-	 * @param array $settings
-	 * @param string $name
+	 * @param array $settings - settings of the block being registered
+	 * @param string $name - name of the block being registered
+	 * Note: This doesn't work for some blocks, such as Ninja Forms. Such cases can be adjusted using a filter added via JavaScript
+	 *       See block-editor-config.js
+	 *
 	 * @return array
 	 */
-	function assign_blocks_to_categories($settings, $name): array {
-		static $block_category_map = null;
-
-		if($block_category_map === null) {
-			$block_support = json_decode(file_get_contents(plugin_dir_path(__FILE__) . 'block-support.json'), true);
-			$block_category_map = [];
-
-			foreach($block_support['categories'] as $category) {
-				foreach($category['blocks'] as $block_name) {
-					$block_category_map[$block_name] = $category['slug'];
-				}
-			}
-		}
-
-		if(isset($block_category_map[$name])) {
-			$settings['category'] = $block_category_map[$name];
+	function assign_blocks_to_categories(array $settings, string $name): array {
+		if(isset($this->block_category_map[$name])) {
+			$settings['category'] = $this->block_category_map[$name];
 		}
 
 		return $settings;
@@ -132,6 +132,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
 	/**
 	 * Only use the block editor for certain content types
+	 * (This can be overridden by plugins depending on the priority of the filter)
 	 * @param $current_status
 	 * @param $post_type
 	 *

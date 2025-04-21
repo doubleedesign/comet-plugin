@@ -28,23 +28,6 @@
 	},
 	"categories": [
 		{
-			"name": "Text",
-			"slug": "text",
-			"icon": "",
-			"blocks": [
-				"core/heading",
-				"core/paragraph",
-				"core/quote",
-				"core/list",
-				"core/buttons",
-				"core/details",
-				"comet/call-to-action",
-				"comet/callout",
-				"core/pullquote",
-				"comet/table"
-			]
-		},
-		{
 			"name": "Structure",
 			"slug": "structure",
 			"icon": "",
@@ -54,15 +37,42 @@
 			]
 		},
 		{
-			"name": "Layout",
+			"name": "layout",
 			"slug": "design",
 			"icon": "",
 			"blocks": [
 				"core/columns",
-				"core/column",
 				"comet/panels",
-				"comet/image-and-text",
-				"core/separator"
+				"comet/banner",
+				"comet/image-and-text"
+			]
+		},
+		{
+			"name": "Text",
+			"slug": "text",
+			"icon": "",
+			"blocks": [
+				"core/heading",
+				"core/paragraph",
+				"core/buttons",
+				"core/button",
+				"core/pullquote",
+				"core/quote",
+				"core/list",
+				"core/list-item",
+				"comet/table"
+			]
+		},
+		{
+			"name": "UI",
+			"slug": "ui",
+			"icon": "",
+			"blocks": [
+				"comet/call-to-action",
+				"comet/page-header",
+				"comet/callout",
+				"core/separator",
+				"comet/steps"
 			]
 		},
 		{
@@ -70,9 +80,7 @@
 			"slug": "media",
 			"icon": "",
 			"blocks": [
-				"comet/banner",
 				"core/image",
-				"core/media-text",
 				"core/gallery",
 				"comet/file-group",
 				"comet/link-group",
@@ -80,11 +88,22 @@
 			]
 		},
 		{
-			"name": "Dynamic content",
-			"slug": "content",
+			"name": "Forms",
+			"slug": "forms",
 			"icon": "",
 			"blocks": [
-				"core/footnotes"
+				"ninja-forms/form",
+				"ninja-forms/submissions-table"
+			]
+		},
+		{
+			"name": "Dynamic content",
+			"slug": "dynamic-content",
+			"icon": "",
+			"blocks": [
+				"core/latest-posts",
+				"core/footnotes",
+				"comet/upcoming-events"
 			]
 		}
 	]

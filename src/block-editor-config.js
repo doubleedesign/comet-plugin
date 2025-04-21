@@ -48,6 +48,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 	});
 });
 
+wp.domReady(() => {
+	wp.hooks.addFilter('blocks.registerBlockType', 'comet/fix-block-categories', function (settings, name) {
+		if (name.startsWith('ninja-forms/')) {
+			settings.category = 'forms';
+		}
+
+		return settings;
+	});
+});
+
+
 function hideBlockOptionToggleByLabelText(labelText) {
 	const toggles = document.getElementsByClassName('components-toggle-control');
 	Object.values(toggles).forEach((toggle) => {

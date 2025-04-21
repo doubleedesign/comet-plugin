@@ -12,7 +12,7 @@
 		"comet/step"
 	],
 	"editorScript": "file:./index.js",
-	"category": "layout",
+	"category": "design",
 	"icon": "editor-ol",
 	"description": "Feature a series of steps or stages in a process",
 	"keywords": [

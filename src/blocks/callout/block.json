@@ -5,7 +5,7 @@
 	"title": "Callout",
 	"icon": "megaphone",
 	"editorScript": "file:./index.js",
-	"category": "text",
+	"category": "ui",
 	"parent": [
 		"comet/container",
 		"core/column",
