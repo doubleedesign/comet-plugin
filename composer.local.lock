@@ -172,7 +172,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "6d079e910ea40eaa664b05ab1c3b272d1e2b71f1"
+                "reference": "6171e621b8fa3c7a5971636eb4b4f71c40123398"
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.18",
@@ -213,6 +213,7 @@
                     "**/*.spec.ts",
                     "src/components/**/*.json",
                     "src/components/**/__tests__",
+                    "src/components/**/__docs__/*",
                     "README.md"
                 ]
             },

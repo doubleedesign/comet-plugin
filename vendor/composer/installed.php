@@ -29,14 +29,12 @@
             'dev_requirement' => false,
         ),
         'doubleedesign/comet-components-core' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '58e9e18ddf373217de9250d88b9903568f5015b3',
+            'pretty_version' => '0.0.2',
+            'version' => '0.0.2.0',
+            'reference' => '6171e621b8fa3c7a5971636eb4b4f71c40123398',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doubleedesign/comet-components-core',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'doubleedesign/comet-plugin' => array(
