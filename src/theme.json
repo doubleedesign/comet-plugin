@@ -157,11 +157,68 @@
 			"width": false,
 			"color": false
 		},
+		"__experimentalBorder": {
+			"radius": false,
+			"style": false,
+			"width": false,
+			"color": false,
+			"__experimentalDefaultControls": {
+				"color": false,
+				"radius": false,
+				"style": false,
+				"width": false
+			}
+		},
 		"blocks": {
 			"core/image": {
 				"lightbox": {
 					"allowEditing": false,
 					"enabled": false
+				}
+			},
+			"core/paragraph": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/heading": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/list": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/list-item": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/buttons": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/button": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/details": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/gallery": {
+				"color": {
+					"background": false
+				}
+			},
+			"core/pullquote": {
+				"color": {
+					"background": false
 				}
 			}
 		}

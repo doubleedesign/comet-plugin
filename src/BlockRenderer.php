@@ -115,9 +115,9 @@ class BlockRenderer {
 			if(isset($block_instance->block_type->supports['anchor']) && $block_instance->block_type->supports['anchor']) {
 				$tag = trim($attributes['tagName'] ?? 'div');
 				// Create a simple DOM parser to process the $content and find the first instance of $tag, and extract the ID if it has one
-				// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+				// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString
 				$dom = new DOMDocument();
-				@$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+				@$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING);
 				$element = $dom->getElementsByTagName($tag)->item(0);
 				if($element && $element->getAttribute('id')) {
 					$attributes['id'] = $element->getAttribute('id');
@@ -228,9 +228,9 @@ class BlockRenderer {
 		if($block_name === 'core/pullquote') {
 			$quoteContent = $block_instance->parsed_block['innerHTML'];
 			// Create a simple DOM parser and find the quote and citation elements
-			// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+			// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString
 			$dom = new DOMDocument();
-			@$dom->loadHTML($quoteContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+			@$dom->loadHTML($quoteContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING);
 			$quote = $dom->getElementsByTagName('p')->item(0);
 			$citation = $dom->getElementsByTagName('cite')->item(0)->textContent;
 			$content = $quote->textContent;
@@ -477,7 +477,7 @@ class BlockRenderer {
 		$block_instance->attributes['title'] = $blockTitle ?? get_the_title($id) ?? null;
 		$block_content = $block_instance->parsed_block['innerHTML'];
 		$dom = new DOMDocument();
-		@$dom->loadHTML($block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		@$dom->loadHTML($block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING);
 		$blockCaption = $dom->getElementsByTagName('figcaption')->item(0);
 		$block_instance->attributes['caption'] = $blockCaption
 			? Utils::sanitise_content($blockCaption->textContent, Settings::INLINE_PHRASING_ELEMENTS)
@@ -536,9 +536,9 @@ class BlockRenderer {
 		$clean_html = $purifier->purify($raw_content);
 
 		// Create a simple DOM parser and find the anchor tag and attributes
-		// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+		// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString
 		$dom = new DOMDocument();
-		$dom->loadHTML($clean_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		$dom->loadHTML($clean_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING);
 		$links = $dom->getElementsByTagName('a');
 		$link = $links->item(0);
 		foreach($link->attributes as $attr) {
@@ -570,9 +570,9 @@ class BlockRenderer {
 		}, ARRAY_FILTER_USE_KEY);
 
 		// Create a simple DOM parser to process the WP-saved HTML
-		// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString and presumably remove the ext-dom and ext-libxml Composer dependencies
+		// Note: In PHP 8.4+ you will be able to use Dom\HTMLDocument::createFromString
 		$dom = new DOMDocument();
-		@$dom->loadHTML($block_instance->inner_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		@$dom->loadHTML($block_instance->inner_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING);
 
 		// Extract the caption and store it as an attribute
 		$caption = $dom->getElementsByTagName('caption')->item(0);

@@ -12,29 +12,28 @@ class BlockRegistry extends JavaScriptImplementation {
 
 		$this->block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
 
+		// Comet block registration
 		add_action('init', [$this, 'register_blocks'], 10, 2);
 		add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
+
+		// Limit editor to supported blocks
 		add_filter('allowed_block_types_all', [$this, 'set_allowed_blocks'], 10, 2);
+
+		// Register common custom attributes
+		add_action('init', [$this, 'register_custom_attributes'], 5);
+
+		// Styles and variations of core blocks
 		add_action('init', [$this, 'register_core_block_styles'], 10);
 		add_action('block_type_metadata', [$this, 'register_core_block_variations'], 10);
+
+		// Override some block.json configuration for core and plugin blocks
 		add_action('block_type_metadata', [$this, 'update_some_core_block_descriptions'], 10);
-		add_action('init', [$this, 'register_custom_attributes'], 5);
 		add_filter('block_type_metadata', [$this, 'customise_core_block_options'], 15, 1);
-		add_filter('block_type_metadata', [$this, 'customise_plugin_block_options'], 120, 1);
-		add_filter('block_type_metadata', [$this, 'control_block_parents'], 15, 1);
+
+		// Block relationship limitations
+		//add_filter('block_type_metadata', [$this, 'control_block_parents'], 15, 1);
 	}
 
-	/**
-	 * Get the names of all custom blocks defined in this plugin via JSON files in the blocks folder
-	 * @return array
-	 */
-	function get_custom_block_names(): array {
-		$folder = dirname(__DIR__, 1) . '/src/blocks/';
-		$block_folders = scandir($folder);
-		$blocks = array_map(fn($block) => 'comet/' . $block, $block_folders);
-
-		return $blocks;
-	}
 
 	/**
 	 * Register custom blocks
@@ -151,33 +150,34 @@ class BlockRegistry extends JavaScriptImplementation {
 	 * @return array
 	 */
 	function set_allowed_blocks($allowed_blocks): array {
+		// Get all registered blocks
 		$all_block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
-		// Read core block list from JSON file
+		// Get supported core block names
 		$core = array_keys($this->block_support_json['core']['supported']);
-		// Custom blocks in this plugin
-		$custom = $this->get_custom_block_names();
-		// Third-party plugin block types
-		// TODO: Allow all third-party blocks - this is really about filtering out unsupported core blocks, not limiting known third-party blocks
-		$plugin = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, 'ninja-forms/') || str_starts_with($block_type->name, 'comet/'));
-		// Block types for the current site - based on theme textdomain matching block prefix
-		$theme = wp_get_theme()->get('TextDomain');
-		$current_site = array_filter($all_block_types, fn($block_type) => str_starts_with($block_type->name, "$theme/"));
+		$filtered = array_filter($all_block_types, function($block, $name) use ($core) {
+			// Filter out core blocks not in the list
+			if(str_starts_with($name, 'core/')) {
+				return in_array($name, $core);
+			}
 
-		$result = array_merge(
-			$core,
-			$custom,
-			array_keys($current_site),
-			array_column($plugin, 'name')
-		// add core or plugin blocks here if:
+			// Disallow specific blocks
+			if(in_array($name, ['ninja-forms/submissions-table'])) {
+				return false;
+			}
+
+			// Otherwise, allow it
+			return true;
+		}, ARRAY_FILTER_USE_BOTH);
+
+		// Allow blocks here if:
 		// 1. They are to be allowed at the top level
-		// 2. They Are allowed to be inserted as child blocks of a core block (note: set custom parents for core blocks in addCoreBlockParents() in blocks.js if not allowing them at the top level)
+		// 2. They are allowed to be inserted as child blocks of a core block
 		// No need to include them here if they are only being used in one or more of the below contexts:
 		// 1. As direct $allowed_blocks within custom ACF-driven blocks and/or
 		// 2. In a page/post type template defined programmatically and locked there (so users can't delete something that can't be re-inserted)
 		// TODO: When adding post support, there's some post-specific blocks that may be useful
-		);
 
-		return $result;
+		return array_keys($filtered);
 	}
 
 	/**
@@ -202,6 +202,11 @@ class BlockRegistry extends JavaScriptImplementation {
 	}
 
 
+	/**
+	 * Update some core block descriptions with those set in the block-support.json file
+	 * @param $metadata
+	 * @return array
+	 */
 	function update_some_core_block_descriptions($metadata): array {
 		$blocks = $this->block_support_json['core']['supported'];
 		$blocks_to_update = array_filter($blocks, fn($block) => isset($block['description']));
@@ -213,6 +218,43 @@ class BlockRegistry extends JavaScriptImplementation {
 		}
 
 		return $metadata;
+	}
+
+
+	/**
+	 * Register some additional attribute options
+	 * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
+	 *        To see the styles in the editor, you must override the JavaScript edit function for the block (see block-registry.js)
+	 * @return void
+	 */
+	function register_custom_attributes(): void {
+		if(!function_exists('Block_Supports_Extended\register')) {
+			error_log("Can't register custom attributes because Block Supports Extended is not available", true);
+			return;
+		}
+
+		Block_Supports_Extended\register('color', 'theme', [
+			'label'    => __('Colour theme'),
+			'property' => 'background',
+			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote wp-block-comet-panels wp-block-details',
+			'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote', 'comet/panels', 'core/details'],
+		]);
+
+		Block_Supports_Extended\register('color', 'overlay', [
+			'label'    => __('Overlay'),
+			'property' => 'background',
+			'selector' => '.%1$s wp-block-banner',
+			'blocks'   => ['comet/banner'],
+		]);
+
+		Block_Supports_Extended\register('color', 'inline', [
+			'label'    => __('Text (override default)'),
+			'property' => 'text',
+			'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote wp-block-list-item',
+			'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote', 'core/list-item'],
+		]);
+
+		// Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
 	}
 
 
@@ -237,204 +279,29 @@ class BlockRegistry extends JavaScriptImplementation {
 
 
 	/**
-	 * Register some additional attribute options
-	 * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
-	 *        To see the styles in the editor, you must override the JavaScript edit function for the block (see block-registry.js)
-	 * @return void
-	 */
-	function register_custom_attributes(): void {
-		if(!function_exists('Block_Supports_Extended\register')) {
-			error_log("Can't register custom attributes because Block Supports Extended is not available", true);
-			return;
-		}
-
-		Block_Supports_Extended\register('color', 'theme', [
-			'label'    => __('Colour theme'),
-			'property' => 'background',
-			'selector' => '.%1$s wp-block-button__link wp-block-callout wp-block-file-group wp-block-steps wp-block-pullquote wp-block-comet-panels',
-			'blocks'   => ['core/button', 'comet/callout', 'comet/file-group', 'comet/steps', 'core/pullquote', 'comet/panels'],
-		]);
-
-		Block_Supports_Extended\register('color', 'overlay', [
-			'label'    => __('Overlay'),
-			'property' => 'background',
-			'selector' => '.%1$s wp-block-banner',
-			'blocks'   => ['comet/banner'],
-		]);
-
-		Block_Supports_Extended\register('color', 'inline', [
-			'label'    => __('Text (override default)'),
-			'property' => 'text',
-			'selector' => '.%1$s wp-block-heading wp-block-paragraph wp-block-pullquote',
-			'blocks'   => ['core/heading', 'core/paragraph', 'core/pullquote'],
-		]);
-
-		// Note: Remove the thing the custom attribute is replacing, if applicable, using block_type_metadata filter
-	}
-
-	/**
 	 * Override core block.json configuration
-	 * Note: $metadata['allowed_blocks'] also exists and is an array of block names,
-	 * so presumably allowed blocks can be added and removed here too
+	 * for attributes and supports that can't be modified in theme.json
 	 * @param $metadata
 	 * @return array
 	 */
 	function customise_core_block_options($metadata): array {
 		delete_transient('wp_blocks_data'); // clear cache
 		$name = $metadata['name'];
+		// Comet blocks should use block.json, and other plugin blocks should be modified in separate functions to keep things tidy
+		if(!str_starts_with($name, 'core/')) return $metadata;
 
-		$typography_blocks = array_merge(
-			array_values(array_filter(
-				$this->block_support_json['categories'],
-				fn($category) => $category['slug'] === 'text'
-			))[0]['blocks'] ?? [],
-			array_values(array_filter(
-				$this->block_support_json['categories'],
-				fn($category) => $category['slug'] === 'featured-text'
-			))[0]['blocks'] ?? []
-		);
-
-		$layout_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'design'
-		))[0]['blocks'] ?? null;
-
-		// Remove support for some things from all blocks
-		if(isset($metadata['supports'])) {
-			$metadata['supports'] = array_diff_key(
-				$metadata['supports'],
-				array_flip(['spacing', 'typography', 'shadow', 'dimensions'])
-			);
+		switch($name) {
+			case 'core/button':
+				unset($metadata['attributes']['width']);
+				$metadata['supports']['__experimentalBorder'] = false;
+				return $metadata;
+			case 'core/pullquote':
+				$metadata['supports']['__experimentalBorder'] = false;
+				return $metadata;
+			default:
+				return $metadata;
 		}
 
-		// All layout blocks except ResponsivePanels/Accordion/Tabs
-		if(in_array($name, $layout_blocks) && $name !== 'comet/panels') {
-			$metadata['supports']['color']['background'] = true;
-			$metadata['supports']['color']['gradients'] = false;
-			$metadata['supports']['color']['text'] = false;
-			$metadata['supports']['color']['__experimentalDefaultControls'] = [
-				'background' => true,
-				'text'       => false,
-			];
-		}
-
-		// All typography blocks
-		if(in_array($name, $typography_blocks)) {
-			if($name !== 'comet/call-to-action') {
-				$metadata['supports']['color']['background'] = false;
-				$metadata['supports']['color']['gradients'] = false;
-				$metadata['supports']['color']['__experimentalDefaultControls'] = [
-					'text'       => false, // replaced with custom attribute because it wasn't working
-					'background' => false
-				];
-			}
-			$metadata['supports']['__experimentalBorder'] = false;
-			$metadata['supports']['border'] = false;
-		}
-
-		if($name === 'core/buttons') {
-			$metadata['supports']['layout'] = array_merge(
-				$metadata['supports']['layout'],
-				[
-					'allowEditing'           => true, // allow selection of the enabled layout options
-					'allowSwitching'         => false,
-					'allowOrientation'       => true,
-					'allowJustification'     => true,
-					'allowVerticalAlignment' => false
-				]
-			);
-		}
-		if($name === 'core/button') {
-			$metadata['attributes'] = array_diff_key(
-				$metadata['attributes'],
-				array_flip(['textAlign', 'textColor', 'width'])
-			);
-
-			$metadata['supports']['color']['text'] = false;
-			$metadata['supports']['color']['gradients'] = false;
-			$metadata['supports']['color']['background'] = false;
-			$metadata['supports']['__experimentalBorder'] = false;
-			$metadata['supports']['color']['__experimentalDefaultControls'] = [
-				'background' => false,
-				'theme'      => true
-			];
-		}
-
-		// Group block
-		// Remember: Row, Stack, and Grid are variations of Group so any settings here will affect all of those if you enable those variations
-		if($name === 'core/group') {
-			$metadata['supports'] = array_diff_key(
-				$metadata['supports'],
-				array_flip(['__experimentalSettings', 'align', 'position'])
-			);
-
-			$metadata['supports']['layout'] = array_merge(
-				$metadata['supports']['layout'],
-				[
-					'allowEditing' => false, // allow selection of the enabled layout options
-//					'allowSwitching'         => false, // disables selection of flow/flex/constrained/grid because we're deciding that with CSS
-//					'allowOrientation'       => false, // disable vertical stacking option
-//					'allowJustification'     => true,
-//					'allowVerticalAlignment' => true,
-				]
-			);
-		}
-
-		// Columns
-		if($name === 'core/columns') {
-			$metadata['attributes']['tagName'] = [
-				'type'    => 'string',
-				'default' => 'div'
-			];
-		}
-		if($name === 'core/columns' && isset($metadata['supports']['layout'])) {
-			$metadata['supports']['layout'] = array_merge(
-				$metadata['supports']['layout'],
-				[
-					'allowEditing'           => true,  // allow selection of any enabled layout options
-					'allowSwitching'         => false, // selection of flow/flex/constrained/grid - false because we're deciding that with CSS
-					'allowOrientation'       => false, // vertical stacking option
-					'allowJustification'     => false, // selection of horizontal alignment
-					'allowVerticalAlignment' => false, // prevent double-up - this one adds a class, but the attribute is an attribute which is preferred for my programmatic handling
-				]
-			);
-		}
-		if($name === 'core/column') {
-			if(!is_array($metadata['supports']['layout'])) {
-				$metadata['supports']['layout'] = [];
-			}
-			$metadata['supports']['layout'] = array_merge(
-				$metadata['supports']['layout'],
-				[
-					'allowEditing'           => false,
-					'allowInheriting'        => false,
-					'allowSwitching'         => false,
-					'allowJustification'     => false,
-					'allowVerticalAlignment' => false // also use the attribute here, don't add a class name
-				]
-			);
-		}
-
-		// Gallery
-		if($name === 'core/gallery') {
-			$metadata['supports']['align'] = false;
-			$metadata['supports']['color']['background'] = false;
-			$metadata['supports']['color']['gradients'] = false;
-
-			// This removes some attributes from the definition but doesn't remove them from the editor; that's done in JS
-			unset($metadata['attributes']['linkTarget']);
-			unset($metadata['attributes']['randomOrder']);
-		}
-
-		return $metadata;
-	}
-
-	/**
-	 * Override block.json configuration for some supported plugins
-	 * @param $metadata
-	 * @return array
-	 */
-	function customise_plugin_block_options($metadata): array {
 		return $metadata;
 	}
 
