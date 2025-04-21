@@ -5,11 +5,12 @@ class BlockPatternHandler {
 
 	function __construct() {
 		add_filter('should_load_remote_block_patterns', '__return_false');
-		add_filter('allowed_block_types_all', [$this, 'enable_block_patterns'], 20, 2);
+		add_filter('allowed_block_types_all', [$this, 'enable_block_patterns'], 100, 2);
 		add_action('admin_menu', [$this, 'add_menu_item']);
 		add_filter('block_editor_settings_all', [$this, 'remove_patterns_from_inserter']);
 		add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
 	}
+
 
 	/**
 	 * Enable reusable blocks (synced patterns)

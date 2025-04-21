@@ -13,7 +13,8 @@ class BlockRenderer {
 	public function __construct() {
 		$this->load_merged_theme_json();
 		add_filter('wp_theme_json_data_default', [$this, 'filter_default_theme_json'], 10, 1);
-		add_action('init', [$this, 'override_core_block_rendering'], 20);
+		// Core block rendering override needs to run pretty late to ensure all blocks are registered and available in the registry instance first
+		add_action('init', [$this, 'override_core_block_rendering'], 100);
 	}
 
 	protected function load_merged_theme_json(): void {
@@ -694,17 +695,24 @@ class BlockRenderer {
 		}, null);
 	}
 
+
 	/**
-	 * Utility function to get all allowed blocks after filtering functions have run
+	 * Utility function to get all allowed blocks including the result of filtering functions
 	 * @return array
 	 */
-	public function get_allowed_blocks(): array {
+	private function get_allowed_blocks(): array {
 		$all_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
 		$allowed_blocks = apply_filters('allowed_block_types_all', $all_blocks);
 
 		return array_values($allowed_blocks);
 	}
 
+
+	/**
+	 * Show an error message to logged-in users who can edit posts if there is a problem rendering the block
+	 * @param $error
+	 * @return string
+	 */
 	private static function handle_error($error): string {
 		if(current_user_can('edit_posts')) {
 			$adminMessage = new Callout(

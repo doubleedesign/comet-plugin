@@ -23,7 +23,8 @@
 			},
 			"core/freeform": {},
 			"core/footnotes": {},
-			"core/separator": {}
+			"core/separator": {},
+			"core/block": {}
 		}
 	},
 	"categories": [

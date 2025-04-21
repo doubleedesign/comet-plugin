@@ -6,6 +6,7 @@ use Block_Supports_Extended;
 
 class BlockRegistry extends JavaScriptImplementation {
 	private array $block_support_json;
+	private array $allowed_blocks = [];
 
 	function __construct() {
 		parent::__construct();
@@ -22,18 +23,16 @@ class BlockRegistry extends JavaScriptImplementation {
 		// Register common custom attributes
 		add_action('init', [$this, 'register_custom_attributes'], 5);
 
-		// Styles and variations of core blocks
+		// Styles for core blocks
 		add_action('init', [$this, 'register_core_block_styles'], 10);
-		add_action('block_type_metadata', [$this, 'register_core_block_variations'], 10);
 
 		// Override some block.json configuration for core and plugin blocks
-		add_action('block_type_metadata', [$this, 'update_some_core_block_descriptions'], 10);
+		add_filter('block_type_metadata', [$this, 'update_some_core_block_descriptions'], 10);
 		add_filter('block_type_metadata', [$this, 'customise_core_block_options'], 15, 1);
 
 		// Block relationship limitations
-		//add_filter('block_type_metadata', [$this, 'control_block_parents'], 15, 1);
+		add_filter('block_type_metadata', [$this, 'control_block_parents'], 20, 1);
 	}
-
 
 	/**
 	 * Register custom blocks
@@ -180,27 +179,6 @@ class BlockRegistry extends JavaScriptImplementation {
 		return array_keys($filtered);
 	}
 
-	/**
-	 * Register custom variations of core block
-	 * @param $metadata - the existing block metadata used to register it
-	 * @return array
-	 */
-	function register_core_block_variations($metadata): array {
-		$supported_core_blocks = $this->block_support_json['core']['supported'];
-		$blocks_with_variations = array_filter($supported_core_blocks, fn($block) => isset($block['variations']));
-
-		foreach($blocks_with_variations as $block_name => $data) {
-			if($metadata['name'] === $block_name) {
-				$metadata['variations'] = array_merge(
-					$metadata['variations'] ?? array(),
-					$data['variations']
-				);
-			}
-		}
-
-		return $metadata;
-	}
-
 
 	/**
 	 * Update some core block descriptions with those set in the block-support.json file
@@ -301,87 +279,50 @@ class BlockRegistry extends JavaScriptImplementation {
 			default:
 				return $metadata;
 		}
-
-		return $metadata;
 	}
 
 	/**
 	 * Control where blocks can be placed by requiring them to be inside certain other blocks
-	 * This is mainly for core blocks because custom blocks should have the parent set in block.json,
-	 * but because this uses block-support.json's categories then these settings can also apply to custom blocks that are listed there
+	 * This is for core and third-party plugin blocks because - custom blocks should have the parent set in block.json.
 	 * @param $metadata
 	 * @return array
 	 */
 	function control_block_parents($metadata): array {
 		delete_transient('wp_blocks_data'); // clear cache
+		// Note: Ninja Forms has to be handled in JS because it doesn't hit this function
+
+		// Skip Comet blocks because their parents should be handled in their block.json
+		if(str_starts_with($metadata['name'], 'comet/')) return $metadata;
+
+		$commonLayout = ['comet/container', 'comet/panel', 'core/group', 'core/column', 'comet/image-and-text'];
+
 		$name = $metadata['name'];
-
-		$typography_blocks = array_merge(
-			array_values(array_filter(
-				$this->block_support_json['categories'],
-				fn($category) => $category['slug'] === 'text'
-			))[0]['blocks'] ?? [],
-			array_values(array_filter(
-				$this->block_support_json['categories'],
-				fn($category) => $category['slug'] === 'featured-text'
-			))[0]['blocks'] ?? []
-		);
-
-		$layout_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'design'
-		))[0]['blocks'] ?? [];
-		$layout_blocks = array_filter($layout_blocks, fn($block) => $block !== 'core/column');
-
-		$media_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'media'
-		))[0]['blocks'] ?? [];
-
-		$content_blocks = array_values(array_filter(
-			$this->block_support_json['categories'],
-			fn($category) => $category['slug'] === 'content'
-		))[0]['blocks'] ?? [];
-
-		if(in_array($name, $layout_blocks)) {
-			$supported = ['comet/container', 'core/group'];
-			if(isset($metadata['parent'])) {
-				$metadata['parent'] = array_merge($metadata['parent'], $supported);
-			}
-			else {
-				$metadata['parent'] = $supported;
-			}
+		switch($name) {
+			case 'core/columns':
+				$metadata['parent'] = ['comet/container', 'comet/panel', 'core/group'];
+				return $metadata;
+			case 'core/buttons':
+				$metadata['parent'] = [...$commonLayout, 'comet/call-to-action', 'comet/step'];
+				return $metadata;
+			case 'core/button':
+				$metadata['parent'] = ['core/buttons', ...$commonLayout, 'comet/step'];
+				return $metadata;
+			case 'core/gallery':
+			case 'core/details':
+			case 'core/separator':
+			case 'core/pullquote':
+			case 'core/freeform':
+				$metadata['parent'] = $commonLayout;
+				return $metadata;
+			case 'core/heading':
+			case 'core/paragraph':
+			case 'core/list':
+			case 'core/image':
+			case 'core/quote':
+				$metadata['parent'] = [...$commonLayout, 'comet/step', 'comet/banner'];
+				return $metadata;
+			default:
+				return $metadata;
 		}
-		if(in_array($name, array_merge($typography_blocks, $media_blocks))) {
-			if($name !== 'comet/banner') { // let banner be used at the top level
-				$supported = ['comet/container', 'core/column', 'core/group'];
-				if(isset($metadata['parent'])) {
-					$metadata['parent'] = array_merge($metadata['parent'], $supported);
-				}
-				else {
-					$metadata['parent'] = $supported;
-				}
-			}
-		}
-		if(in_array($name, array_merge($content_blocks, ['core/embed']))) {
-			$supported = ['comet/container', 'core/column', 'core/group', 'core/details'];
-
-			if(isset($metadata['parent'])) {
-				$metadata['parent'] = array_merge($metadata['parent'], $supported);
-			}
-			else {
-				$metadata['parent'] = $supported;
-			}
-		}
-		if($name === 'core/freeform') {
-			$metadata['parent'] = ['comet/container', 'comet/group', 'comet/column'];
-		}
-
-		// Allow group at to be used at the top level because some page templates need it in place of container being the root parent
-		if($name === 'core/group') {
-			unset($metadata['parent']);
-		}
-
-		return $metadata;
 	}
 }

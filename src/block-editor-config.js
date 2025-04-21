@@ -52,6 +52,7 @@ wp.domReady(() => {
 	wp.hooks.addFilter('blocks.registerBlockType', 'comet/fix-block-categories', function (settings, name) {
 		if (name.startsWith('ninja-forms/')) {
 			settings.category = 'forms';
+			settings.parent = ['comet/container', 'comet/panel', 'core/group', 'core/column', 'comet/image-and-text'];
 		}
 
 		return settings;
