@@ -6,19 +6,21 @@ use Block_Supports_Extended;
 
 class BlockRegistry extends JavaScriptImplementation {
 	private array $block_support_json;
-	private array $allowed_blocks = [];
+	private WP_Block_Type_Registry $wpInstance;
 
 	function __construct() {
 		parent::__construct();
 
 		$this->block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
+		$this->wpInstance = WP_Block_Type_Registry::get_instance();
 
 		// Comet block registration
 		add_action('init', [$this, 'register_blocks'], 10, 2);
 		add_action('acf/include_fields', [$this, 'register_block_fields'], 10, 2);
 
 		// Limit editor to supported blocks
-		add_filter('allowed_block_types_all', [$this, 'set_allowed_blocks'], 10, 2);
+		add_action('init', [$this, 'unregister_unsupported_blocks'], 50);
+		add_filter('allowed_block_types_all', [$this, 'set_allowed_blocks'], 15, 2);
 
 		// Register common custom attributes
 		add_action('init', [$this, 'register_custom_attributes'], 5);
@@ -139,44 +141,46 @@ class BlockRegistry extends JavaScriptImplementation {
 	}
 
 	/**
-	 * Limit available blocks for simplicity
-	 * NOTE: This is not the only place a block may be explicitly allowed.
-	 * Most notably, ACF-driven custom blocks and page/post type templates may use/allow them directly.
-	 * Some core blocks also have child blocks that already only show up in the right context.
-	 *
+	 * Limit available blocks for simplicity by completely unregistering unsupported core blocks
+	 * This works around issues with filtering with allowed_block_types all in multiple places
+	 * NOTE: May need to add more here because previously some blocks used in specific contexts still showed in those contexts
+	 * @return void
+	 */
+	function unregister_unsupported_blocks(): void {
+		$core = array_keys($this->block_support_json['core']['supported']);
+		$all_block_types = array_keys($this->wpInstance->get_all_registered());
+
+		// Unregister core blocks not in the list of supported blocks
+		foreach($all_block_types as $name) {
+			if(str_starts_with($name, 'core/') && !in_array($name, $core)) {
+				$this->wpInstance->unregister($name);
+			}
+		}
+
+		// Disallow specific blocks
+		if(in_array($name, ['ninja-forms/submissions-table'])) {
+			$this->wpInstance->unregister($name);
+		}
+	}
+
+
+	/**
+	 * Ensure the first time that allowed_block_types_all is run, it gets the filtered list
+	 * IMPORTANT: Run this earlier than any theme or plugin's use of the filter
 	 * @param $allowed_blocks
-	 *
 	 * @return array
 	 */
 	function set_allowed_blocks($allowed_blocks): array {
-		// Get all registered blocks
-		$all_block_types = WP_Block_Type_Registry::get_instance()->get_all_registered();
-		// Get supported core block names
-		$core = array_keys($this->block_support_json['core']['supported']);
-		$filtered = array_filter($all_block_types, function($block, $name) use ($core) {
-			// Filter out core blocks not in the list
-			if(str_starts_with($name, 'core/')) {
-				return in_array($name, $core);
-			}
+		if($allowed_blocks === true) {
+			$registered = array_keys($this->wpInstance->get_all_registered());
 
-			// Disallow specific blocks
-			if(in_array($name, ['ninja-forms/submissions-table'])) {
-				return false;
-			}
+			// Where unregistering doesn't work
+			return array_filter($registered, function($block) {
+				return !in_array($block, ['ninja-forms/submissions-table']);
+			});
+		}
 
-			// Otherwise, allow it
-			return true;
-		}, ARRAY_FILTER_USE_BOTH);
-
-		// Allow blocks here if:
-		// 1. They are to be allowed at the top level
-		// 2. They are allowed to be inserted as child blocks of a core block
-		// No need to include them here if they are only being used in one or more of the below contexts:
-		// 1. As direct $allowed_blocks within custom ACF-driven blocks and/or
-		// 2. In a page/post type template defined programmatically and locked there (so users can't delete something that can't be re-inserted)
-		// TODO: When adding post support, there's some post-specific blocks that may be useful
-
-		return array_keys($filtered);
+		return $allowed_blocks;
 	}
 
 

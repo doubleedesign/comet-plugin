@@ -692,7 +692,7 @@ class BlockRenderer {
 	 */
 	private function get_allowed_blocks(): array {
 		$all_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
-		$allowed_blocks = apply_filters('allowed_block_types_all', $all_blocks);
+		$allowed_blocks = apply_filters('allowed_block_types_all', array_keys($all_blocks));
 
 		return array_values($allowed_blocks);
 	}

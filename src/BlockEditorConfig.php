@@ -25,6 +25,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
 		add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
 		add_action('init', [$this, 'register_page_template'], 15, 2);
+		add_filter('allowed_block_types_all', [$this, 'post_type_allowed_block_types'], 11, 2);
 
 		add_filter('block_categories_all', [$this, 'customise_block_categories'], 5, 1);
 		add_filter('register_block_type_args', [$this, 'assign_blocks_to_categories'], 11, 2);
@@ -72,6 +73,54 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		$post_type_object = get_post_type_object('page');
 		$post_type_object->template = $template;
 		$post_type_object->template_lock = false;
+	}
+
+
+	/**
+	 * Limit block types allowed on specific post types
+	 * @param $allowed_blocks
+	 * @param \WP_Block_Editor_Context|null $context
+	 * @return array
+	 */
+	function post_type_allowed_block_types($allowed_blocks, \WP_Block_Editor_Context $context = null): array {
+		if($context === null) return $allowed_blocks;
+
+		$post = $context->post;
+
+		// If all blocks are allowed ($allowed_blocks = true), we need to get all registered blocks first
+		if($allowed_blocks === true) {
+			$all_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
+			$allowed_blocks = array_keys($all_blocks);
+		}
+
+		// For some reason filtering for page templates doesn't work from within the theme where it really belongs :(
+		// Events are filtered within the Comet Calendar plugin, where that belongs
+		switch($post->post_type) {
+			case 'post':
+				$filtered = array_filter($allowed_blocks, function($block) {
+					return !in_array($block, ['comet/container', 'comet/banner']);
+				}, ARRAY_FILTER_USE_BOTH);
+				return array_values($filtered);
+			case 'page':
+				$page_template = get_post_meta($post->ID, '_wp_page_template', true);
+
+				// Disallow adding Containers at the top level of the with-nav-sidebar template
+				// Note: This works in conjunction with some JavaScript that transforms Containers to Groups when switching to this template
+				// TODO: This requires a page refresh to take effect, so could be improved to ensure the correct block is always used
+				//       Would it be easier to refresh the block list on template change, or change Groups to Containers and vice versa on save?
+				if($page_template === 'template-page-with-nav-sidebar.php') {
+					$filtered = array_filter($allowed_blocks, function($block) {
+						return $block !== 'comet/container';
+					}, ARRAY_FILTER_USE_BOTH);
+
+					return array_values($filtered);
+				}
+
+				// Other templates, do nothing
+				return $allowed_blocks;
+			default:
+				return $allowed_blocks;
+		}
 	}
 
 
