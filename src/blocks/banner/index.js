@@ -251,7 +251,7 @@ wp.domReady(() => {
 						{
 							className: 'banner__content',
 							'data-valign': verticalAlignment,
-							'data-halign': layout.justifyContent,
+							'data-halign': layout?.justifyContent,
 						},
 						createElement(
 							'div',
