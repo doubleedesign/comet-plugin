@@ -277,16 +277,6 @@ class BlockRenderer {
 			$transformed_name = "$variant-$block_name_trimmed";
 			$ComponentClass = self::get_comet_component_class($transformed_name);
 		}
-		// For the core group block, detect variation based on layout attributes and use that class instead
-		else if($block_name_trimmed === 'group') {
-			$layout = $block_instance->attributes['layout'];
-			$variation = match ($layout['type']) {
-				'flex' => isset($layout['orientation']) && $layout['orientation'] === 'vertical' ? 'stack' : 'row',
-				'grid' => 'grid',
-				default => 'group'
-			};
-			$ComponentClass = self::get_comet_component_class($variation);
-		}
 		// This is a regular block that is not a variant, something with variant context, a Group, or variation of a Group
 		else {
 			$ComponentClass = self::get_comet_component_class($block_name); // returns the namespaced class name matching the block name
