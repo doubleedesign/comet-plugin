@@ -1,11 +1,9 @@
 /* Error: Can't find stylesheet to import.
  *   ,
- * 2 | @use '../../../vendor/feimosi/baguettebox.js/src/baguetteBox.scss';
- *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ * 1 | @use "blocks";
+ *   | ^^^^^^^^^^^^^
  *   '
- *   ..\vendor\doubleedesign\comet-components-core\src\components\Gallery\gallery.scss 2:1  @use
- *   blocks.scss 12:1                                                                       @use
- *   editor.scss 1:1                                                                        root stylesheet */
+ *   editor.scss 1:1  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -15,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 2 \2502  @use '../../../vendor/feimosi/baguettebox.js/src/baguetteBox.scss';\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   ..\\vendor\\doubleedesign\\comet-components-core\\src\\components\\Gallery\\gallery.scss 2:1  @use\a   blocks.scss 12:1                                                                       @use\a   editor.scss 1:1                                                                        root stylesheet";
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use \"blocks\";\a   \2502  ^^^^^^^^^^^^^\a   \2575 \a   editor.scss 1:1  root stylesheet";
 }
