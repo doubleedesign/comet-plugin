@@ -152,7 +152,7 @@ class BlockRenderer {
 		if(
 			(!str_starts_with($block_name, 'core/') && !str_starts_with($block_name, 'comet/'))
 			|| (gettype($block_instance) !== 'object')
-			|| in_array($block_name, ['comet/file-group', 'comet/link-group'])
+			|| in_array($block_name, ['comet/file-group', 'comet/link-group', 'comet/upcoming-events'])
 		) {
 			try {
 				if($block_instance->block_type->render_callback) {

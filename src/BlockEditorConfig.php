@@ -221,6 +221,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 	function admin_css(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
+		$vendorDir = COMET_COMPOSER_VENDOR_URL;
 
 		wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/src/block-editor-config.css", array(), COMET_VERSION);
 	}
