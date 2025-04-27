@@ -157,6 +157,11 @@
 
 	.banner {
 		height: max-content !important;
+
+		&__content {
+			position: relative;
+			z-index: 200;
+		}
 	}
 }
 
