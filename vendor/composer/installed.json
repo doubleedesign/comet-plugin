@@ -173,16 +173,18 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "6171e621b8fa3c7a5971636eb4b4f71c40123398"
+                "reference": "8210474517d742bebd02739be4f829bc39236764"
             },
             "require": {
+                "ext-intl": "*",
                 "ezyang/htmlpurifier": "^4.18",
                 "feimosi/baguettebox.js": "^1.12.1",
                 "illuminate/container": "^10.0",
                 "illuminate/events": "^10.0",
                 "illuminate/filesystem": "^10.0",
                 "illuminate/support": "^10.0",
-                "illuminate/view": "^10.0"
+                "illuminate/view": "^10.0",
+                "openpsa/ranger": "^0.5.8"
             },
             "type": "library",
             "installation-source": "dist",
@@ -1080,6 +1082,61 @@
             "install-path": "../nesbot/carbon"
         },
         {
+            "name": "openpsa/ranger",
+            "version": "v0.5.8.1",
+            "version_normalized": "0.5.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flack/ranger.git",
+                "reference": "6896106f1a5e74a672beb0fadc41615c8ff6d1bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flack/ranger/zipball/6896106f1a5e74a672beb0fadc41615c8ff6d1bb",
+                "reference": "6896106f1a5e74a672beb0fadc41615c8ff6d1bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "symfony/intl": "~2.6|~3.4|~4.0|~5.0|~6.0|~7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=6.5"
+            },
+            "suggest": {
+                "ext-intl": "Needed for usage with other locales than 'en'"
+            },
+            "time": "2024-03-05T15:44:35+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "OpenPsa\\Ranger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Flack",
+                    "email": "flack@contentcontrol-berlin.de",
+                    "homepage": "http://www.contentcontrol-berlin.de/"
+                }
+            ],
+            "description": "Formatter for date and time ranges with i18n support",
+            "keywords": [
+                "date range",
+                "time range"
+            ],
+            "support": {
+                "issues": "https://github.com/flack/ranger/issues",
+                "source": "https://github.com/flack/ranger/tree/v0.5.8.1"
+            },
+            "install-path": "../openpsa/ranger"
+        },
+        {
             "name": "psr/clock",
             "version": "1.0.0",
             "version_normalized": "1.0.0.0",
@@ -1376,6 +1433,95 @@
                 }
             ],
             "install-path": "../symfony/finder"
+        },
+        {
+            "name": "symfony/intl",
+            "version": "v7.2.0",
+            "version_normalized": "7.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/intl.git",
+                "reference": "76bb3462c6c308f8bd97d3c178c2626ae44d4dea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/76bb3462c6c308f8bd97d3c178c2626ae44d4dea",
+                "reference": "76bb3462c6c308f8bd97d3c178c2626ae44d4dea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/deprecation-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "symfony/string": "<7.1"
+            },
+            "require-dev": {
+                "symfony/filesystem": "^6.4|^7.0",
+                "symfony/var-exporter": "^6.4|^7.0"
+            },
+            "time": "2024-11-25T14:26:33+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Intl\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/",
+                    "/Resources/data/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Eriksen Costa",
+                    "email": "eriksen.costa@infranology.com.br"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides access to the localization data of the ICU library",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "i18n",
+                "icu",
+                "internationalization",
+                "intl",
+                "l10n",
+                "localization"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/intl/tree/v7.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../symfony/intl"
         },
         {
             "name": "symfony/polyfill-mbstring",
