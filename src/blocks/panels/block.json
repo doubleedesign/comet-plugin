@@ -99,7 +99,7 @@
 		}
 	],
 	"supports": {
-		"multiple": false,
+		"multiple": true,
 		"mode": false,
 		"jsx": true,
 		"innerBlocks": true,
