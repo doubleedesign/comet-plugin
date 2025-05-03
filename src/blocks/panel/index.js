@@ -50,25 +50,31 @@ wp.domReady(() => {
 					null,
 					// Title section
 					createElement(
-						RichText,
+						'div',
 						{
-							tagName: 'span',
-							className: `${variant}__panel-title`,
-							value: title,
-							onChange: (value) => setAttributes({ title: value }),
-							placeholder: 'Add panel title here...'
-						}
-					),
-					// Subtitle section
-					createElement(
-						RichText,
-						{
-							tagName: 'small',
-							className: `${variant}__panel-subtitle`,
-							value: subtitle,
-							onChange: (value) => setAttributes({ subtitle: value }),
-							placeholder: 'Add panel subtitle here...'
-						}
+							className: `${variant}__panel__title`
+						},
+						createElement(
+							RichText,
+							{
+								tagName: 'span',
+								className: `${variant}__panel__title__main`,
+								value: title,
+								onChange: (value) => setAttributes({ title: value }),
+								placeholder: 'Add panel title here...'
+							}
+						),
+						// Subtitle section
+						createElement(
+							RichText,
+							{
+								tagName: 'small',
+								className: `${variant}__panel__title__subtitle`,
+								value: subtitle,
+								onChange: (value) => setAttributes({ subtitle: value }),
+								placeholder: 'Add panel subtitle here...'
+							}
+						),
 					),
 					// Content section
 					createElement(

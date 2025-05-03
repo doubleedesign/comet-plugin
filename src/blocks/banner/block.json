@@ -4,6 +4,7 @@
 	"name": "comet/banner",
 	"title": "Banner",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"category": "design",
 	"icon": "cover-image",
 	"description": "A full-width image with optional colour and text overlays",
@@ -13,9 +14,6 @@
 		"featured"
 	],
 	"textdomain": "comet",
-	"editorStyle": [
-		"comet-banner-style"
-	],
 	"attributes": {
 		"imageId": {
 			"type": "number",

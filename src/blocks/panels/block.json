@@ -12,6 +12,7 @@
 		"comet/panel"
 	],
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"category": "design",
 	"icon": "list-view",
 	"description": "Group related content into expandable/collapsible sections or a tabbed interface",
@@ -36,10 +37,6 @@
 			"default": "comet/responsive-panels"
 		}
 	},
-	"editorStyle": [
-		"comet-accordion-style",
-		"comet-tabs-style"
-	],
 	"providesContext": {
 		"comet/variant": "variant",
 		"comet/orientation": "orientation"

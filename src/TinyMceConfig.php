@@ -50,7 +50,7 @@ class TinyMceConfig {
 	 */
 	function editor_css(): void {
 		$comet_global_styles = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-plugin/src/components/global.css';
-		$theme_editor_css = get_stylesheet_directory() . '/styles-editor.css';
+		$theme_editor_css = get_stylesheet_directory() . '/editor.css';
 		$css = [
 			$comet_global_styles,
 			$theme_editor_css

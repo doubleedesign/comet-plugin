@@ -1,0 +1,16 @@
+@use "../../../vendor/doubleedesign/comet-components-core/src/components/Banner/banner" as *;
+
+.wp-block-comet-banner {
+	max-width: 100%;
+	height: max-content;
+
+	.banner {
+		height: max-content !important;
+
+		&__image {
+		}
+
+		&__content {
+		}
+	}
+}

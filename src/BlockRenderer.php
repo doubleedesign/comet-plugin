@@ -9,12 +9,19 @@ use WP_Block_Type_Registry, WP_Block;
 
 class BlockRenderer {
 	private array $theme_json;
+	private array $block_support_json;
 
 	public function __construct() {
 		$this->load_merged_theme_json();
+
 		add_filter('wp_theme_json_data_default', [$this, 'filter_default_theme_json'], 10, 1);
 		// Core block rendering override needs to run pretty late to ensure all blocks are registered and available in the registry instance first
 		add_action('init', [$this, 'override_core_block_rendering'], 100);
+
+		if(is_admin()) {
+			$this->block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
+			add_action('init', [$this, 'register_core_block_stylesheets_for_editor'], 99, 2);
+		}
 	}
 
 	protected function load_merged_theme_json(): void {
@@ -93,15 +100,49 @@ class BlockRenderer {
 			unregister_block_type($core_block_name);
 
 			// Re-register the block with the original settings merged with new settings and new render callback
+			$shortName = array_reverse(explode('/', $core_block_name))[0];
 			register_block_type($core_block_name,
 				array_merge(
 					get_object_vars($block_type), // Convert object to array
 					[
 						// Custom front-end rendering using Comet
 						'render_callback' => self::render_block_callback($core_block_name),
+						'editorStyle'     => "comet-$shortName-style",
+						// to make it work in the pattern editor. Normally, style also loads on the front-end, but at the time of writing it isn't,
+						// probably because of the render callback override, which is intentional - we are loading bundled css on the front-end.
+						'style'           => "comet-$shortName-style"
 					]
 				)
 			);
+		}
+	}
+
+	/**
+	 * Register component stylesheets for the editor, to override/supplement core and third-party block styles
+	 * The styles are added in the block registration override function (override_core_block_rendering) and are equivalent to what we'd put in editorStyle in a custom block.json
+	 * @return void
+	 */
+	function register_core_block_stylesheets_for_editor(): void {
+		if(!isset($this->block_support_json)) return;
+
+		$supported_core_blocks = array_keys($this->block_support_json['core']['supported']);
+		$deps = array('wp-edit-blocks');
+		foreach($supported_core_blocks as $block_name) {
+			$shortName = array_reverse(explode('/', $block_name))[0];
+			$className = Utils::pascal_case($shortName);
+			$stylesheet = COMET_COMPOSER_VENDOR_URL . "/doubleedesign/comet-components-core/src/components/$className/$shortName.css";
+			if($shortName === 'column') {
+				$stylesheet = COMET_COMPOSER_VENDOR_URL . "/doubleedesign/comet-components-core/src/components/Columns/Column/column.css";
+			}
+			if($shortName === 'buttons') {
+				$stylesheet = COMET_COMPOSER_VENDOR_URL . "/doubleedesign/comet-components-core/src/components/ButtonGroup/button-group.css";
+			}
+
+			if(file_exists($stylesheet)) {
+				wp_register_style("comet-$shortName-style", $stylesheet, $deps, COMET_VERSION);
+			}
+
+			error_log(print_r($stylesheet, true));
 		}
 	}
 

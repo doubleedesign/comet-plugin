@@ -3,7 +3,7 @@
 wp.domReady(() => {
 	const { registerBlockType, createBlock } = wp.blocks;
 	const { InspectorControls, useBlockProps, InnerBlocks } = wp.blockEditor;
-	const { createElement } = wp.element;
+	const { createElement, Fragment } = wp.element;
 	const { PanelBody, SelectControl } = wp.components;
 
 	registerBlockType('comet/container', {
@@ -52,39 +52,41 @@ wp.domReady(() => {
 						],
 						onChange: (newValue) => setAttributes({ size: newValue }),
 						// eslint-disable-next-line max-len
-						help: 'Note: Some page templates (such as those with a sidebar) have their own hard-coded container(s) and may ignore containers. The Group block may be more suitable for these cases.',
+						help: 'Note: Some page templates have their own hard-coded container(s) and may ignore containers. The Group block may be more suitable for these cases.',
 						__next40pxDefaultSize: true
 					}
 				));
 
-
-			const blockProps = useBlockProps();
+			const blockProps = useBlockProps({
+				className: 'page-section layout-block',
+				// could probably add the proper background attribute here but don't because we have to style for the default classes
+				// for core blocks anyway, may as well just share that
+			});
 			const template = [
 				['core/paragraph']
 			];
 
 			return createElement(
-				'div',
-				blockProps,
+				Fragment,
+				null,
 				// Block editor sidebar
 				createElement(
 					InspectorControls,
 					null,
 					containerSizeControl,
 				),
-				// Block preview
 				createElement('section',
 					blockProps,
+					// Block preview
 					createElement(
 						'div',
-						{ className: 'container' },
-						createElement(
-							'div',
-							{ 'data-size': attributes.size },
-							createElement(InnerBlocks, {
-								template: template
-							})
-						)
+						{
+							className: 'container',
+							'data-size': attributes.size,
+						},
+						createElement(InnerBlocks, {
+							template: template
+						})
 					)
 				)
 			);

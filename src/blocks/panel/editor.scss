@@ -1,0 +1,37 @@
+.accordion__panel {
+	width: 100%;
+
+	&__title {
+		padding: var(--spacing-sm);
+		margin-block-start: var(--spacing-xxs);
+		background: color-mix(in srgb, var(--color-primary) 10%, white);
+
+		@each $colorName in ('primary', 'secondary', 'accent', 'success', 'warning', 'danger', 'info', 'light', 'dark') {
+			[data-color-theme=#{$colorName}] & {
+				background: color-mix(in srgb, var(--color-#{$colorName}) 10%, white);
+			}
+		}
+
+		&__main,
+		&__subtitle {
+			display: block;
+		}
+
+		&__main {
+			font-weight: var(--font-weight-semibold);
+		}
+
+		&__subtitle {
+		}
+	}
+
+	&__content {
+		> :first-child {
+			padding-block-start: var(--spacing-md);
+		}
+
+		> :last-child {
+			padding-block-end: var(--spacing-md);
+		}
+	}
+}

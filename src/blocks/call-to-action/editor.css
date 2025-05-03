@@ -1,0 +1,19 @@
+.call-to-action {
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+@container (min-width: 600px) {
+  .call-to-action {
+    text-align: revert;
+  }
+}
+@container (min-width: 940px) {
+  .call-to-action {
+    padding: var(--spacing-xl);
+  }
+}
+.call-to-action .button-group:last-child {
+  padding-block-end: 0;
+}
+
+/*# sourceMappingURL=editor.css.map */

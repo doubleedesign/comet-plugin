@@ -9,9 +9,6 @@
 		null
 	],
 	"description": "Create a section that controls the maximum width of its contents, can have a background colour, etc.",
-	"editorStyle": [
-		"comet-container-style"
-	],
 	"attributes": {
 		"size": {
 			"type": "string",
@@ -44,5 +41,6 @@
 			}
 		}
 	},
-	"editorScript": "file:./index.js"
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css"
 }

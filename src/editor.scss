@@ -1,21 +1,64 @@
-@use "blocks";
 @use "../vendor/doubleedesign/comet-components-core/src/components/variables" as *;
 @use "../vendor/doubleedesign/comet-components-core/src/components/PageHeader/page-header" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Columns/columns" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Columns/Column/column" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Separator/separator" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/ButtonGroup/button-group" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Pullquote/pullquote" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Table/table" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Button/button" as *;
 
 // In the editor, make the page title section resemble the PageHeader component
 // It won't always be the same because it won't have the breadcrumbs,
 // and site-specific overrides may be needed, but this is a start
 .editor-visual-editor__post-title-wrapper {
-	max-width: map-get($widths, 'contained');
-	margin: 0 auto;
-	padding: 0.707rem;
 	@extend .page-header;
 }
 
-// The rest of this file compiles component CSS adjusted for the WordPress block editor,
-// to be loaded only in the back-end.
-// When I say "adjusted", that should just be for core components because we don't control their default HTML.
+/**
+ * Common classes used in the block editor for attributes in both core and custom blocks,
+ * but do not match Comet Components' handling of these attributes so need to be styled to match in the editor
+ */
+.is-content-justification-left {
+	justify-content: flex-start;
+}
+
+.is-content-justification-right {
+	justify-content: flex-end;
+}
+
+.is-content-justification-center {
+	justify-content: center;
+}
+
+// Comet Components uses start, center, end for alignment
+// But WordPress doesn't, and I don't want to pollute the Comet global CSS with WordPress-specific values
+[data-valign="top"] {
+	align-items: flex-start;
+}
+
+[data-valign="bottom"] {
+	align-items: flex-end;
+}
+
+[data-halign="left"] {
+	justify-content: flex-start;
+}
+
+[data-halign="right"] {
+	justify-content: flex-end;
+}
+
+/**
+ * Core and third-party plugin block CSS adjusted for the block editor, to be loaded only in the back-end.
+ * Comet custom block CSS should generally be in is own stylesheet which is referenced in its block.json.
+ * ACF blocks should load the same HTML as the front-end, so should be covered by bundled Comet CSS + theme CSS.
+ */
 @each $colorName, $value in $colors {
+	.color-#{$colorName} {
+		color: var(--color-#{$colorName});
+	}
+
 	.has-#{$colorName}-background-color {
 		background-color: var(--color-#{$colorName});
 		color: var(--readable-color-#{$colorName});
@@ -28,101 +71,8 @@
 	}
 }
 
-:where(.editor-styles-wrapper) p, li {
-	line-height: inherit !important;
-	font-size: 1rem;
-	font-family: var(--font-family-body);
-}
-
-.components-resizable-box__container {
-	max-width: 100% !important;
-
-	img {
-		max-width: 100% !important;
-	}
-}
-
-// Custom vertical alignment used for the banner block (and possibly others added after this)
-.components-base-control:has([aria-label="Change vertical alignment"]) {
-	// Hack it into position next to the horizontal justification in the layout panel above
-	padding: 1rem;
-	width: max-content;
-	margin-left: auto;
-	margin-top: -96px;
-	margin-bottom: 0;
-
-	// Make the button match the horizontal justification one
-	.components-dropdown-menu__toggle {
-		border: 1px solid transparent;
-		margin-top: 1px;
-
-		&:hover, &:focus, &:active {
-			border-color: var(--wp-components-color-gray-700, #757575);
-		}
-	}
-}
-
-// When the layout panel is closed, hide the custom vertical alignment and container size so they appear like they're in the layout panel
-.components-panel__body {
-	+ .comet-custom-layout-controls {
-		display: none;
-	}
-
-	&.is-opened {
-		+ .comet-custom-layout-controls {
-			display: block;
-		}
-	}
-}
-
-.components-toggle-group-control {
-	transition: border 0.2s ease-in-out;
-	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
-	min-height: 32px !important; // default 36px is 2px too high for the buttons and I can't unsee it
-
-	&:hover, &:focus-within {
-		border-color: var(--wp-components-color-gray-700, #757575) !important;
-	}
-
-	.components-toggle-group-control-option-base {
-		transition: background 0.2s ease-in-out;
-
-		&:not([aria-checked="true"]):not([aria-pressed="true"]) {
-			&:hover, &:focus {
-				background: #EEE;
-			}
-		}
-	}
-}
-
-.components-toggle-control__help {
-	code {
-		font-size: 0.7rem;
-	}
-}
-
-.wp-submenu {
-	margin-inline-start: 0;
-}
-
-.wp-block-comet-container {
-	margin: 0 auto;
-}
-
-[data-halign="left"] {
-	justify-content: flex-start;
-}
-
-[data-halign="right"] {
-	justify-content: flex-end;
-}
-
-[data-valign="top"] {
-	align-items: flex-start;
-}
-
-[data-valign="bottom"] {
-	align-items: flex-end;
+body :where(.editor-styles-wrapper) {
+	font-family: var(--font-family-body) !important;
 }
 
 .wp-block-heading {
@@ -130,6 +80,38 @@
 
 	&.is-style-default {
 		font-family: var(--font-family-body);
+	}
+
+
+	@each $colorName, $value in $colors {
+		.color-#{$colorName} & {
+			color: var(--color-#{$colorName});
+		}
+	}
+}
+
+.wp-block-group {
+	&.has-background-color {
+		padding-block: var(--spacing-md);
+	}
+
+	@each $colorName, $value in $colors {
+		&.has-#{$colorName}-background-color {
+			& + & {
+				padding-block-start: 0;
+			}
+		}
+	}
+}
+
+.wp-block-paragraph {
+	margin-block: var(--spacing-sm) !important;
+	line-height: 1.4;
+
+	@each $colorName, $value in $colors {
+		.color-#{$colorName} & {
+			color: var(--color-#{$colorName});
+		}
 	}
 }
 
@@ -151,27 +133,22 @@
 	}
 }
 
-.wp-block-comet-banner {
-	max-width: 100%;
-	height: max-content;
-
-	.banner {
-		height: max-content !important;
-
-		&__content {
-			position: relative;
-			z-index: 200;
-		}
-	}
-}
-
 .wp-block-buttons {
 	@extend .button-group;
 }
 
-.wp-block-paragraph {
-	margin-block: var(--spacing-sm) !important;
-	line-height: 1.4;
+.wp-block-columns {
+	@extend .columns;
+
+	.wp-block-coliumn {
+		@extend .column;
+	}
+}
+
+.wp-block-comet-table {
+	> table {
+		@extend .table;
+	}
 }
 
 // Hack to fix .wp-core-ui .button overriding our .button in the block editor (though strangely it doesn't happen in the pattern editor)
@@ -198,33 +175,10 @@
 	}
 }
 
-@each $colorName, $value in $colors {
-	.color-#{$colorName} {
-		color: var(--color-#{$colorName});
-	}
-}
-
 .wp-block-button__link {
 	padding: 0 !important;
 	border: 0 !important;
 	border-radius: 0 !important;
-}
-
-.wp-block-comet-steps {
-	> .block-editor-inner-blocks {
-		display: contents;
-
-		> .block-editor-block-list__layout {
-			display: contents;
-		}
-	}
-
-	&.is-style-numbered {
-		@extend .steps--numbered;
-	}
-
-	.wp-block-comet-step {
-	}
 }
 
 .wp-block-pullquote {
@@ -233,52 +187,6 @@
 	blockquote {
 		@extend .pullquote;
 	}
-}
-
-.wp-block-comet-image-and-text {
-	.block-editor-block-list__block {
-		width: 100%;
-		display: flex;
-
-		&:has(.wp-block-comet-image-and-text-content-is-layout-constrained.is-content-justification-center) {
-			justify-content: center;
-		}
-
-		&:has(.wp-block-comet-image-and-text-content-is-layout-constrained.is-content-justification-right) {
-			justify-content: flex-end;
-		}
-	}
-
-	.block-editor-inner-blocks {
-		width: 100%;
-	}
-
-
-	// Account for the different HTML structure that breaks the overlay margins
-	.image-and-text__content {
-		margin: 0 !important;
-	}
-
-	.block-editor-block-list__block:has(.image-and-text__image) {
-	}
-
-	.block-editor-block-list__block:has(.image-and-text__content) {
-		&:nth-of-type(1) {
-			.image-and-text__content {
-				margin-block-end: var(--overlay-amount) !important;
-				margin-block-start: 0;
-			}
-		}
-
-		&:nth-of-type(2) {
-			.image-and-text__content {
-				margin-block-start: var(--overlay-amount) !important;
-				margin-block-end: 0;
-			}
-		}
-	}
-
-	// end layout fixes
 }
 
 .wp-block-gallery {
@@ -294,9 +202,4 @@
 	.wp-block-image {
 		width: 100% !important;
 	}
-}
-
-.wp-block-comet-table table {
-	border-collapse: collapse;
-	@extend .table;
 }
