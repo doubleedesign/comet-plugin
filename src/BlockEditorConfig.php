@@ -22,6 +22,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
 		remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
 		remove_action('enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory');
+		add_action('enqueue_block_assets', [$this, 'enqueue_global_css'], 50); // for pattern editor
 
 		add_action('init', [$this, 'load_merged_theme_json'], 5, 1);
 		add_action('init', [$this, 'register_page_template'], 15, 2);
@@ -35,7 +36,16 @@ class BlockEditorConfig extends JavaScriptImplementation {
 		add_action('after_setup_theme', [$this, 'disable_block_template_editor']);
 		add_filter('block_editor_settings_all', [$this, 'disable_block_code_editor'], 10, 2);
 
-		add_action('admin_enqueue_scripts', [$this, 'admin_css']);
+		if(is_admin()) {
+			add_action('admin_enqueue_scripts', [$this, 'admin_css']);
+			add_filter('admin_body_class', [$this, 'block_editor_body_class'], 10, 1);
+		}
+	}
+
+
+	function enqueue_global_css(): void {
+		$libraryDir = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core';
+		wp_enqueue_style('comet-global-styles', "$libraryDir/src/components/global.css", array(), COMET_VERSION);
 	}
 
 
@@ -93,6 +103,7 @@ class BlockEditorConfig extends JavaScriptImplementation {
 			$allowed_blocks = array_keys($all_blocks);
 		}
 
+		if(!isset($post->post_type)) return $allowed_blocks;
 		// For some reason filtering for page templates doesn't work from within the theme where it really belongs :(
 		// Events are filtered within the Comet Calendar plugin, where that belongs
 		switch($post->post_type) {
@@ -215,14 +226,32 @@ class BlockEditorConfig extends JavaScriptImplementation {
 
 	/**
 	 * Scripts to hackily hide stuff (e.g., the disabled code editor button)
-	 * and other CSS adjustments for simplicity
+	 * and other CSS adjustments to the editor itself (not blocks) for simplicity
 	 * @return void
 	 */
 	function admin_css(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
-		$vendorDir = COMET_COMPOSER_VENDOR_URL;
 
 		wp_enqueue_style('comet-block-editor-hacks', "$pluginDir/src/block-editor-config.css", array(), COMET_VERSION);
+	}
+
+
+	/**
+	 * Add some utility classes to the body tag for certain page types
+	 * @param $classes
+	 * @return string
+	 */
+	function block_editor_body_class($classes): string {
+		$id = get_the_id();
+		// Note: loose comparison == because
+		if($id == get_option('page_on_front')) {
+			$classes .= ' is-homepage';
+		}
+		if($id == get_option('page_for_posts')) {
+			$classes .= ' is-page-for-posts';
+		}
+
+		return $classes;
 	}
 }

@@ -15,6 +15,8 @@ class ComponentAssets {
 		add_filter('script_loader_tag', [$this, 'script_base_path'], 10, 3);
 
 		if(is_admin()) {
+			add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_css'], 10);
+			add_action('enqueue_block_assets', [$this, 'enqueue_block_editor_css'], 10);
 			add_filter('block_editor_settings_all', [$this, 'remove_gutenberg_inline_styles']);
 		}
 	}
@@ -73,14 +75,31 @@ class ComponentAssets {
 	}
 
 	/**
-	 * Combined stylesheet for all blocks for the editor
+	 * Block editor overrides
 	 * @return void
 	 */
-	function enqueue_wp_block_css(): void {
+	function enqueue_block_editor_css(): void {
 		$currentDir = plugin_dir_url(__FILE__);
 		$pluginDir = dirname($currentDir, 1);
+
+		$global_css_path = COMET_COMPOSER_VENDOR_URL . '/doubleedesign/comet-components-core/src/components/global.css';
 		$block_css_path = $pluginDir . '/src/editor.css';
+
+		wp_enqueue_style('comet-global-styles', $global_css_path, array('wp-edit-blocks'), COMET_VERSION);
 		wp_enqueue_style('comet-block-styles', $block_css_path, array('wp-edit-blocks'), COMET_VERSION);
+	}
+
+
+	/**
+	 * Admin CSS overrides for things outside the block editor
+	 * @return void
+	 */
+	function enqueue_admin_css(): void {
+		$currentDir = plugin_dir_url(__FILE__);
+		$pluginDir = dirname($currentDir, 1);
+
+		$admin_css_path = $pluginDir . '/src/admin.css';
+		wp_enqueue_style('comet-admin-styles', $admin_css_path, array(), COMET_VERSION);
 	}
 
 	/**

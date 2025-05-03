@@ -4,6 +4,7 @@
 	"name": "comet/image-and-text",
 	"title": "Featured text + image",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"parent": [
 		"comet/container"
 	],
@@ -17,9 +18,6 @@
 		"featured"
 	],
 	"textdomain": "comet",
-	"editorStyle": [
-		"comet-image-and-text-style"
-	],
 	"supports": {
 		"jsx": true,
 		"innerBlocks": true,

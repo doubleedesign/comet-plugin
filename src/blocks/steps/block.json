@@ -12,6 +12,7 @@
 		"comet/step"
 	],
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"category": "design",
 	"icon": "editor-ol",
 	"description": "Feature a series of steps or stages in a process",
@@ -45,9 +46,6 @@
 			"name": "basic",
 			"label": "Basic"
 		}
-	],
-	"editorStyle": [
-		"comet-steps-style"
 	],
 	"providesContext": {
 		"comet/orientation": "orientation"

@@ -3,8 +3,9 @@
 	"apiVersion": 3,
 	"name": "comet/panel",
 	"title": "Panel",
-	"icon": "open-folder",
+	"icon": "text-page",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"category": "layout",
 	"parent": [
 		"comet/panels"

@@ -5,6 +5,7 @@
 	"title": "Call-to-Action",
 	"icon": "megaphone",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"category": "ui",
 	"parent": [
 		"comet/container",
@@ -30,9 +31,6 @@
 			"default": "div"
 		}
 	},
-	"editorStyle": [
-		"comet-call-to-action-style"
-	],
 	"supports": {
 		"mode": false,
 		"jsx": true,

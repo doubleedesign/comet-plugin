@@ -1,0 +1,109 @@
+html :where(.wp-block) {
+	margin-top: 0;
+	margin-bottom: 0;
+	max-width: var(--width-contained);
+}
+
+.editor-visual-editor__post-title-wrapper {
+	padding-inline: var(--spacing-md);
+	margin-top: 0 !important;
+
+	.is-homepage & {
+		display: none;
+	}
+}
+
+.block-editor-block-list__layout {
+	container-type: inline-size;
+
+	> .wp-block-group {
+		padding-inline: var(--spacing-md);
+	}
+}
+
+.block-editor-inner-blocks .block-editor-block-list__layout {
+	container-type: unset;
+}
+
+.wp-site-blocks {
+	font-family: var(--font-family-body);
+}
+
+.block-list-appender {
+	margin: 0 auto;
+}
+
+.acf-block-component .acf-block-fields {
+	font-family: inherit;
+}
+
+
+/**
+ * Block editor sidebar
+ */
+// Custom vertical alignment used for the banner block (and possibly others added after this)
+.components-base-control:has([aria-label="Change vertical alignment"]) {
+	// Hack it into position next to the horizontal justification in the layout panel above
+	padding: 1rem;
+	width: max-content;
+	margin-left: auto;
+	margin-top: -96px;
+	margin-bottom: 0;
+
+	// Make the button match the horizontal justification one
+	.components-dropdown-menu__toggle {
+		border: 1px solid transparent;
+		margin-top: 1px;
+
+		&:hover, &:focus, &:active {
+			border-color: var(--wp-components-color-gray-700, #757575);
+		}
+	}
+}
+
+.components-panel__body {
+	// When the layout panel is closed, hide the custom vertical alignment and container size so they appear like they're in the layout panel
+	+ .comet-custom-layout-controls {
+		display: none;
+	}
+
+	&.is-opened {
+		+ .comet-custom-layout-controls {
+			display: block;
+		}
+	}
+}
+
+.components-toggle-group-control {
+	transition: border 0.2s ease-in-out;
+	border: 1px solid var(--wp-components-color-gray-300, #dee2e6) !important;
+	min-height: 32px !important; // default 36px is 2px too high for the buttons and I can't unsee it
+
+	&:hover, &:focus-within {
+		border-color: var(--wp-components-color-gray-700, #757575) !important;
+	}
+
+	&-option-base {
+		transition: background 0.2s ease-in-out;
+
+		&:not([aria-checked="true"]):not([aria-pressed="true"]) {
+			&:hover, &:focus {
+				background: #EEE;
+			}
+		}
+	}
+}
+
+.components-toggle-control__help {
+	code {
+		font-size: 0.7rem;
+	}
+}
+
+.components-resizable-box__container {
+	max-width: 100% !important;
+
+	img {
+		max-width: 100% !important;
+	}
+}

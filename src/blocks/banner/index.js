@@ -2,7 +2,7 @@
 
 wp.domReady(() => {
 	const { registerBlockType } = wp.blocks;
-	const { createElement } = wp.element;
+	const { createElement, Fragment } = wp.element;
 
 	const {
 		InspectorControls,
@@ -185,8 +185,8 @@ wp.domReady(() => {
 			};
 
 			return createElement(
-				'div',
-				blockProps,
+				Fragment,
+				null,
 				// The block inspector sidebar
 				createElement(
 					InspectorControls,
@@ -227,7 +227,7 @@ wp.domReady(() => {
 				createElement(
 					'section',
 					{
-						className: 'banner',
+						...blockProps,
 						style: {
 							minHeight: minHeight + 'px',
 							maxHeight: maxHeight + 'vh'
@@ -236,7 +236,7 @@ wp.domReady(() => {
 					},
 					createElement(
 						'div',
-						{ className: 'banner__image' },
+						{ className: 'banner__image', 'data-behaviour': 'cover' },
 						imageUrl && createElement(
 							'img',
 							{
@@ -250,12 +250,15 @@ wp.domReady(() => {
 						'div',
 						{
 							className: 'banner__content',
-							'data-valign': verticalAlignment,
-							'data-halign': layout?.justifyContent,
 						},
 						createElement(
 							'div',
-							{ className: 'container', 'data-width': containerSize },
+							{
+								className: 'banner__container layout-block container',
+								'data-width': containerSize,
+								'data-valign': verticalAlignment,
+								'data-halign': layout?.justifyContent,
+							},
 							createElement(
 								'div',
 								{

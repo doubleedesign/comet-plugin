@@ -1,0 +1,49 @@
+.accordion__panel {
+  width: 100%;
+}
+.accordion__panel__title {
+  padding: var(--spacing-sm);
+  margin-block-start: var(--spacing-xxs);
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+[data-color-theme=primary] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+}
+[data-color-theme=secondary] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-secondary) 10%, white);
+}
+[data-color-theme=accent] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-accent) 10%, white);
+}
+[data-color-theme=success] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-success) 10%, white);
+}
+[data-color-theme=warning] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-warning) 10%, white);
+}
+[data-color-theme=danger] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-danger) 10%, white);
+}
+[data-color-theme=info] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-info) 10%, white);
+}
+[data-color-theme=light] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-light) 10%, white);
+}
+[data-color-theme=dark] .accordion__panel__title {
+  background: color-mix(in srgb, var(--color-dark) 10%, white);
+}
+.accordion__panel__title__main, .accordion__panel__title__subtitle {
+  display: block;
+}
+.accordion__panel__title__main {
+  font-weight: var(--font-weight-semibold);
+}
+.accordion__panel__content > :first-child {
+  padding-block-start: var(--spacing-md);
+}
+.accordion__panel__content > :last-child {
+  padding-block-end: var(--spacing-md);
+}
+
+/*# sourceMappingURL=editor.css.map */
