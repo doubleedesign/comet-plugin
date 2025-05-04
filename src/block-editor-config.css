@@ -1,7 +1,6 @@
 html :where(.wp-block) {
   margin-top: 0;
   margin-bottom: 0;
-  max-width: var(--width-contained);
 }
 
 .editor-visual-editor__post-title-wrapper {

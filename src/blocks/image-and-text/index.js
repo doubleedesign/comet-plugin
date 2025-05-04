@@ -18,6 +18,8 @@ wp.domReady(() => {
 			}
 		},
 		supports: {
+			className: false,
+			customClassName: false,
 			layout: {
 				allowEditing: true,
 				allowSwitching: false,
@@ -37,11 +39,11 @@ wp.domReady(() => {
 
 			const blockProps = useBlockProps({
 				className: 'image-and-text__image',
-				style: maxWidth ? { maxWidth: maxWidth + '%' } : {}
+				'data-halign': attributes?.layout?.justifyContent ?? 'start'
 			});
 
 			return createElement(
-				wp.element.Fragment,
+				'div',
 				null,
 				createElement(
 					InspectorControls,
@@ -64,11 +66,15 @@ wp.domReady(() => {
 				createElement(
 					'div',
 					blockProps,
-					createElement(InnerBlocks, {
-						allowedBlocks: ['core/image'],
-						template: [['core/image']],
-						templateLock: false
-					})
+					createElement(
+						'div',
+						{ style: maxWidth ? { maxWidth: maxWidth + '%' } : {}, },
+						createElement(InnerBlocks, {
+							allowedBlocks: ['core/image'],
+							template: [['core/image']],
+							templateLock: false
+						})
+					)
 				)
 			);
 		},
@@ -76,13 +82,16 @@ wp.domReady(() => {
 			const { maxWidth } = props.attributes;
 			const blockProps = useBlockProps.save({
 				className: 'image-and-text__image',
-				style: maxWidth ? { maxWidth: maxWidth + '%' } : {}
 			});
 
 			return createElement(
 				'div',
 				blockProps,
-				createElement(InnerBlocks.Content)
+				createElement(
+					'div',
+					{ style: maxWidth ? { maxWidth: maxWidth + '%' } : {}, },
+					createElement(InnerBlocks.Content)
+				)
 			);
 		}
 	});
@@ -103,6 +112,8 @@ wp.domReady(() => {
 			}
 		},
 		supports: {
+			className: false,
+			customClassName: false,
 			layout: {
 				allowEditing: true,
 				allowSwitching: false,
@@ -122,8 +133,8 @@ wp.domReady(() => {
 
 			const blockProps = useBlockProps({
 				className: 'image-and-text__content',
+				'data-halign': attributes?.layout?.justifyContent ?? 'start',
 				style: {
-					maxWidth: maxWidth + '%',
 					'--overlay-amount': `-${overlayAmount}px`
 				}
 			});
@@ -161,30 +172,48 @@ wp.domReady(() => {
 				createElement(
 					'div',
 					blockProps,
-					createElement(InnerBlocks, {
-						allowedBlocks: ['comet/call-to-action', 'core/pullquote', 'core/block'],
-						template: [['comet/call-to-action']],
-						templateLock: false
-					})
+					createElement(
+						'div',
+						{
+							style: {
+								maxWidth: maxWidth + '%',
+							}
+						},
+						createElement(InnerBlocks, {
+							allowedBlocks: ['comet/call-to-action', 'core/group', 'core/pullquote', 'core/block'],
+							template: [['comet/call-to-action']],
+							templateLock: false
+						})
+					)
 				)
 			);
 		},
 		save: (props) => {
-			const { maxWidth } = props.attributes;
+			const { maxWidth, overlayAmount } = props.attributes;
 			const blockProps = useBlockProps.save({
 				className: 'image-and-text__content',
-				style: maxWidth ? { maxWidth: maxWidth + '%' } : {}
+				style: {
+					'--overlay-amount': `-${overlayAmount}px`
+				}
 			});
 
 			return createElement(
 				'div',
 				blockProps,
-				createElement(InnerBlocks.Content)
+				createElement(
+					'div',
+					{
+						style: {
+							maxWidth: maxWidth + '%',
+						}
+					},
+					createElement(InnerBlocks.Content)
+				),
 			);
 		}
 	});
 
-	// This actual block remains the same
+	// The overall block
 	registerBlockType('comet/image-and-text', {
 		edit: ({ attributes }) => {
 			const blockProps = useBlockProps({
@@ -197,13 +226,9 @@ wp.domReady(() => {
 
 			return createElement('div',
 				blockProps,
-				createElement(
-					'div',
-					{ className: 'image-and-text' },
-					createElement(InnerBlocks, {
-						template: template
-					})
-				),
+				createElement(InnerBlocks, {
+					template: template
+				})
 			);
 		},
 		save: () => {

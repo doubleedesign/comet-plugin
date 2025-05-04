@@ -5,7 +5,7 @@ use DOMDocument;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use ReflectionClass, ReflectionProperty, Closure, ReflectionException, RuntimeException;
-use WP_Block_Type_Registry, WP_Block;
+use WP_Block_Type_Registry, WP_Block, WP_Block_List;
 
 class BlockRenderer {
 	private array $theme_json;
@@ -141,8 +141,6 @@ class BlockRenderer {
 			if(file_exists($stylesheet)) {
 				wp_register_style("comet-$shortName-style", $stylesheet, $deps, COMET_VERSION);
 			}
-
-			error_log(print_r($stylesheet, true));
 		}
 	}
 
@@ -248,7 +246,34 @@ class BlockRenderer {
 		$block_name = $block_instance->name;
 		$block_name_trimmed = array_reverse(explode('/', $block_name))[0];
 		$content = $block_instance->parsed_block['innerHTML'] ?? '';
-		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
+		// Ignore blocks that exist just for the editing experience and skip down to their inner blocks and attributes
+		if($block_name === 'comet/image-and-text') {
+			$rawInner = iterator_to_array($block_instance->inner_blocks);
+			$transformedAttrs = [];
+			foreach($rawInner as $index => $block) {
+				if($block->name === 'comet/image-and-text-image-wrapper') {
+					$transformedAttrs['imageMaxWidth'] = $block->attributes['maxWidth'] ?? null;
+					$transformedAttrs['imageAlign'] = $block->attributes['layout']['justifyContent'] ?? null;
+					$transformedAttrs['imageFirst'] = $index === 0;
+				}
+				if($block->name === 'comet/image-and-text-content') {
+					$transformedAttrs['contentMaxWidth'] = $block->attributes['maxWidth'] ?? null;
+					$transformedAttrs['contentAlign'] = $block->attributes['layout']['justifyContent'] ?? null;
+					$transformedAttrs['overlayAmount'] = $block->attributes['overlayAmount'] ?? null;
+				}
+			}
+
+			$innerComponents = array_map(function($child) {
+				return $child->inner_blocks ? $this->process_innerblocks($child) : [];
+			}, iterator_to_array($block_instance->inner_blocks));
+			$innerComponents = Utils::array_flat($innerComponents);
+
+			$block_instance->attributes = array_merge($block_instance->attributes, $transformedAttrs);
+		}
+		// Otherwise, process inner blocks as-is
+		else {
+			$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
+		}
 
 		// Block-specific handling of attributes and content
 		if($block_name === 'comet/banner') {

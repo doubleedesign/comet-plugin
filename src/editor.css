@@ -835,6 +835,10 @@
   color: var(--readable-color-white);
 }
 
+body :where(.editor-styles-wrapper) p {
+  font-size: 1rem;
+}
+
 /**
  * Common classes used in the block editor for attributes in both core and custom blocks,
  * but do not match Comet Components' handling of these attributes so need to be styled to match in the editor
