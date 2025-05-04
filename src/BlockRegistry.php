@@ -239,6 +239,9 @@ class BlockRegistry extends JavaScriptImplementation {
 			case 'core/pullquote':
 				$metadata['supports']['__experimentalBorder'] = false;
 				return $metadata;
+			case 'core/group':
+				$metadata['supports']['layout'] = false;
+				$metadata['supports']['align'] = false;
 			default:
 				return $metadata;
 		}
