@@ -15,8 +15,10 @@
 	@extend .page-header;
 }
 
-body :where(.editor-styles-wrapper) p {
-	font-size: 1rem; // override WP default of 18px or 13px to standard 16px
+body :where(.editor-styles-wrapper) {
+	p, li {
+		font-size: 1rem; // override WP default of 18px or 13px to standard 16px
+	}
 }
 
 /**

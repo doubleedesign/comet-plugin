@@ -835,7 +835,7 @@
   color: var(--readable-color-white);
 }
 
-body :where(.editor-styles-wrapper) p {
+body :where(.editor-styles-wrapper) p, body :where(.editor-styles-wrapper) li {
   font-size: 1rem;
 }
 
