@@ -73,6 +73,7 @@ class BlockRenderer {
 	 * @param $parsed_block
 	 * @param $block_instance
 	 * @return string
+	 * @noinspection t
 	 */
 	function override_core_block_rendering($content, $parsed_block, $block_instance): string {
 		$blocks = $this->get_allowed_blocks();
@@ -672,7 +673,7 @@ class BlockRenderer {
 				'headers'         => $cell->getAttribute('headers'),
 				'colspan'         => $cell->getAttribute('colspan'),
 				'width'           => $inlineStyles['width'] ?? null,
-				'backgroundColor' => isset($inlineStyles['background-color']) ? $this->hex_to_theme_color_name($inlineStyles['background-color']) : null,
+				'backgroundColor' => isset($inlineStyles['background-color']) ? self::hex_to_theme_color_name($inlineStyles['background-color']) : null,
 				'textAlign'       => $inlineStyles['text-align'] ?? null,
 				'verticalAlign'   => $inlineStyles['vertical-align'] ?? null,
 			];
