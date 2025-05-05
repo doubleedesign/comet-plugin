@@ -165,7 +165,8 @@ class BlockRegistry extends JavaScriptImplementation {
 	/**
 	 * Register some additional attribute options
 	 * Notes: Requires the block-supports-extended plugin, which is installed as a dependency via Composer
-	 *        To see the styles in the editor, you must override the JavaScript edit function for the block (see block-registry.js)
+	 *        To see the styles in the editor, you must account for it in the block's JavaScript edit function
+	 *        or for core blocks, override the JavaScript edit function for the block (see block-registry.js)
 	 * @return void
 	 */
 	function register_custom_attributes(): void {

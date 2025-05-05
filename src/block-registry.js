@@ -44,75 +44,133 @@ function addCustomAttributesToCoreBlockHtml() {
 	const { select } = wp.data;
 	const { createElement } = wp.element;
 
+	// See register_custom_attributes() in BlockRegistry.php
+	const blocksWithCustomColorAttrs = [
+		'core/heading',
+		'core/paragraph',
+		'core/list-item',
+		'core/button',
+		'core/pullquote',
+		'core/details',
+	];
+
+	// Calculate the color attributes
 	addFilter(
 		'blocks.registerBlockType',
-		'comet/modify-button-block',
+		'comet/handle-custom-colour-attributes',
 		(settings, name) => {
-			if (name !== 'core/button') {
-				return settings;
-			}
+			if(!blocksWithCustomColorAttrs.includes(name)) return settings;
 
+			// Store the original edit function
 			const originalEdit = settings.edit;
 
+			// Replace the edit function with our enhanced version
 			settings.edit = (props) => {
+				const { attributes, setAttributes } = props;
+
+				// Get theme colors
 				const themeColors = React.useMemo(() => {
 					return select('core/block-editor').getSettings().colors;
 				}, []);
 
-				const colorThemeHex = React.useMemo(() => {
+				// Get text color name from the hex value the editor applies
+				const colorHex = React.useMemo(() => {
+					return props?.attributes?.style?.elements?.inline?.color?.text;
+				}, [props?.attributes?.style?.elements?.inline?.color?.text]);
+				const colorName = React.useMemo(() => {
+					return themeColors?.find((color) => color.color === colorHex)?.slug ?? '';
+				}, [themeColors, colorHex]);
+
+				// Get theme color name from the hex value the editor applies
+				const themeHex = React.useMemo(() => {
 					return props?.attributes?.style?.elements?.theme?.color?.background;
 				}, [props?.attributes?.style?.elements?.theme?.color?.background]);
+				const themeName = React.useMemo(() => {
+					return themeColors?.find((color) => color.color === themeHex)?.slug ?? '';
+				}, [themeColors, themeHex]);
 
-				const colorThemeName = React.useMemo(() => {
-					return themeColors?.find((color) => color.color === colorThemeHex)?.slug ?? 'primary';
-				}, [themeColors, colorThemeHex]);
-
-				const buttonClass = React.useMemo(() => {
-					if (props.attributes?.className?.includes('is-style-outline')) {
-						return `button button--${colorThemeName}--outline`;
+				// Store color names in block attributes (for internal use)
+				React.useEffect(() => {
+					if (colorName || themeName) {
+						setAttributes({
+							textColorName: colorName,
+							themeColorName: themeName
+						});
 					}
+				}, [colorName, themeName, setAttributes]);
 
-					return `button button--${colorThemeName}`;
-				}, [colorThemeName, props.attributes?.className]);
+				// Return the original edit component with updated props
+				return originalEdit(props);
+			};
 
-				// Wrap the original edit component with our custom classes
-				return createElement('div',
-					{ className: buttonClass },
-					originalEdit(props)
-				);
+			// Add our custom attributes to the block's attribute definitions
+			if (!settings.attributes) {
+				settings.attributes = {};
+			}
+
+			settings.attributes.textColorName = {
+				type: 'string',
+				default: ''
+			};
+
+			settings.attributes.themeColorName = {
+				type: 'string',
+				default: '',
 			};
 
 			return settings;
 		}
 	);
 
+	// Apply the attributes to the block editor DOM
 	addFilter(
-		'blocks.registerBlockType',
-		'comet/modify-text-blocks',
-		(settings, name) => {
-			if (name !== 'core/heading' && name !== 'core/paragraph') {
-				return settings;
+		'editor.BlockEdit',
+		'comet/apply-data-attributes-in-editor',
+		(BlockEdit) => {
+			return function EnhancedBlockEdit(props) {
+				const { attributes, name, clientId } = props;
+
+				// Skip if this block type shouldn't have custom color attributes
+				if (!blocksWithCustomColorAttrs.includes(name)) {
+					return wp.element.createElement(BlockEdit, props);
+				}
+
+				React.useEffect(() => {
+					// Wait a moment for the DOM to update
+					setTimeout(() => {
+						// Target the block by its client ID
+						const blockElement = document.querySelector(`[data-block="${clientId}"]`);
+
+						if (blockElement) {
+							if (attributes.textColorName) {
+								blockElement.setAttribute('data-text-color', attributes.textColorName);
+							}
+							if (attributes.themeColorName) {
+								blockElement.setAttribute('data-color-theme', attributes.themeColorName);
+							}
+						}
+					}, 0);
+				}, [clientId, attributes.textColorName, attributes.themeColorName]);
+
+				return wp.element.createElement(BlockEdit, props);
+			};
+		}
+	);
+
+	// Apply the attributes to the saved content
+	addFilter(
+		'blocks.getSaveContent.extraProps',
+		'comet/apply-save-data-attributes',
+		(extraProps, blockType, attributes) => {
+			if (attributes.textColorName) {
+				extraProps['data-text-color'] = attributes.textColorName;
 			}
 
-			const originalEdit = settings.edit;
+			if (attributes.themeColorName) {
+				extraProps['data-color-theme'] = attributes.themeColorName;
+			}
 
-			settings.edit = (props) => {
-				const themeColors = React.useMemo(() => {
-					return select('core/block-editor').getSettings().colors;
-				}, []);
-
-				const colorHex = React.useMemo(() => {
-					return props?.attributes?.style?.elements?.inline?.color?.text;
-				}, [props?.attributes?.style?.elements?.inline?.color?.text]);
-
-				props.attributes.textColor = React.useMemo(() => {
-					return themeColors?.find((color) => color.color === colorHex)?.slug ?? '';
-				}, [themeColors, colorHex]);
-
-				return originalEdit(props);
-			};
-
-			return settings;
+			return extraProps;
 		}
 	);
 }
