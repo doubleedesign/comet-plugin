@@ -4,9 +4,9 @@
 @use "../vendor/doubleedesign/comet-components-core/src/components/Columns/Column/column" as *;
 @use "../vendor/doubleedesign/comet-components-core/src/components/Separator/separator" as *;
 @use "../vendor/doubleedesign/comet-components-core/src/components/ButtonGroup/button-group" as *;
+@use "../vendor/doubleedesign/comet-components-core/src/components/Button/button" as *;
 @use "../vendor/doubleedesign/comet-components-core/src/components/Pullquote/pullquote" as *;
 @use "../vendor/doubleedesign/comet-components-core/src/components/Table/table" as *;
-@use "../vendor/doubleedesign/comet-components-core/src/components/Button/button" as *;
 
 // In the editor, make the page title section resemble the PageHeader component
 // It won't always be the same because it won't have the breadcrumbs,
@@ -16,7 +16,9 @@
 }
 
 body :where(.editor-styles-wrapper) {
-	p, li {
+	font-family: var(--font-family-body) !important;
+
+	p, li, .link-group__link {
 		font-size: 1rem; // override WP default of 18px or 13px to standard 16px
 	}
 }
@@ -77,10 +79,6 @@ body :where(.editor-styles-wrapper) {
 	}
 }
 
-body :where(.editor-styles-wrapper) {
-	font-family: var(--font-family-body) !important;
-}
-
 .wp-block-heading {
 	margin-block: var(--spacing-md);
 
@@ -113,12 +111,6 @@ body :where(.editor-styles-wrapper) {
 .wp-block-paragraph {
 	margin-block: var(--spacing-sm) !important;
 	line-height: 1.4;
-
-	@each $colorName, $value in $colors {
-		.color-#{$colorName} & {
-			color: var(--color-#{$colorName});
-		}
-	}
 }
 
 .wp-block-separator {
@@ -143,17 +135,12 @@ body :where(.editor-styles-wrapper) {
 	@extend .button-group;
 }
 
-.wp-block-columns {
-	@extend .columns;
+.wp-block-button {
+	line-height: 1;
+	@extend .button;
 
-	.wp-block-coliumn {
-		@extend .column;
-	}
-}
-
-.wp-block-comet-table {
-	> table {
-		@extend .table;
+	.wp-element-button[role="textbox"] {
+		font-size: 1rem;
 	}
 }
 
@@ -181,18 +168,26 @@ body :where(.editor-styles-wrapper) {
 	}
 }
 
-.wp-block-button__link {
-	padding: 0 !important;
-	border: 0 !important;
-	border-radius: 0 !important;
+.wp-block-columns {
+	@extend .columns;
+
+	.wp-block-column {
+		@extend .column;
+
+		&.has-background {
+			padding: var(--spacing-md);
+		}
+	}
+}
+
+.wp-block-comet-table {
+	> table {
+		@extend .table;
+	}
 }
 
 .wp-block-pullquote {
-	padding: 0;
-
-	blockquote {
-		@extend .pullquote;
-	}
+	@extend .pullquote;
 }
 
 .wp-block-gallery {

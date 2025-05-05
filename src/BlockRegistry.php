@@ -232,6 +232,10 @@ class BlockRegistry extends JavaScriptImplementation {
 		// Comet blocks should use block.json, and other plugin blocks should be modified in separate functions to keep things tidy
 		if(!str_starts_with($name, 'core/')) return $metadata;
 
+		if(isset($metadata['supports']['layout']) && is_array($metadata['supports']['layout']) && isset($metadata['supports']['layout']['allowSizingOnChildren'])) {
+			$metadata['supports']['layout']['allowSizingOnChildren'] = false;
+		}
+
 		switch($name) {
 			case 'core/button':
 				unset($metadata['attributes']['width']);
@@ -243,6 +247,12 @@ class BlockRegistry extends JavaScriptImplementation {
 			case 'core/group':
 				$metadata['supports']['layout'] = false;
 				$metadata['supports']['align'] = false;
+				return $metadata;
+			case 'core/column':
+				// At the time of writing, vertical alignment (which we want) is in the toolbar, which is not affected by this
+				// We don't want "Inner blocks use content width" which can only be disabled like this, it seems
+				$metadata['supports']['layout'] = false;
+				return $metadata;
 			default:
 				return $metadata;
 		}

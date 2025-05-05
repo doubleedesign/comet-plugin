@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 		if (getSelectedBlock()) {
 			relabelBlockOption('Stack on mobile', 'Stack when adapting to a narrow container or viewport');
 			hideBlockOptionToggleByLabelText('Allow to wrap to multiple lines');
+			hideBlockOptionFieldByLabelText('Inner blocks use content width');
 
 			// Gallery block
 			hideBlockOptionToggleByLabelText('Randomize order');

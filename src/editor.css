@@ -44,7 +44,7 @@
   .columns[data-count="2"][data-allow-layout-stacking=true], [data-count="2"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="4"][data-allow-layout-stacking=true], [data-count="4"][data-allow-layout-stacking=true].wp-block-columns, .columns[data-count="6"][data-allow-layout-stacking=true], [data-count="6"][data-allow-layout-stacking=true].wp-block-columns {
     flex-wrap: wrap;
   }
-  .columns[data-count="2"][data-allow-layout-stacking=true] .column, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-coliumn, .wp-block-columns .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-coliumn, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .wp-block-coliumn, .columns[data-count="4"][data-allow-layout-stacking=true] .column, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-coliumn, .wp-block-columns .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-coliumn, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .wp-block-coliumn, .columns[data-count="6"][data-allow-layout-stacking=true] .column, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-coliumn, .wp-block-columns .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-coliumn, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .wp-block-coliumn {
+  .columns[data-count="2"][data-allow-layout-stacking=true] .column, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="2"][data-allow-layout-stacking=true] .wp-block-column, [data-count="2"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column, .columns[data-count="4"][data-allow-layout-stacking=true] .column, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="4"][data-allow-layout-stacking=true] .wp-block-column, [data-count="4"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column, .columns[data-count="6"][data-allow-layout-stacking=true] .column, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .column, .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-columns .wp-block-column, .wp-block-columns .columns[data-count="6"][data-allow-layout-stacking=true] .wp-block-column, [data-count="6"][data-allow-layout-stacking=true].wp-block-columns .wp-block-column {
     grid-column: 1/-1;
     width: 100% !important;
     flex-basis: 100% !important;
@@ -390,9 +390,10 @@
   padding: var(--spacing-md);
 }
 
-.column, .wp-block-columns .wp-block-coliumn {
+.column, .wp-block-columns .wp-block-column {
   min-width: 0;
   display: flex;
+  flex-direction: column;
 }
 .column__inner {
   display: flow-root;
@@ -481,108 +482,324 @@
   padding-block: var(--spacing-sm);
 }
 
-.pullquote, .wp-block-pullquote blockquote {
+.button, .wp-block-button {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  border-radius: var(--button-border-radius);
+  text-align: center;
+}
+.button > span, .wp-block-button > span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.3s, color 0.3s;
+}
+.button:hover > span, .wp-block-button:hover > span, .button:focus > span, .wp-block-button:focus > span, .button:active > span, .wp-block-button:active > span {
+  text-decoration-color: currentColor;
+}
+.button:has(i, svg), .wp-block-button:has(i, svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+.button[data-color-theme=primary]:not(.is-style-outline), [data-color-theme=primary].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=primary]:not(.is-style-outline):hover, [data-color-theme=primary].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=primary]:not(.is-style-outline):focus, [data-color-theme=primary].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=primary]:not(.is-style-outline):active, [data-color-theme=primary].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-primary) 80%, black);
+  border-color: color-mix(in srgb, var(--color-primary) 80%, black);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=primary].is-style-outline, [data-color-theme=primary].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-primary);
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.button[data-color-theme=primary].is-style-outline:hover, [data-color-theme=primary].is-style-outline.wp-block-button:hover, .button[data-color-theme=primary].is-style-outline:focus, [data-color-theme=primary].is-style-outline.wp-block-button:focus, .button[data-color-theme=primary].is-style-outline:active, [data-color-theme=primary].is-style-outline.wp-block-button:active {
+  background: var(--color-primary);
+  color: var(--readable-color-primary);
+}
+.button[data-color-theme=secondary]:not(.is-style-outline), [data-color-theme=secondary].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=secondary]:not(.is-style-outline):hover, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=secondary]:not(.is-style-outline):focus, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=secondary]:not(.is-style-outline):active, [data-color-theme=secondary].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-secondary) 80%, black);
+  border-color: color-mix(in srgb, var(--color-secondary) 80%, black);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=secondary].is-style-outline, [data-color-theme=secondary].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-secondary);
+  background-color: transparent;
+  color: var(--color-secondary);
+}
+.button[data-color-theme=secondary].is-style-outline:hover, [data-color-theme=secondary].is-style-outline.wp-block-button:hover, .button[data-color-theme=secondary].is-style-outline:focus, [data-color-theme=secondary].is-style-outline.wp-block-button:focus, .button[data-color-theme=secondary].is-style-outline:active, [data-color-theme=secondary].is-style-outline.wp-block-button:active {
+  background: var(--color-secondary);
+  color: var(--readable-color-secondary);
+}
+.button[data-color-theme=accent]:not(.is-style-outline), [data-color-theme=accent].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=accent]:not(.is-style-outline):hover, [data-color-theme=accent].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=accent]:not(.is-style-outline):focus, [data-color-theme=accent].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=accent]:not(.is-style-outline):active, [data-color-theme=accent].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-accent) 80%, black);
+  border-color: color-mix(in srgb, var(--color-accent) 80%, black);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=accent].is-style-outline, [data-color-theme=accent].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-accent);
+  background-color: transparent;
+  color: var(--color-accent);
+}
+.button[data-color-theme=accent].is-style-outline:hover, [data-color-theme=accent].is-style-outline.wp-block-button:hover, .button[data-color-theme=accent].is-style-outline:focus, [data-color-theme=accent].is-style-outline.wp-block-button:focus, .button[data-color-theme=accent].is-style-outline:active, [data-color-theme=accent].is-style-outline.wp-block-button:active {
+  background: var(--color-accent);
+  color: var(--readable-color-accent);
+}
+.button[data-color-theme=info]:not(.is-style-outline), [data-color-theme=info].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-info);
+  border: 1px solid var(--color-info);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=info]:not(.is-style-outline):hover, [data-color-theme=info].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=info]:not(.is-style-outline):focus, [data-color-theme=info].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=info]:not(.is-style-outline):active, [data-color-theme=info].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-info) 80%, black);
+  border-color: color-mix(in srgb, var(--color-info) 80%, black);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=info].is-style-outline, [data-color-theme=info].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-info);
+  background-color: transparent;
+  color: var(--color-info);
+}
+.button[data-color-theme=info].is-style-outline:hover, [data-color-theme=info].is-style-outline.wp-block-button:hover, .button[data-color-theme=info].is-style-outline:focus, [data-color-theme=info].is-style-outline.wp-block-button:focus, .button[data-color-theme=info].is-style-outline:active, [data-color-theme=info].is-style-outline.wp-block-button:active {
+  background: var(--color-info);
+  color: var(--readable-color-info);
+}
+.button[data-color-theme=warning]:not(.is-style-outline), [data-color-theme=warning].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=warning]:not(.is-style-outline):hover, [data-color-theme=warning].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=warning]:not(.is-style-outline):focus, [data-color-theme=warning].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=warning]:not(.is-style-outline):active, [data-color-theme=warning].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-warning) 80%, black);
+  border-color: color-mix(in srgb, var(--color-warning) 80%, black);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=warning].is-style-outline, [data-color-theme=warning].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-warning);
+  background-color: transparent;
+  color: var(--color-warning);
+}
+.button[data-color-theme=warning].is-style-outline:hover, [data-color-theme=warning].is-style-outline.wp-block-button:hover, .button[data-color-theme=warning].is-style-outline:focus, [data-color-theme=warning].is-style-outline.wp-block-button:focus, .button[data-color-theme=warning].is-style-outline:active, [data-color-theme=warning].is-style-outline.wp-block-button:active {
+  background: var(--color-warning);
+  color: var(--readable-color-warning);
+}
+.button[data-color-theme=success]:not(.is-style-outline), [data-color-theme=success].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-success);
+  border: 1px solid var(--color-success);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=success]:not(.is-style-outline):hover, [data-color-theme=success].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=success]:not(.is-style-outline):focus, [data-color-theme=success].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=success]:not(.is-style-outline):active, [data-color-theme=success].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-success) 80%, black);
+  border-color: color-mix(in srgb, var(--color-success) 80%, black);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=success].is-style-outline, [data-color-theme=success].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-success);
+  background-color: transparent;
+  color: var(--color-success);
+}
+.button[data-color-theme=success].is-style-outline:hover, [data-color-theme=success].is-style-outline.wp-block-button:hover, .button[data-color-theme=success].is-style-outline:focus, [data-color-theme=success].is-style-outline.wp-block-button:focus, .button[data-color-theme=success].is-style-outline:active, [data-color-theme=success].is-style-outline.wp-block-button:active {
+  background: var(--color-success);
+  color: var(--readable-color-success);
+}
+.button[data-color-theme=error]:not(.is-style-outline), [data-color-theme=error].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-error);
+  border: 1px solid var(--color-error);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=error]:not(.is-style-outline):hover, [data-color-theme=error].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=error]:not(.is-style-outline):focus, [data-color-theme=error].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=error]:not(.is-style-outline):active, [data-color-theme=error].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-error) 80%, black);
+  border-color: color-mix(in srgb, var(--color-error) 80%, black);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=error].is-style-outline, [data-color-theme=error].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-error);
+  background-color: transparent;
+  color: var(--color-error);
+}
+.button[data-color-theme=error].is-style-outline:hover, [data-color-theme=error].is-style-outline.wp-block-button:hover, .button[data-color-theme=error].is-style-outline:focus, [data-color-theme=error].is-style-outline.wp-block-button:focus, .button[data-color-theme=error].is-style-outline:active, [data-color-theme=error].is-style-outline.wp-block-button:active {
+  background: var(--color-error);
+  color: var(--readable-color-error);
+}
+.button[data-color-theme=light]:not(.is-style-outline), [data-color-theme=light].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-light);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=light]:not(.is-style-outline):hover, [data-color-theme=light].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=light]:not(.is-style-outline):focus, [data-color-theme=light].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=light]:not(.is-style-outline):active, [data-color-theme=light].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-light) 80%, black);
+  border-color: color-mix(in srgb, var(--color-light) 80%, black);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=light].is-style-outline, [data-color-theme=light].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-light);
+  background-color: transparent;
+  color: var(--color-light);
+}
+.button[data-color-theme=light].is-style-outline:hover, [data-color-theme=light].is-style-outline.wp-block-button:hover, .button[data-color-theme=light].is-style-outline:focus, [data-color-theme=light].is-style-outline.wp-block-button:focus, .button[data-color-theme=light].is-style-outline:active, [data-color-theme=light].is-style-outline.wp-block-button:active {
+  background: var(--color-light);
+  color: var(--readable-color-light);
+}
+.button[data-color-theme=dark]:not(.is-style-outline), [data-color-theme=dark].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-dark);
+  border: 1px solid var(--color-dark);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=dark]:not(.is-style-outline):hover, [data-color-theme=dark].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=dark]:not(.is-style-outline):focus, [data-color-theme=dark].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=dark]:not(.is-style-outline):active, [data-color-theme=dark].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-dark) 80%, black);
+  border-color: color-mix(in srgb, var(--color-dark) 80%, black);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=dark].is-style-outline, [data-color-theme=dark].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-dark);
+  background-color: transparent;
+  color: var(--color-dark);
+}
+.button[data-color-theme=dark].is-style-outline:hover, [data-color-theme=dark].is-style-outline.wp-block-button:hover, .button[data-color-theme=dark].is-style-outline:focus, [data-color-theme=dark].is-style-outline.wp-block-button:focus, .button[data-color-theme=dark].is-style-outline:active, [data-color-theme=dark].is-style-outline.wp-block-button:active {
+  background: var(--color-dark);
+  color: var(--readable-color-dark);
+}
+.button[data-color-theme=white]:not(.is-style-outline), [data-color-theme=white].wp-block-button:not(.is-style-outline) {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--readable-color-white);
+}
+.button[data-color-theme=white]:not(.is-style-outline):hover, [data-color-theme=white].wp-block-button:not(.is-style-outline):hover, .button[data-color-theme=white]:not(.is-style-outline):focus, [data-color-theme=white].wp-block-button:not(.is-style-outline):focus, .button[data-color-theme=white]:not(.is-style-outline):active, [data-color-theme=white].wp-block-button:not(.is-style-outline):active {
+  background-color: color-mix(in srgb, var(--color-white) 80%, black);
+  border-color: color-mix(in srgb, var(--color-white) 80%, black);
+  color: var(--readable-color-white);
+}
+.button[data-color-theme=white].is-style-outline, [data-color-theme=white].is-style-outline.wp-block-button {
+  border: 1px solid var(--color-white);
+  background-color: transparent;
+  color: var(--color-white);
+}
+.button[data-color-theme=white].is-style-outline:hover, [data-color-theme=white].is-style-outline.wp-block-button:hover, .button[data-color-theme=white].is-style-outline:focus, [data-color-theme=white].is-style-outline.wp-block-button:focus, .button[data-color-theme=white].is-style-outline:active, [data-color-theme=white].is-style-outline.wp-block-button:active {
+  background: var(--color-white);
+  color: var(--readable-color-white);
+}
+
+.pullquote, .wp-block-pullquote {
   text-align: center;
   padding: var(--spacing-md);
   margin-block: var(--spacing-lg);
   position: relative;
 }
-.pullquote::before, .wp-block-pullquote blockquote::before, .pullquote::after, .wp-block-pullquote blockquote::after {
+.pullquote::before, .wp-block-pullquote::before, .pullquote::after, .wp-block-pullquote::after {
   font-family: var(--font-family-accent);
   font-size: 12rem;
   position: absolute;
   height: 4rem;
 }
-.pullquote::before, .wp-block-pullquote blockquote::before {
+.pullquote::before, .wp-block-pullquote::before {
   content: open-quote;
   top: 0;
   left: 0;
   transform: rotate(15deg) translateY(-2.5rem) translateX(-1rem);
   transform-origin: center center;
 }
-.pullquote::after, .wp-block-pullquote blockquote::after {
+.pullquote::after, .wp-block-pullquote::after {
   content: close-quote;
   bottom: var(--spacing-lg);
   transform: rotate(15deg) translateX(1rem);
   right: 0;
 }
-.pullquote[data-color-theme=primary], .wp-block-pullquote blockquote[data-color-theme=primary] {
+.pullquote[data-color-theme=primary], [data-color-theme=primary].wp-block-pullquote {
   color: var(--color-primary);
   background: color-mix(in srgb, var(--color-primary) 5%, white);
 }
-.pullquote[data-color-theme=primary]::before, .wp-block-pullquote blockquote[data-color-theme=primary]::before, .pullquote[data-color-theme=primary]::after, .wp-block-pullquote blockquote[data-color-theme=primary]::after {
+.pullquote[data-color-theme=primary]::before, [data-color-theme=primary].wp-block-pullquote::before, .pullquote[data-color-theme=primary]::after, [data-color-theme=primary].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-primary) 25%, white);
 }
-.pullquote[data-color-theme=secondary], .wp-block-pullquote blockquote[data-color-theme=secondary] {
+.pullquote[data-color-theme=secondary], [data-color-theme=secondary].wp-block-pullquote {
   color: var(--color-secondary);
   background: color-mix(in srgb, var(--color-secondary) 5%, white);
 }
-.pullquote[data-color-theme=secondary]::before, .wp-block-pullquote blockquote[data-color-theme=secondary]::before, .pullquote[data-color-theme=secondary]::after, .wp-block-pullquote blockquote[data-color-theme=secondary]::after {
+.pullquote[data-color-theme=secondary]::before, [data-color-theme=secondary].wp-block-pullquote::before, .pullquote[data-color-theme=secondary]::after, [data-color-theme=secondary].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-secondary) 25%, white);
 }
-.pullquote[data-color-theme=accent], .wp-block-pullquote blockquote[data-color-theme=accent] {
+.pullquote[data-color-theme=accent], [data-color-theme=accent].wp-block-pullquote {
   color: var(--color-accent);
   background: color-mix(in srgb, var(--color-accent) 5%, white);
 }
-.pullquote[data-color-theme=accent]::before, .wp-block-pullquote blockquote[data-color-theme=accent]::before, .pullquote[data-color-theme=accent]::after, .wp-block-pullquote blockquote[data-color-theme=accent]::after {
+.pullquote[data-color-theme=accent]::before, [data-color-theme=accent].wp-block-pullquote::before, .pullquote[data-color-theme=accent]::after, [data-color-theme=accent].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-accent) 25%, white);
 }
-.pullquote[data-color-theme=info], .wp-block-pullquote blockquote[data-color-theme=info] {
+.pullquote[data-color-theme=info], [data-color-theme=info].wp-block-pullquote {
   color: var(--color-info);
   background: color-mix(in srgb, var(--color-info) 5%, white);
 }
-.pullquote[data-color-theme=info]::before, .wp-block-pullquote blockquote[data-color-theme=info]::before, .pullquote[data-color-theme=info]::after, .wp-block-pullquote blockquote[data-color-theme=info]::after {
+.pullquote[data-color-theme=info]::before, [data-color-theme=info].wp-block-pullquote::before, .pullquote[data-color-theme=info]::after, [data-color-theme=info].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-info) 25%, white);
 }
-.pullquote[data-color-theme=warning], .wp-block-pullquote blockquote[data-color-theme=warning] {
+.pullquote[data-color-theme=warning], [data-color-theme=warning].wp-block-pullquote {
   color: var(--color-warning);
   background: color-mix(in srgb, var(--color-warning) 5%, white);
 }
-.pullquote[data-color-theme=warning]::before, .wp-block-pullquote blockquote[data-color-theme=warning]::before, .pullquote[data-color-theme=warning]::after, .wp-block-pullquote blockquote[data-color-theme=warning]::after {
+.pullquote[data-color-theme=warning]::before, [data-color-theme=warning].wp-block-pullquote::before, .pullquote[data-color-theme=warning]::after, [data-color-theme=warning].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-warning) 25%, white);
 }
-.pullquote[data-color-theme=success], .wp-block-pullquote blockquote[data-color-theme=success] {
+.pullquote[data-color-theme=success], [data-color-theme=success].wp-block-pullquote {
   color: var(--color-success);
   background: color-mix(in srgb, var(--color-success) 5%, white);
 }
-.pullquote[data-color-theme=success]::before, .wp-block-pullquote blockquote[data-color-theme=success]::before, .pullquote[data-color-theme=success]::after, .wp-block-pullquote blockquote[data-color-theme=success]::after {
+.pullquote[data-color-theme=success]::before, [data-color-theme=success].wp-block-pullquote::before, .pullquote[data-color-theme=success]::after, [data-color-theme=success].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-success) 25%, white);
 }
-.pullquote[data-color-theme=error], .wp-block-pullquote blockquote[data-color-theme=error] {
+.pullquote[data-color-theme=error], [data-color-theme=error].wp-block-pullquote {
   color: var(--color-error);
   background: color-mix(in srgb, var(--color-error) 5%, white);
 }
-.pullquote[data-color-theme=error]::before, .wp-block-pullquote blockquote[data-color-theme=error]::before, .pullquote[data-color-theme=error]::after, .wp-block-pullquote blockquote[data-color-theme=error]::after {
+.pullquote[data-color-theme=error]::before, [data-color-theme=error].wp-block-pullquote::before, .pullquote[data-color-theme=error]::after, [data-color-theme=error].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-error) 25%, white);
 }
-.pullquote[data-color-theme=light], .wp-block-pullquote blockquote[data-color-theme=light] {
+.pullquote[data-color-theme=light], [data-color-theme=light].wp-block-pullquote {
   color: var(--color-light);
   background: color-mix(in srgb, var(--color-light) 5%, white);
 }
-.pullquote[data-color-theme=light]::before, .wp-block-pullquote blockquote[data-color-theme=light]::before, .pullquote[data-color-theme=light]::after, .wp-block-pullquote blockquote[data-color-theme=light]::after {
+.pullquote[data-color-theme=light]::before, [data-color-theme=light].wp-block-pullquote::before, .pullquote[data-color-theme=light]::after, [data-color-theme=light].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-light) 25%, white);
 }
-.pullquote[data-color-theme=dark], .wp-block-pullquote blockquote[data-color-theme=dark] {
+.pullquote[data-color-theme=dark], [data-color-theme=dark].wp-block-pullquote {
   color: var(--color-dark);
   background: color-mix(in srgb, var(--color-dark) 5%, white);
 }
-.pullquote[data-color-theme=dark]::before, .wp-block-pullquote blockquote[data-color-theme=dark]::before, .pullquote[data-color-theme=dark]::after, .wp-block-pullquote blockquote[data-color-theme=dark]::after {
+.pullquote[data-color-theme=dark]::before, [data-color-theme=dark].wp-block-pullquote::before, .pullquote[data-color-theme=dark]::after, [data-color-theme=dark].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-dark) 25%, white);
 }
-.pullquote[data-color-theme=white], .wp-block-pullquote blockquote[data-color-theme=white] {
+.pullquote[data-color-theme=white], [data-color-theme=white].wp-block-pullquote {
   color: var(--color-white);
   background: color-mix(in srgb, var(--color-white) 5%, white);
 }
-.pullquote[data-color-theme=white]::before, .wp-block-pullquote blockquote[data-color-theme=white]::before, .pullquote[data-color-theme=white]::after, .wp-block-pullquote blockquote[data-color-theme=white]::after {
+.pullquote[data-color-theme=white]::before, [data-color-theme=white].wp-block-pullquote::before, .pullquote[data-color-theme=white]::after, [data-color-theme=white].wp-block-pullquote::after {
   color: color-mix(in srgb, var(--color-white) 25%, white);
 }
-.pullquote p, .wp-block-pullquote blockquote p {
+.pullquote p, .wp-block-pullquote p {
   font-weight: var(--font-weight-bold);
   font-size: 1.125rem;
   position: relative;
   z-index: 10;
 }
-.pullquote cite, .wp-block-pullquote blockquote cite {
+.pullquote cite, .wp-block-pullquote cite {
   font-size: var(--font-size-sm);
 }
 
@@ -620,222 +837,10 @@
 .table__header {
   border-bottom: 3px solid color-mix(in srgb, var(--color-light) 80%, black);
 }
-.button {
-  display: inline-block;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border: none;
-  appearance: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: none;
-  border-radius: var(--button-border-radius);
+body :where(.editor-styles-wrapper) {
+  font-family: var(--font-family-body) !important;
 }
-.button > span {
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  transition: text-decoration-color 0.3s, color 0.3s;
-}
-.button:hover > span, .button:focus > span, .button:active > span {
-  text-decoration-color: currentColor;
-}
-.button:has(i, svg) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-xs);
-}
-.button[data-color-theme=primary]:not(.is-style-outline) {
-  background-color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  color: var(--readable-color-primary);
-}
-.button[data-color-theme=primary]:not(.is-style-outline):hover, .button[data-color-theme=primary]:not(.is-style-outline):focus, .button[data-color-theme=primary]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-primary) 80%, black);
-  border-color: color-mix(in srgb, var(--color-primary) 80%, black);
-  color: var(--readable-color-primary);
-}
-.button[data-color-theme=primary].is-style-outline {
-  border: 1px solid var(--color-primary);
-  background-color: transparent;
-  color: var(--color-primary);
-}
-.button[data-color-theme=primary].is-style-outline:hover, .button[data-color-theme=primary].is-style-outline:focus, .button[data-color-theme=primary].is-style-outline:active {
-  background: var(--color-primary);
-  color: var(--readable-color-primary);
-}
-.button[data-color-theme=secondary]:not(.is-style-outline) {
-  background-color: var(--color-secondary);
-  border: 1px solid var(--color-secondary);
-  color: var(--readable-color-secondary);
-}
-.button[data-color-theme=secondary]:not(.is-style-outline):hover, .button[data-color-theme=secondary]:not(.is-style-outline):focus, .button[data-color-theme=secondary]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-secondary) 80%, black);
-  border-color: color-mix(in srgb, var(--color-secondary) 80%, black);
-  color: var(--readable-color-secondary);
-}
-.button[data-color-theme=secondary].is-style-outline {
-  border: 1px solid var(--color-secondary);
-  background-color: transparent;
-  color: var(--color-secondary);
-}
-.button[data-color-theme=secondary].is-style-outline:hover, .button[data-color-theme=secondary].is-style-outline:focus, .button[data-color-theme=secondary].is-style-outline:active {
-  background: var(--color-secondary);
-  color: var(--readable-color-secondary);
-}
-.button[data-color-theme=accent]:not(.is-style-outline) {
-  background-color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  color: var(--readable-color-accent);
-}
-.button[data-color-theme=accent]:not(.is-style-outline):hover, .button[data-color-theme=accent]:not(.is-style-outline):focus, .button[data-color-theme=accent]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-accent) 80%, black);
-  border-color: color-mix(in srgb, var(--color-accent) 80%, black);
-  color: var(--readable-color-accent);
-}
-.button[data-color-theme=accent].is-style-outline {
-  border: 1px solid var(--color-accent);
-  background-color: transparent;
-  color: var(--color-accent);
-}
-.button[data-color-theme=accent].is-style-outline:hover, .button[data-color-theme=accent].is-style-outline:focus, .button[data-color-theme=accent].is-style-outline:active {
-  background: var(--color-accent);
-  color: var(--readable-color-accent);
-}
-.button[data-color-theme=info]:not(.is-style-outline) {
-  background-color: var(--color-info);
-  border: 1px solid var(--color-info);
-  color: var(--readable-color-info);
-}
-.button[data-color-theme=info]:not(.is-style-outline):hover, .button[data-color-theme=info]:not(.is-style-outline):focus, .button[data-color-theme=info]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-info) 80%, black);
-  border-color: color-mix(in srgb, var(--color-info) 80%, black);
-  color: var(--readable-color-info);
-}
-.button[data-color-theme=info].is-style-outline {
-  border: 1px solid var(--color-info);
-  background-color: transparent;
-  color: var(--color-info);
-}
-.button[data-color-theme=info].is-style-outline:hover, .button[data-color-theme=info].is-style-outline:focus, .button[data-color-theme=info].is-style-outline:active {
-  background: var(--color-info);
-  color: var(--readable-color-info);
-}
-.button[data-color-theme=warning]:not(.is-style-outline) {
-  background-color: var(--color-warning);
-  border: 1px solid var(--color-warning);
-  color: var(--readable-color-warning);
-}
-.button[data-color-theme=warning]:not(.is-style-outline):hover, .button[data-color-theme=warning]:not(.is-style-outline):focus, .button[data-color-theme=warning]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-warning) 80%, black);
-  border-color: color-mix(in srgb, var(--color-warning) 80%, black);
-  color: var(--readable-color-warning);
-}
-.button[data-color-theme=warning].is-style-outline {
-  border: 1px solid var(--color-warning);
-  background-color: transparent;
-  color: var(--color-warning);
-}
-.button[data-color-theme=warning].is-style-outline:hover, .button[data-color-theme=warning].is-style-outline:focus, .button[data-color-theme=warning].is-style-outline:active {
-  background: var(--color-warning);
-  color: var(--readable-color-warning);
-}
-.button[data-color-theme=success]:not(.is-style-outline) {
-  background-color: var(--color-success);
-  border: 1px solid var(--color-success);
-  color: var(--readable-color-success);
-}
-.button[data-color-theme=success]:not(.is-style-outline):hover, .button[data-color-theme=success]:not(.is-style-outline):focus, .button[data-color-theme=success]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-success) 80%, black);
-  border-color: color-mix(in srgb, var(--color-success) 80%, black);
-  color: var(--readable-color-success);
-}
-.button[data-color-theme=success].is-style-outline {
-  border: 1px solid var(--color-success);
-  background-color: transparent;
-  color: var(--color-success);
-}
-.button[data-color-theme=success].is-style-outline:hover, .button[data-color-theme=success].is-style-outline:focus, .button[data-color-theme=success].is-style-outline:active {
-  background: var(--color-success);
-  color: var(--readable-color-success);
-}
-.button[data-color-theme=error]:not(.is-style-outline) {
-  background-color: var(--color-error);
-  border: 1px solid var(--color-error);
-  color: var(--readable-color-error);
-}
-.button[data-color-theme=error]:not(.is-style-outline):hover, .button[data-color-theme=error]:not(.is-style-outline):focus, .button[data-color-theme=error]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-error) 80%, black);
-  border-color: color-mix(in srgb, var(--color-error) 80%, black);
-  color: var(--readable-color-error);
-}
-.button[data-color-theme=error].is-style-outline {
-  border: 1px solid var(--color-error);
-  background-color: transparent;
-  color: var(--color-error);
-}
-.button[data-color-theme=error].is-style-outline:hover, .button[data-color-theme=error].is-style-outline:focus, .button[data-color-theme=error].is-style-outline:active {
-  background: var(--color-error);
-  color: var(--readable-color-error);
-}
-.button[data-color-theme=light]:not(.is-style-outline) {
-  background-color: var(--color-light);
-  border: 1px solid var(--color-light);
-  color: var(--readable-color-light);
-}
-.button[data-color-theme=light]:not(.is-style-outline):hover, .button[data-color-theme=light]:not(.is-style-outline):focus, .button[data-color-theme=light]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-light) 80%, black);
-  border-color: color-mix(in srgb, var(--color-light) 80%, black);
-  color: var(--readable-color-light);
-}
-.button[data-color-theme=light].is-style-outline {
-  border: 1px solid var(--color-light);
-  background-color: transparent;
-  color: var(--color-light);
-}
-.button[data-color-theme=light].is-style-outline:hover, .button[data-color-theme=light].is-style-outline:focus, .button[data-color-theme=light].is-style-outline:active {
-  background: var(--color-light);
-  color: var(--readable-color-light);
-}
-.button[data-color-theme=dark]:not(.is-style-outline) {
-  background-color: var(--color-dark);
-  border: 1px solid var(--color-dark);
-  color: var(--readable-color-dark);
-}
-.button[data-color-theme=dark]:not(.is-style-outline):hover, .button[data-color-theme=dark]:not(.is-style-outline):focus, .button[data-color-theme=dark]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-dark) 80%, black);
-  border-color: color-mix(in srgb, var(--color-dark) 80%, black);
-  color: var(--readable-color-dark);
-}
-.button[data-color-theme=dark].is-style-outline {
-  border: 1px solid var(--color-dark);
-  background-color: transparent;
-  color: var(--color-dark);
-}
-.button[data-color-theme=dark].is-style-outline:hover, .button[data-color-theme=dark].is-style-outline:focus, .button[data-color-theme=dark].is-style-outline:active {
-  background: var(--color-dark);
-  color: var(--readable-color-dark);
-}
-.button[data-color-theme=white]:not(.is-style-outline) {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-white);
-  color: var(--readable-color-white);
-}
-.button[data-color-theme=white]:not(.is-style-outline):hover, .button[data-color-theme=white]:not(.is-style-outline):focus, .button[data-color-theme=white]:not(.is-style-outline):active {
-  background-color: color-mix(in srgb, var(--color-white) 80%, black);
-  border-color: color-mix(in srgb, var(--color-white) 80%, black);
-  color: var(--readable-color-white);
-}
-.button[data-color-theme=white].is-style-outline {
-  border: 1px solid var(--color-white);
-  background-color: transparent;
-  color: var(--color-white);
-}
-.button[data-color-theme=white].is-style-outline:hover, .button[data-color-theme=white].is-style-outline:focus, .button[data-color-theme=white].is-style-outline:active {
-  background: var(--color-white);
-  color: var(--readable-color-white);
-}
-
-body :where(.editor-styles-wrapper) p, body :where(.editor-styles-wrapper) li {
+body :where(.editor-styles-wrapper) p, body :where(.editor-styles-wrapper) li, body :where(.editor-styles-wrapper) .link-group__link {
   font-size: 1rem;
 }
 
@@ -1366,10 +1371,6 @@ body :where(.editor-styles-wrapper) p, body :where(.editor-styles-wrapper) li {
   background: linear-gradient(180deg, var(--color-white) 0%, var(--color-white) 50%, var(--color-white) 50%, var(--color-white) 100%);
 }
 
-body :where(.editor-styles-wrapper) {
-  font-family: var(--font-family-body) !important;
-}
-
 .wp-block-heading {
   margin-block: var(--spacing-md);
 }
@@ -1445,36 +1446,6 @@ body :where(.editor-styles-wrapper) {
   margin-block: var(--spacing-sm) !important;
   line-height: 1.4;
 }
-.color-primary .wp-block-paragraph {
-  color: var(--color-primary);
-}
-.color-secondary .wp-block-paragraph {
-  color: var(--color-secondary);
-}
-.color-accent .wp-block-paragraph {
-  color: var(--color-accent);
-}
-.color-info .wp-block-paragraph {
-  color: var(--color-info);
-}
-.color-warning .wp-block-paragraph {
-  color: var(--color-warning);
-}
-.color-success .wp-block-paragraph {
-  color: var(--color-success);
-}
-.color-error .wp-block-paragraph {
-  color: var(--color-error);
-}
-.color-light .wp-block-paragraph {
-  color: var(--color-light);
-}
-.color-dark .wp-block-paragraph {
-  color: var(--color-dark);
-}
-.color-white .wp-block-paragraph {
-  color: var(--color-white);
-}
 
 .wp-block-separator.has-primary-background-color {
   background-color: var(--color-primary);
@@ -1536,7 +1507,14 @@ body :where(.editor-styles-wrapper) {
 .wp-block-separator.has-white-background-color:before {
   color: var(--color-white);
 }
-.block-editor-inner-blocks .button {
+.wp-block-button {
+  line-height: 1;
+}
+.wp-block-button .wp-element-button[role=textbox] {
+  font-size: 1rem;
+}
+
+.block-editor-inner-blocks .button, .block-editor-inner-blocks .wp-block-button {
   color: inherit;
   border-color: inherit;
   border-radius: var(--button-border-radius);
@@ -1547,59 +1525,54 @@ body :where(.editor-styles-wrapper) {
   font-family: var(--font-family-body);
   font-size: 1rem;
 }
-.block-editor-inner-blocks .button[class$="--outline"] {
+.block-editor-inner-blocks .button[class$="--outline"], .block-editor-inner-blocks [class$="--outline"].wp-block-button {
   background: none;
 }
-.block-editor-inner-blocks .button.button--primary--outline {
+.block-editor-inner-blocks .button.button--primary--outline, .block-editor-inner-blocks .button--primary--outline.wp-block-button {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
-.block-editor-inner-blocks .button.button--secondary--outline {
+.block-editor-inner-blocks .button.button--secondary--outline, .block-editor-inner-blocks .button--secondary--outline.wp-block-button {
   color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
-.block-editor-inner-blocks .button.button--accent--outline {
+.block-editor-inner-blocks .button.button--accent--outline, .block-editor-inner-blocks .button--accent--outline.wp-block-button {
   color: var(--color-accent);
   border-color: var(--color-accent);
 }
-.block-editor-inner-blocks .button.button--info--outline {
+.block-editor-inner-blocks .button.button--info--outline, .block-editor-inner-blocks .button--info--outline.wp-block-button {
   color: var(--color-info);
   border-color: var(--color-info);
 }
-.block-editor-inner-blocks .button.button--warning--outline {
+.block-editor-inner-blocks .button.button--warning--outline, .block-editor-inner-blocks .button--warning--outline.wp-block-button {
   color: var(--color-warning);
   border-color: var(--color-warning);
 }
-.block-editor-inner-blocks .button.button--success--outline {
+.block-editor-inner-blocks .button.button--success--outline, .block-editor-inner-blocks .button--success--outline.wp-block-button {
   color: var(--color-success);
   border-color: var(--color-success);
 }
-.block-editor-inner-blocks .button.button--error--outline {
+.block-editor-inner-blocks .button.button--error--outline, .block-editor-inner-blocks .button--error--outline.wp-block-button {
   color: var(--color-error);
   border-color: var(--color-error);
 }
-.block-editor-inner-blocks .button.button--light--outline {
+.block-editor-inner-blocks .button.button--light--outline, .block-editor-inner-blocks .button--light--outline.wp-block-button {
   color: var(--color-light);
   border-color: var(--color-light);
 }
-.block-editor-inner-blocks .button.button--dark--outline {
+.block-editor-inner-blocks .button.button--dark--outline, .block-editor-inner-blocks .button--dark--outline.wp-block-button {
   color: var(--color-dark);
   border-color: var(--color-dark);
 }
-.block-editor-inner-blocks .button.button--white--outline {
+.block-editor-inner-blocks .button.button--white--outline, .block-editor-inner-blocks .button--white--outline.wp-block-button {
   color: var(--color-white);
   border-color: var(--color-white);
 }
 
-.wp-block-button__link {
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
+.wp-block-columns .wp-block-column.has-background {
+  padding: var(--spacing-md);
 }
 
-.wp-block-pullquote {
-  padding: 0;
-}
 .wp-block-gallery {
   display: grid !important;
   grid-gap: var(--spacing-md);

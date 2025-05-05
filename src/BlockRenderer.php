@@ -1,11 +1,8 @@
 <?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 namespace Doubleedesign\Comet\WordPress;
 use Doubleedesign\Comet\Core\{Callout, Paragraph, Renderable, Settings, Utils, NotImplemented};
-use DOMDocument;
-use Exception;
-use HTMLPurifier;
-use HTMLPurifier_Config;
-use ReflectionClass, ReflectionProperty, Closure, ReflectionException, RuntimeException;
+use DOMDocument, ReflectionClass, ReflectionProperty, Closure, ReflectionException, RuntimeException, Exception;
+use HTMLPurifier, HTMLPurifier_Config;
 use WP_Block_Type_Registry, WP_Block;
 
 class BlockRenderer {
@@ -401,7 +398,7 @@ class BlockRenderer {
 					// this should pick up client blocks, which are usually ACF blocks and this is how we want to handle those
 					try {
 						$html = self::render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
-						return new PreprocessedHTML($block->attributes, $html);
+						return [new PreprocessedHTML($block->attributes, $html)];
 					}
 					catch(RuntimeException $e) {
 						self::handle_error($e);
