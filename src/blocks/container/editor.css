@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-.wp-block-comet-container {
-  margin: 0 auto;
-  padding-inline: 1rem;
-=======
 .page-section {
   padding-block: var(--spacing-md);
   padding-inline: 0;
@@ -173,7 +168,6 @@
 
 .wp-block-comet-container {
   margin: 0 auto;
->>>>>>> origin/master
 }
 
 /*# sourceMappingURL=editor.css.map */
