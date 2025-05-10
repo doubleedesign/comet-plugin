@@ -10,7 +10,7 @@
 		"comet/container",
 		"core/column",
 		"core/group",
-		"comet/panel-content"
+		"comet/panel"
 	],
 	"allowedBlocks": [
 		"core/heading",
@@ -34,9 +34,7 @@
 			"default": "div"
 		}
 	},
-	"editorStyle": [
-		"comet-callout-style"
-	],
+	"editorStyle": "file:./editor.css",
 	"supports": {
 		"mode": false,
 		"jsx": true,

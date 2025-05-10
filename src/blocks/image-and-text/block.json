@@ -3,22 +3,20 @@
 	"apiVersion": 3,
 	"name": "comet/image-and-text",
 	"title": "Featured text + image",
+	"description": "Pair a featured text block with an image",
+	"textdomain": "comet",
+	"icon": "cover-image",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
 	"parent": [
 		"comet/container"
 	],
 	"category": "design",
-	"icon": "cover-image",
-	"description": "Pair a featured text block with an image",
 	"keywords": [
 		"image",
 		"call-to-action",
 		"pullquote",
 		"featured"
-	],
-	"textdomain": "comet",
-	"editorStyle": [
-		"comet-image-and-text-style"
 	],
 	"supports": {
 		"jsx": true,

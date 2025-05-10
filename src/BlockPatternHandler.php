@@ -1,5 +1,6 @@
 <?php
 namespace Doubleedesign\Comet\WordPress;
+use Doubleedesign\Comet\Core\Renderable;
 
 class BlockPatternHandler {
 
@@ -9,6 +10,38 @@ class BlockPatternHandler {
 		add_action('admin_menu', [$this, 'add_menu_item']);
 		add_filter('block_editor_settings_all', [$this, 'remove_patterns_from_inserter']);
 		add_action('init', [$this, 'allowed_block_patterns'], 10, 2);
+
+		add_filter('render_block', [$this, 'override_block_pattern_rendering'], 10, 3);
+	}
+
+
+	/**
+	 * Override the rendering of reusable blocks (synced patterns) to use Comet
+	 * in a way that supports patterns being inside other blocks
+	 * @param $content
+	 * @param $parsed_block
+	 * @param $block_instance
+	 * @return string
+	 */
+	function override_block_pattern_rendering($content, $parsed_block, $block_instance): string {
+		if($parsed_block['blockName'] === 'core/block' && !empty($parsed_block['attrs']['ref'])) {
+			return self::render_synced_block_pattern($block_instance);
+		}
+
+		return $content;
+	}
+
+	public static function render_synced_block_pattern($block_instance): string {
+		$blocks = BlockRenderer::reusable_block_content_to_comet_component_objects($block_instance);
+		ob_start();
+		foreach($blocks as $block) {
+			if($block instanceof Renderable) {
+				$block->render();
+			}
+			// TODO: Support third-party blocks in synced patterns
+		}
+
+		return ob_get_clean();
 	}
 
 

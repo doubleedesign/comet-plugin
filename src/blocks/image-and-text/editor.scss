@@ -1,0 +1,19 @@
+@use '../../../vendor/doubleedesign/comet-components-core/src/components/ImageAndText/image-and-text' as *;
+
+// The :nth-child logic used for overlays in the core stylesheet doesn't work in the block editor
+// because of the extra wrappers the block editor introduces, so we need to fix that here
+.image-and-text {
+	.wp-block[data-type="comet/image-and-text-content"] {
+		&:nth-child(1):has([style^="--overlay-amount"]) {
+			.image-and-text__content {
+				margin-block-end: var(--overlay-amount);
+			}
+		}
+
+		&:nth-child(2):has([style^="--overlay-amount"]) {
+			.image-and-text__content {
+				margin-block-start: var(--overlay-amount);
+			}
+		}
+	}
+}

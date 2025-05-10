@@ -1,4 +1,5 @@
+@use '../../../vendor/doubleedesign/comet-components-core/src/components/Container/container' as *;
+
 .wp-block-comet-container {
 	margin: 0 auto;
-	padding-inline: 1rem;
 }

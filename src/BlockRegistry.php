@@ -61,25 +61,6 @@ class BlockRegistry extends JavaScriptImplementation {
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
 				]);
-
-				// This is how we would register block stylesheets individually
-				// Not used because we currently compile them all into one
-				// this doesn't differentiate when a block is shown or not anyway
-//				$shortName = $block_name; // folder name in this case
-//				$pascalCaseName = Utils::pascal_case($shortName); // should match the class name without the namespace
-//				$cssPath = dirname(__DIR__, 1) . "/vendor/doubleedesign/comet-components-core/src/components/$pascalCaseName/$shortName.css";
-//				if(file_exists($cssPath)) {
-//					$handle = Utils::kebab_case($block_name) . '-style';
-//					$pluginFilePath = dirname(plugin_dir_url(__FILE__)) . "/vendor/doubleedesign/comet-components-core/src/components/$pascalCaseName/$shortName.css";
-//					wp_register_style(
-//						$handle,
-//						$pluginFilePath,
-//						[],
-//						COMET_VERSION
-//					);
-//
-//					wp_enqueue_style($handle);
-//				}
 			}
 			// Block has variations that align to a component name, without the overarching block name being used for a rendering class
 			else if(isset($block_json->variations)) {
@@ -87,28 +68,6 @@ class BlockRegistry extends JavaScriptImplementation {
 				register_block_type($folder, [
 					'render_callback' => BlockRenderer::render_block_callback("comet/$block_name")
 				]);
-
-				// This is how we would register block variation stylesheets individually
-				// Not used because we currently compile them all into one
-				// this doesn't differentiate when a block is shown or not anyway
-//				foreach($block_json->variations as $variation) {
-//					$shortName = Utils::pascal_case(array_reverse(explode('/', $variation->name))[0]);
-//					$shortNameLower = strtolower($shortName);
-//					$filePath = dirname(__DIR__, 1) . "/vendor/doubleedesign/comet-components-core/src/components/$shortName/$shortNameLower.css";
-//
-//					if(file_exists($filePath)) {
-//						$handle = Utils::kebab_case($variation->name) . '-style';
-//						$pluginFilePath = dirname(plugin_dir_url(__FILE__)) . "/vendor/doubleedesign/comet-components-core/src/components/$shortName/$shortNameLower.css";
-//						wp_register_style(
-//							$handle,
-//							$pluginFilePath,
-//							[],
-//							COMET_VERSION
-//						);
-//
-//						wp_enqueue_style($handle);
-//					}
-//				}
 			}
 			// Block is an inner component of a variation, and we want to use a Comet Component according to the variation
 			else if(isset($block_json->parent)) {
@@ -280,6 +239,9 @@ class BlockRegistry extends JavaScriptImplementation {
 			case 'core/pullquote':
 				$metadata['supports']['__experimentalBorder'] = false;
 				return $metadata;
+			case 'core/group':
+				$metadata['supports']['layout'] = false;
+				$metadata['supports']['align'] = false;
 			default:
 				return $metadata;
 		}

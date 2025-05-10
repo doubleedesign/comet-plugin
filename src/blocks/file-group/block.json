@@ -10,12 +10,13 @@
 		"comet/container",
 		"core/column",
 		"core/group",
-		"comet/panel-content"
+		"comet/panel"
 	],
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "render.php"
 	},
+	"editorStyle": "file:./editor.css",
 	"keywords": [
 		"files",
 		"downloads"

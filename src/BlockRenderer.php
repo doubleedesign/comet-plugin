@@ -1,27 +1,30 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 namespace Doubleedesign\Comet\WordPress;
 use Doubleedesign\Comet\Core\{Callout, Paragraph, Renderable, Settings, Utils, NotImplemented};
 use DOMDocument;
+use Exception;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use ReflectionClass, ReflectionProperty, Closure, ReflectionException, RuntimeException;
 use WP_Block_Type_Registry, WP_Block;
 
 class BlockRenderer {
-	private array $theme_json;
-	private array $block_support_json;
+	private static array $theme_json;
+	private static array $block_support_json;
 
 	public function __construct() {
 		$this->load_merged_theme_json();
 
 		add_filter('wp_theme_json_data_default', [$this, 'filter_default_theme_json'], 10, 1);
-		// Core block rendering override needs to run pretty late to ensure all blocks are registered and available in the registry instance first
-		add_action('init', [$this, 'override_core_block_rendering'], 100);
 
 		if(is_admin()) {
-			$this->block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
+			self::$block_support_json = json_decode(file_get_contents(__DIR__ . '/block-support.json'), true);
 			add_action('init', [$this, 'register_core_block_stylesheets_for_editor'], 99, 2);
 		}
+
+		// Core block rendering override needs to run pretty late to ensure all blocks are registered and available in the registry instance first
+		//add_action('init', [$this, 'override_core_block_rendering'], 100);
+		add_filter('render_block', [$this, 'override_core_block_rendering'], 15, 3);
 	}
 
 	protected function load_merged_theme_json(): void {
@@ -35,7 +38,7 @@ class BlockRenderer {
 			$final_theme_json = Utils::array_merge_deep($plugin_theme_json_data, $theme_json_data);
 		}
 
-		$this->theme_json = $final_theme_json;
+		self::$theme_json = $final_theme_json;
 	}
 
 	/**
@@ -66,55 +69,42 @@ class BlockRenderer {
 
 	/**
 	 * Override core block render function and use Comet instead
-	 * @return void
+	 * @param $content
+	 * @param $parsed_block
+	 * @param $block_instance
+	 * @return string
 	 */
-	function override_core_block_rendering(): void {
+	function override_core_block_rendering($content, $parsed_block, $block_instance): string {
 		$blocks = $this->get_allowed_blocks();
-		$core_blocks = array_filter($blocks, fn($block) => str_starts_with($block, 'core/'));
+		$core_blocks = array_values(array_filter($blocks, fn($block) => str_starts_with($block, 'core/')));
+		$core_block_name = $parsed_block['blockName'];
+
+		if($core_block_name === 'core/block') {
+			return $content; // handled in a separate filter function in BlockPatternHandler
+		}
 
 		// Check rendering prerequisites and bail early if one is not met
-		// Otherwise, do nothing - the original WP block render function will be used
-		foreach($core_blocks as $core_block_name) {
-			// core/block is for reusable blocks (synced patterns), and does not have a Comet component
-			// so we don't want to override it like we do with other core blocks
-			if($core_block_name === 'core/block') continue;
+		// Otherwise, return the original content
+		if(!in_array($core_block_name, $core_blocks)) return $content;
 
-			// WP block type exists
-			$block_type = WP_Block_Type_Registry::get_instance()->get_registered($core_block_name);
-			if(!$block_type) continue;
+		// WP block type exists
+		$block_type = WP_Block_Type_Registry::get_instance()->get_registered($core_block_name);
+		if(!$block_type) return $content;
 
-			// Corresponding Comet Component class exists
-			$ComponentClass = self::get_comet_component_class($core_block_name); // returns the namespaced class name
-			if(!$ComponentClass) continue;
+		// Corresponding Comet Component class exists
+		$ComponentClass = self::get_comet_component_class($core_block_name); // returns the namespaced class name
+		if(!$ComponentClass) return $content;
 
-			//...and the render method has been implemented
-			$ready_to_render = $this->can_render_comet_component($ComponentClass);
-			if(!$ready_to_render) continue;
+		//...and the render method has been implemented
+		$ready_to_render = $this->can_render_comet_component($ComponentClass);
+		if(!$ready_to_render) return $content;
 
-			//...and one or more of the expected content fields is present
-			$content_types = $this->get_comet_component_content_type($ComponentClass); // so we know what to pass to it
-			if(!$content_types) continue;
+		//...and one or more of the expected content fields is present
+		$content_types = $this->get_comet_component_content_type($ComponentClass); // so we know what to pass to it
+		if(!$content_types) return $content;
 
-			// If all of those conditions were met, override the block's render callback
-			// Unregister the original block
-			unregister_block_type($core_block_name);
-
-			// Re-register the block with the original settings merged with new settings and new render callback
-			$shortName = array_reverse(explode('/', $core_block_name))[0];
-			register_block_type($core_block_name,
-				array_merge(
-					get_object_vars($block_type), // Convert object to array
-					[
-						// Custom front-end rendering using Comet
-						'render_callback' => self::render_block_callback($core_block_name),
-						'editorStyle'     => "comet-$shortName-style",
-						// to make it work in the pattern editor. Normally, style also loads on the front-end, but at the time of writing it isn't,
-						// probably because of the render callback override, which is intentional - we are loading bundled css on the front-end.
-						'style'           => "comet-$shortName-style"
-					]
-				)
-			);
-		}
+		// If all of those conditions were met, override the block's render callback
+		return self::render_block_callback($core_block_name)($block_instance->attributes, $content, $block_instance);
 	}
 
 	/**
@@ -141,11 +131,9 @@ class BlockRenderer {
 			if(file_exists($stylesheet)) {
 				wp_register_style("comet-$shortName-style", $stylesheet, $deps, COMET_VERSION);
 			}
-
-			error_log(print_r($stylesheet, true));
 		}
 	}
-
+	
 	/**
 	 * Inner function for the override, to render a core block using a custom template
 	 * @param string $block_name
@@ -167,7 +155,7 @@ class BlockRenderer {
 				}
 			}
 
-			return (new BlockRenderer())->render_block($block_name, $attributes, $content, $block_instance);
+			return self::render_block($block_name, $attributes, $content, $block_instance);
 		};
 	}
 
@@ -187,7 +175,7 @@ class BlockRenderer {
 	 *
 	 * @return string
 	 */
-	public function render_block(string $block_name, array $attributes, string $content, WP_Block|bool $block_instance): string {
+	public static function render_block(string $block_name, array $attributes, string $content, WP_Block|bool $block_instance): string {
 		// Handle blocks that hit this function due to being an inner block,
 		// but shouldn't be passed directly to Comet components to render
 		if(
@@ -199,12 +187,8 @@ class BlockRenderer {
 				if($block_instance->block_type->render_callback) {
 					return call_user_func($block_instance->block_type->render_callback, $attributes, $content, $block_instance);
 				}
-				// blocks to render-as-is, at least for now
-				else if($block_instance->block_type->name === 'flexible-table-block/table') {
-					return $block_instance->parsed_block['innerHTML'];
-				}
 				else {
-					throw new RuntimeException("Problem rendering $block_name in BlockRenderer->render_block()");
+					throw new RuntimeException("Problem rendering $block_name in BlockRenderer::render_block()");
 				}
 			}
 			catch(RuntimeException $e) {
@@ -214,7 +198,7 @@ class BlockRenderer {
 
 		try {
 			ob_start();
-			$component = $this->block_to_comet_component_object($block_instance);
+			$component = self::block_to_comet_component_object($block_instance);
 			$component->render();
 			return ob_get_clean();
 		}
@@ -244,28 +228,55 @@ class BlockRenderer {
 	 * @return object|null
 	 * @throws RuntimeException
 	 */
-	private function block_to_comet_component_object(WP_Block &$block_instance): ?object {
+	private static function block_to_comet_component_object(WP_Block &$block_instance): ?object {
 		$block_name = $block_instance->name;
 		$block_name_trimmed = array_reverse(explode('/', $block_name))[0];
 		$content = $block_instance->parsed_block['innerHTML'] ?? '';
-		$innerComponents = $block_instance->inner_blocks ? $this->process_innerblocks($block_instance) : [];
+		// Ignore blocks that exist just for the editing experience and skip down to their inner blocks and attributes
+		if($block_name === 'comet/image-and-text') {
+			$rawInner = iterator_to_array($block_instance->inner_blocks);
+			$transformedAttrs = [];
+			foreach($rawInner as $index => $block) {
+				if($block->name === 'comet/image-and-text-image-wrapper') {
+					$transformedAttrs['imageMaxWidth'] = $block->attributes['maxWidth'] ?? null;
+					$transformedAttrs['imageAlign'] = $block->attributes['layout']['justifyContent'] ?? null;
+					$transformedAttrs['imageFirst'] = $index === 0;
+				}
+				if($block->name === 'comet/image-and-text-content') {
+					$transformedAttrs['contentMaxWidth'] = $block->attributes['maxWidth'] ?? null;
+					$transformedAttrs['contentAlign'] = $block->attributes['layout']['justifyContent'] ?? null;
+					$transformedAttrs['overlayAmount'] = $block->attributes['overlayAmount'] ?? null;
+				}
+			}
+
+			$innerComponents = array_map(function($child) {
+				return $child->inner_blocks ? self::process_innerblocks($child) : [];
+			}, iterator_to_array($block_instance->inner_blocks));
+			$innerComponents = Utils::array_flat($innerComponents);
+
+			$block_instance->attributes = array_merge($block_instance->attributes, $transformedAttrs);
+		}
+		// Otherwise, process inner blocks as-is
+		else {
+			$innerComponents = $block_instance->inner_blocks ? self::process_innerblocks($block_instance) : [];
+		}
 
 		// Block-specific handling of attributes and content
 		if($block_name === 'comet/banner') {
-			$this->process_banner_block($block_instance);
+			self::process_banner_block($block_instance);
 		}
 		if($block_name === 'comet/table') {
-			$this->process_table_block($block_instance);
+			self::process_table_block($block_instance);
 		}
 		if($block_name === 'core/button') {
-			$this->process_button_block($block_instance);
+			self::process_button_block($block_instance);
 			$content = $block_instance->attributes['content'];
 		}
 		if($block_name === 'core/image') {
-			$this->process_image_block($block_instance);
+			self::process_image_block($block_instance);
 		}
 		if($block_name === 'core/gallery') {
-			$this->process_gallery_block($block_instance);
+			self::process_gallery_block($block_instance);
 		}
 		if($block_name === 'core/pullquote') {
 			$quoteContent = $block_instance->parsed_block['innerHTML'];
@@ -283,17 +294,17 @@ class BlockRenderer {
 		// Note: We do not expect blocks to have both a "colour theme" and a text colour attribute
 		if(isset($block_instance->attributes['style']['elements']['theme'])) {
 			$color = $block_instance->attributes['style']['elements']['theme']['color']['background'];
-			$block_instance->attributes['colorTheme'] = $this->hex_to_theme_color_name($color) ?? null;
+			$block_instance->attributes['colorTheme'] = self::hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
 		}
 		if(isset($block_instance->attributes['style']['elements']['overlay'])) {
 			$color = $block_instance->attributes['style']['elements']['overlay']['color']['background'];
-			$block_instance->attributes['overlayColor'] = $this->hex_to_theme_color_name($color) ?? null;
+			$block_instance->attributes['overlayColor'] = self::hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
 		}
 		if(isset($block_instance->attributes['style']['elements']['inline']['color']['text'])) {
 			$color = $block_instance->attributes['style']['elements']['inline']['color']['text'];
-			$block_instance->attributes['textColor'] = $this->hex_to_theme_color_name($color) ?? null;
+			$block_instance->attributes['textColor'] = self::hex_to_theme_color_name($color) ?? null;
 			unset($block_instance->attributes['style']);
 		}
 
@@ -328,7 +339,7 @@ class BlockRenderer {
 		}
 
 		// Check what type of content to pass to it - an array, a string, etc
-		$content_type = $this->get_comet_component_content_type($ComponentClass);
+		$content_type = self::get_comet_component_content_type($ComponentClass);
 
 		// Create the component object
 		// Self-closing tag components, e.g. <img>, only have attributes
@@ -359,36 +370,36 @@ class BlockRenderer {
 	 * @param WP_Block $block_instance
 	 * @return array<Renderable>
 	 */
-	private function process_innerblocks(WP_Block $block_instance): array {
+	private static function process_innerblocks(WP_Block $block_instance): array {
 		// Handle nested reusable blocks (synced patterns)
 		if($block_instance->name === 'core/block') {
-			return $this->reusable_block_content_to_comet_component_objects($block_instance);
+			return self::reusable_block_content_to_comet_component_objects($block_instance);
 		}
 
 		$innerBlocks = $block_instance->inner_blocks ?? null;
 		if($innerBlocks) {
 			$transformed = array_map(function($block) {
 				// Handle reusable blocks/synced patterns
-				// TODO: handle these not being Comet Components blocks
+				// TODO: Support third-party blocks in synced patterns
 				if($block->name === 'core/block') {
-					return $this->reusable_block_content_to_comet_component_objects($block);
+					return self::reusable_block_content_to_comet_component_objects($block);
 				}
 
 				// Handle known ACF blocks that we want to use its render template for
 				if(in_array($block->name, ['comet/file-group', 'comet/link-group'])) {
-					$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
-					return new PreprocessedHTML($block->attributes, $html);
+					$html = self::render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
+					return [new PreprocessedHTML($block->attributes, $html)];
 				}
 
 				try {
-					return $this->block_to_comet_component_object($block);
+					return [self::block_to_comet_component_object($block)];
 				}
 				catch(RuntimeException $e) {
 					// If the block did not have a matching Comet component (at least not directly), render it as HTML
 					// and then wrap it in a component that handles that
 					// this should pick up client blocks, which are usually ACF blocks and this is how we want to handle those
 					try {
-						$html = $this->render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
+						$html = self::render_block($block->name, $block->attributes, $block->innerHTML || '', $block);
 						return new PreprocessedHTML($block->attributes, $html);
 					}
 					catch(RuntimeException $e) {
@@ -405,9 +416,9 @@ class BlockRenderer {
 		return [];
 	}
 
-	private function reusable_block_content_to_comet_component_objects(WP_Block $block): array {
+	public static function reusable_block_content_to_comet_component_objects(WP_Block $block): array {
 		try {
-			$postId = $block->parsed_block['attrs']['ref'];
+			$postId = $block->parsed_block['attrs']['ref']; // reusable blocks are posts
 			$serializedBlock = get_the_content(null, false, $postId);
 			$blockObjects = parse_blocks($serializedBlock);
 			// No idea why we sometimes get some empty ones here sometimes, but let's just filter them out
@@ -415,20 +426,18 @@ class BlockRenderer {
 			$blockObjects = array_values(array_filter($blockObjects, fn($block) => !empty($block['blockName'])));
 
 			// Convert to Comet component objects and return those
-			$components = array_map(function($block) {
+			return array_map(function($block) {
 				try {
 					$block_instance = new WP_Block($block);
-					return $this->block_to_comet_component_object($block_instance);
+					return self::block_to_comet_component_object($block_instance);
 				}
 				catch(RuntimeException $e) {
 					self::handle_error($e);
 					return null;
 				}
 			}, $blockObjects);
-
-			return $components;
 		}
-		catch(RuntimeException $e) {
+		catch(Exception $e) {
 			self::handle_error($e);
 			return [];
 		}
@@ -459,7 +468,7 @@ class BlockRenderer {
 	 * @param string $className
 	 * @return array<string>|null
 	 */
-	private function get_comet_component_content_type(string $className): ?array {
+	private static function get_comet_component_content_type(string $className): ?array {
 		if(!$className || !class_exists($className)) return null;
 
 		if($className === 'Doubleedesign\Comet\Core\Table') {
@@ -494,7 +503,7 @@ class BlockRenderer {
 	 * @param WP_Block $block_instance
 	 * @return void
 	 */
-	protected function process_image_block(WP_Block &$block_instance): void {
+	protected static function process_image_block(WP_Block &$block_instance): void {
 		if(!isset($block_instance->attributes['id'])) return;
 
 		$size = $block_instance->attributes['sizeSlug'] ?? 'full';
@@ -525,7 +534,7 @@ class BlockRenderer {
 	 * @param WP_Block $block_instance
 	 * @return void
 	 */
-	protected function process_gallery_block(WP_Block &$block_instance): void {
+	protected static function process_gallery_block(WP_Block &$block_instance): void {
 		// If the gallery itself has a caption, it's probably the last element in the block's inner content array
 		$maybe_caption = end($block_instance->inner_content);
 		if(!empty($maybe_caption) && gettype($maybe_caption) === 'string') {
@@ -541,14 +550,14 @@ class BlockRenderer {
 	 * @param WP_Block $block_instance
 	 * @return void
 	 */
-	protected function process_button_block(WP_Block $block_instance): void {
+	protected static function process_button_block(WP_Block $block_instance): void {
 		$attributes = $block_instance->attributes;
 		$raw_content = $block_instance->parsed_block['innerHTML'];
 		$content = '';
 
 		// Process custom attributes
 		if(isset($attributes['style'])) {
-			$attributes['colorTheme'] = $this->hex_to_theme_color_name($attributes['style']['elements']['theme']['color']['background']) ?? null;
+			$attributes['colorTheme'] = self::hex_to_theme_color_name($attributes['style']['elements']['theme']['color']['background']) ?? null;
 			unset($attributes['style']);
 		}
 
@@ -590,13 +599,13 @@ class BlockRenderer {
 	}
 
 
-	protected function process_banner_block(WP_Block $block_instance): void {
+	protected static function process_banner_block(WP_Block $block_instance): void {
 		$attributes = $block_instance->attributes;
 		$id = $attributes['imageId'] ?? null;
 		$block_instance->attributes['imageAlt'] = get_post_meta($id, '_wp_attachment_image_alt', true) ?? '';
 	}
 
-	protected function process_table_block(WP_Block $block_instance): void {
+	protected static function process_table_block(WP_Block $block_instance): void {
 		$filteredAttributes = array_filter($block_instance->attributes, function($key) {
 			return !in_array($key, ['head', 'body', 'foot']);
 		}, ARRAY_FILTER_USE_KEY);
@@ -610,7 +619,7 @@ class BlockRenderer {
 		$caption = $dom->getElementsByTagName('caption')->item(0);
 		if($caption) {
 			$filteredAttributes['tableCaption'] = array(
-				'content'    => Utils::sanitise_content($this->domdocument_node_to_html($caption, $dom), Settings::INLINE_PHRASING_ELEMENTS),
+				'content'    => Utils::sanitise_content(self::domdocument_node_to_html($caption, $dom), Settings::INLINE_PHRASING_ELEMENTS),
 				'attributes' => array(
 					'textAlign' => $filteredAttributes['captionStyles']['textAlign'] ?? null,
 					'position'  => $filteredAttributes['captionStyles']['captionSide'] ?? null,
@@ -675,7 +684,7 @@ class BlockRenderer {
 		}, iterator_to_array($cells));
 	}
 
-	private function domdocument_node_to_html($node, $dom): string {
+	private static function domdocument_node_to_html($node, $dom): string {
 		$content = $node->textContent;
 		// If the node has child nodes, get the HTML content as-is (this allows for inline tags like strong, em, images, etc)
 		if($node->childNodes) {
@@ -687,36 +696,12 @@ class BlockRenderer {
 
 
 	/**
-	 * Loop through an array of inner blocks and prepend the given variant name to the block name,
-	 * and add an attribute to pass down the variant context in the way Comet expects
-	 * e.g. comet/panel => comet/accordion-panel (where accordion is the variant name)
-	 * $blocks are passed by reference and are modified in-place rather than returning a new array
-	 * @param $variant_name
-	 * @param $blocks
-	 * @return void
-	 */
-	protected function apply_variant_context($variant_name, &$blocks): void {
-		foreach($blocks as &$block) {
-			if(!str_starts_with($block['blockName'], 'comet/')) return; // Apply only to Comet component blocks
-
-			$short_name = explode('/', $block['blockName'])[1];
-			$block['blockName'] = "comet/$variant_name-$short_name";
-			$block['attrs']['context'] = $variant_name;
-
-			// Recurse into inner blocks
-			if(isset($block['innerBlocks'])) {
-				$this->apply_variant_context($variant_name, $block['innerBlocks']);
-			}
-		}
-	}
-
-	/**
 	 * The custom colour attributes are stored as hex values, but we want them as the theme colour names
 	 * @param $hex
 	 * @return string | null
 	 */
-	private function hex_to_theme_color_name($hex): ?string {
-		$theme = $this->theme_json['settings']['color']['palette'];
+	private static function hex_to_theme_color_name($hex): ?string {
+		$theme = self::$theme_json['settings']['color']['palette'];
 
 		return array_reduce($theme, function($carry, $item) use ($hex) {
 			if(isset($item['slug']) && isset($item['color'])) {

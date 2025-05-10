@@ -835,6 +835,13 @@
   color: var(--readable-color-white);
 }
 
+<<<<<<< HEAD
+=======
+body :where(.editor-styles-wrapper) p, body :where(.editor-styles-wrapper) li {
+  font-size: 1rem;
+}
+
+>>>>>>> origin/master
 /**
  * Common classes used in the block editor for attributes in both core and custom blocks,
  * but do not match Comet Components' handling of these attributes so need to be styled to match in the editor

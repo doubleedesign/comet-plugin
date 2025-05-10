@@ -105,19 +105,11 @@ function addCustomAttributesToCoreBlockHtml() {
 					return props?.attributes?.style?.elements?.inline?.color?.text;
 				}, [props?.attributes?.style?.elements?.inline?.color?.text]);
 
-				const colorThemeName = React.useMemo(() => {
+				props.attributes.textColor = React.useMemo(() => {
 					return themeColors?.find((color) => color.color === colorHex)?.slug ?? '';
 				}, [themeColors, colorHex]);
 
-				const styleClass = React.useMemo(() => {
-					return `color-${colorThemeName}`;
-				}, [colorThemeName, props.attributes?.className]);
-
-				// Wrap the original edit component with our custom classes
-				return createElement('div',
-					{ className: styleClass },
-					originalEdit(props)
-				);
+				return originalEdit(props);
 			};
 
 			return settings;
