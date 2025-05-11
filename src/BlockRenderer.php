@@ -666,7 +666,7 @@ class BlockRenderer {
 
 			$attributes = [
 				'tagName'         => $cell->tagName,
-				'id'              => $cell->id,
+				'id'              => $cell->id ?? null,
 				'classes'         => !empty($cell->className) ? explode(' ', $cell->className) : null,
 				'scope'           => $cell->getAttribute('scope'),
 				'headers'         => $cell->getAttribute('headers'),
