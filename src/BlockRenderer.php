@@ -133,7 +133,7 @@ class BlockRenderer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Inner function for the override, to render a core block using a custom template
 	 * @param string $block_name
@@ -639,15 +639,15 @@ class BlockRenderer {
 		$footRows = $tfoot !== null ? $tfoot->getElementsByTagName('tr') : [];
 
 		$transformed = array(
-			'thead' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($headRows)),
-			'tbody' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($bodyRows)),
-			'tfoot' => array_map(fn($row) => $this->get_table_row_cells($row, $dom), iterator_to_array($footRows)),
+			'thead' => array_map(fn($row) => self::get_table_row_cells($row, $dom), iterator_to_array($headRows)),
+			'tbody' => array_map(fn($row) => self::get_table_row_cells($row, $dom), iterator_to_array($bodyRows)),
+			'tfoot' => array_map(fn($row) => self::get_table_row_cells($row, $dom), iterator_to_array($footRows)),
 		);
 
 		$block_instance->inner_blocks = $transformed;
 	}
 
-	private function get_table_row_cells($row, $dom): array {
+	private static function get_table_row_cells($row, $dom): array {
 		$cells = $row->childNodes;
 
 		// Build an array of cells with their own attributes and content
@@ -679,7 +679,7 @@ class BlockRenderer {
 
 			return [
 				'attributes' => array_filter($attributes), // filter out empty values
-				'content'    => $this->domdocument_node_to_html($cell, $dom)
+				'content'    => self::domdocument_node_to_html($cell, $dom)
 			];
 		}, iterator_to_array($cells));
 	}
