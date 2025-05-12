@@ -1,0 +1,30 @@
+{
+	"name": "@doubleedesign/comet-plugin",
+	"description": "WordPress plugin implementing the Comet Components library and associated block editor customisations.",
+	"version": "0.0.2",
+	"author": "Leesa Ward",
+	"homepage": "https://cometcomponents.io",
+	"type": "module",
+	"scripts": {
+		"compile": "rollup -c",
+		"lint": "eslint --fix",
+		"build": "npm run compile && npm run lint"
+	},
+	"devDependencies": {
+		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
+		"@babel/preset-react": "^7.27.1",
+		"@rollup/plugin-babel": "^6.0.4",
+		"@rollup/plugin-node-resolve": "^16.0.0",
+		"@rollup/pluginutils": "^5.1.4",
+		"@wordpress/block-editor": "^14.9.0",
+		"@wordpress/block-library": "^9.14.0",
+		"@wordpress/blocks": "^14.3.0",
+		"@wordpress/data": "^10.23.0",
+		"@wordpress/element": "^6.14.0",
+		"@wordpress/html-entities": "^4.14.0",
+		"@wordpress/i18n": "^5.14.0",
+		"@wordpress/icons": "^10.22.0",
+		"@wordpress/rich-text": "^7.14.0",
+		"rollup": "^4.34.8"
+	}
+}
