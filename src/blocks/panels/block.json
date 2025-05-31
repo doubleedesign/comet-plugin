@@ -11,7 +11,7 @@
 	"allowedBlocks": [
 		"comet/panel"
 	],
-	"editorScript": "file:./index.js",
+	"editorScript": "file:./index.dist.js",
 	"editorStyle": "file:./editor.css",
 	"category": "design",
 	"icon": "list-view",

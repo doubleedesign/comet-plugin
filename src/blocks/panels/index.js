@@ -24,13 +24,16 @@ wp.domReady(() => {
 				['comet/panel']
 			];
 
-			return createElement('div',
-				blockProps,
-				createElement(InnerBlocks, {
-					allowedBlocks: ['comet/panel'],
-					template: template
-				})
-			);
+			return createElement(
+				'div',
+				{ 'data-vue-component': variant },
+				createElement('div',
+					blockProps,
+					createElement(InnerBlocks, {
+						allowedBlocks: ['comet/panel'],
+						template: template
+					})
+				));
 		},
 		save: () => {
 			return createElement('div',
