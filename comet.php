@@ -9,7 +9,7 @@
  *
  * Author:              Double-E Design
  * Author URI:          https://www.doubleedesign.com.au
- * Version:             0.0.2
+ * Version:             0.0.3
  * Requires at least:   6.7.0
  * Requires PHP:        8.2.23
  * Requires plugins:    advanced-custom-fields-pro, block-supports-extended, gutenberg
@@ -17,20 +17,19 @@
  *
  * @package Comet
  */
-
-if(!defined('COMET_COMPOSER_VENDOR_URL')) {
-	define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin/vendor');
+if (!defined('COMET_COMPOSER_VENDOR_URL')) {
+    define('COMET_COMPOSER_VENDOR_URL', get_site_url() . '/wp-content/plugins/comet-plugin/vendor');
 }
-const COMET_VERSION = '0.0.2';
+const COMET_VERSION = '0.0.3';
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Doubleedesign\Comet\WordPress\{
-	BlockRegistry,
-	BlockRenderer,
-	BlockEditorConfig,
-	ComponentAssets,
-	BlockPatternHandler,
-	TinyMceConfig
+    BlockRegistry,
+    BlockRenderer,
+    BlockEditorConfig,
+    ComponentAssets,
+    BlockPatternHandler,
+    TinyMceConfig
 };
 
 new BlockRegistry();
