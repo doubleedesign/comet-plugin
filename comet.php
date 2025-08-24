@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin name: Comet Components
+ * Plugin name: Comet Components for the Block Editor
  * Description: Double-E Design's foundational components and customisations for the WordPress block editor.
  *
  * Dev note: The dependency on Gutenberg is because at the time of development, justification controls incorrectly show up for the Panels block.

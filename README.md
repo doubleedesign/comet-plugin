@@ -1,16 +1,24 @@
-# Comet Components WordPress plugin
+# Comet Components WordPress block editor plugin
 
 This plugin is a WordPress implementation of the majority of Double-E Design's Comet Components library and standard customisations of the block editor itself. It includes the majority of the components as blocks, as well as some designed for use directly in templates (such as `SiteHeader`, `SiteFooter`, and `Menu`). The blocks are a combination of supported core blocks (some with customisations) and custom blocks.
 
 This plugin is a foundational requirement for all Double-E Design themes developed for the block editor from December 2024.
 
-If you're reading this from GitHub, you're seeing the mirror of the [Comet Components WordPress Plugin package](https://github.com/doubleedesign/comet-components/tree/master/packages/comet-plugin) that is here for the purposes of publishing to Packagist and installing via Composer.
+If you're reading this from GitHub, you're seeing the mirror of the [Comet Components WordPress Block Editor Plugin package](https://github.com/doubleedesign/comet-components/tree/master/packages/comet-plugin) that is here for the purposes of publishing to Packagist and installing via Composer.
 
 Development of this project belongs in the main Comet Components monorepo.
 
 ---
 
 ## Developer notes
+
+### Local development
+
+When working on this plugin within the monorepo, use `composer.local.json` so that symlinked local packages are used:
+
+```powershell
+$env:COMPOSER = "composer.local.json"; composer update --prefer-source
+```
 
 ### File structure
 
