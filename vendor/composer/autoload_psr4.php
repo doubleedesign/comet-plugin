@@ -26,7 +26,8 @@ return array(
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
     'Illuminate\\Bus\\' => array($vendorDir . '/illuminate/bus'),
     'Doubleedesign\\Comet\\WordPress\\' => array($baseDir . '/src'),
-    'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
+    'Doubleedesign\\Comet\\Core\\' => array($vendorDir . '/doubleedesign/comet-components-core/src/base/types', $vendorDir . '/doubleedesign/comet-components-core/src/base/attributes', $vendorDir . '/doubleedesign/comet-components-core/src/base/traits', $vendorDir . '/doubleedesign/comet-components-core/src/base/annotations', $vendorDir . '/doubleedesign/comet-components-core/src/base/components', $vendorDir . '/doubleedesign/comet-components-core/src/base', $vendorDir . '/doubleedesign/comet-components-core/src/services'),
+    'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/src'),
     'Carbon\\Doctrine\\' => array($vendorDir . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );
