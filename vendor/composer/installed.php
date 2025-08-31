@@ -239,9 +239,9 @@
             'dev_requirement' => false,
         ),
         'symfony/intl' => array(
-            'pretty_version' => 'v7.3.2',
-            'version' => '7.3.2.0',
-            'reference' => 'd1197fb6661b05f6178ddb2dc9c6d576f6f67ec8',
+            'pretty_version' => 'v7.3.3',
+            'version' => '7.3.3.0',
+            'reference' => '754d5ad02c889e380efc5a74fa3f6cfe56b7454d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/intl',
             'aliases' => array(),
