@@ -167,12 +167,12 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.1.1",
-            "version_normalized": "0.1.1.0",
+            "version": "0.2.0",
+            "version_normalized": "0.2.0.0",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "d9a7b308986f7ae6d6739333714d3373d515c3dd"
+                "reference": "a739f7ee1ec549cdad15818f5d6fc23837de240c"
             },
             "require": {
                 "ext-intl": "*",

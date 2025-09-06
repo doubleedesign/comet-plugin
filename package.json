@@ -1,7 +1,7 @@
 {
 	"name": "@doubleedesign/comet-plugin",
 	"description": "WordPress plugin implementing the Comet Components library and associated block editor customisations.",
-	"version": "0.0.3",
+	"version": "0.2.0",
 	"author": "Leesa Ward",
 	"homepage": "https://cometcomponents.io",
 	"type": "module",
