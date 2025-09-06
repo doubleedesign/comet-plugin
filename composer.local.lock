@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90f34f1e4b1ca132eaa0252c3b1ec2a8",
+    "content-hash": "12ca57715cc7eef89094395652d6bfc9",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -167,11 +167,11 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.1.1",
+            "version": "0.2.0",
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "d9a7b308986f7ae6d6739333714d3373d515c3dd"
+                "reference": "a739f7ee1ec549cdad15818f5d6fc23837de240c"
             },
             "require": {
                 "ext-intl": "*",

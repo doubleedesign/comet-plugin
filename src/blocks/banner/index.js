@@ -17,7 +17,6 @@ wp.domReady(() => {
 		Button,
 		RangeControl,
 		ToggleControl,
-		FocalPointPicker,
 		BaseControl,
 		TextControl,
 		SelectControl
@@ -44,7 +43,6 @@ wp.domReady(() => {
 				isParallax,
 				minHeight,
 				maxHeight,
-				focalPoint,
 				backgroundColor
 			} = attributes;
 
@@ -122,16 +120,6 @@ wp.domReady(() => {
 				)
 			);
 
-			const focalPointPicker = createElement(
-				FocalPointPicker,
-				{
-					label: 'Focal point',
-					url: imageUrl,
-					value: focalPoint,
-					onChange: (newFocalPoint) => setAttributes({ focalPoint: newFocalPoint })
-				}
-			);
-
 			const fixedBackgroundToggle = createElement(
 				ToggleControl,
 				{
@@ -203,7 +191,6 @@ wp.domReady(() => {
 							'div',
 							null,
 							imageUploader,
-							FocalPointPicker && !isParallax && focalPointPicker,
 							fixedBackgroundToggle
 						),
 					),
@@ -242,7 +229,6 @@ wp.domReady(() => {
 							{
 								src: imageUrl,
 								alt: '',
-								style: { objectPosition: focalPoint.x * 100 + '% ' + focalPoint.y * 100 + '%' }
 							}
 						)
 					),
