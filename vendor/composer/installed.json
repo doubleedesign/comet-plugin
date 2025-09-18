@@ -167,12 +167,18 @@
         },
         {
             "name": "doubleedesign/comet-components-core",
-            "version": "0.2.0",
-            "version_normalized": "0.2.0.0",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doubleedesign/comet-components-core.git",
+                "reference": "7fd4bca9715d28ac3b58bdb4b6f635f6ef0e4f84"
+            },
             "dist": {
-                "type": "path",
-                "url": "../core",
-                "reference": "a739f7ee1ec549cdad15818f5d6fc23837de240c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/doubleedesign/comet-components-core/zipball/7fd4bca9715d28ac3b58bdb4b6f635f6ef0e4f84",
+                "reference": "7fd4bca9715d28ac3b58bdb4b6f635f6ef0e4f84",
+                "shasum": ""
             },
             "require": {
                 "ext-intl": "*",
@@ -185,13 +191,11 @@
                 "illuminate/view": "^10.0",
                 "openpsa/ranger": "^0.5.8"
             },
+            "time": "2025-09-15T03:19:13+00:00",
+            "default-branch": true,
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
-                "classmap": [
-                    "src/components/",
-                    "src/components/**/"
-                ],
                 "psr-4": {
                     "Doubleedesign\\Comet\\Core\\": [
                         "src/base/types/",
@@ -202,24 +206,13 @@
                         "src/base/",
                         "src/services/"
                     ]
-                }
-            },
-            "archive": {
-                "exclude": [
-                    "cache/",
-                    "node_modules",
-                    "package.json",
-                    "package-lock.json",
-                    "rollup.config.js",
-                    "rollup.index.js",
-                    ".bladeformatterrc.json",
-                    "**/*.spec.ts",
-                    "src/components/**/*.json",
-                    "src/components/**/__tests__",
-                    "src/components/**/__docs__/*",
-                    "README.md"
+                },
+                "classmap": [
+                    "src/components/",
+                    "src/components/**/"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Leesa Ward",
@@ -228,9 +221,8 @@
             ],
             "description": "PHP-driven web UI component library focused on clean and accessible HTML, reusability, and structured flexibility.",
             "homepage": "https://cometcomponents.io",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
+            "support": {
+                "source": "https://github.com/doubleedesign/comet-components-core/tree/master"
             },
             "install-path": "../doubleedesign/comet-components-core"
         },
