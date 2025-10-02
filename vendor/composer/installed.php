@@ -31,7 +31,7 @@
         'doubleedesign/comet-components-core' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ae8d395970c018855ae41bfa50504b46664da743',
+            'reference' => '3c3c2ef175cbd99a3eb254fcad11d8fb287d0133',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doubleedesign/comet-components-core',
             'aliases' => array(
@@ -241,9 +241,9 @@
             'dev_requirement' => false,
         ),
         'symfony/intl' => array(
-            'pretty_version' => 'v7.3.3',
-            'version' => '7.3.3.0',
-            'reference' => '754d5ad02c889e380efc5a74fa3f6cfe56b7454d',
+            'pretty_version' => 'v7.3.4',
+            'version' => '7.3.4.0',
+            'reference' => 'e6db84864655885d9dac676a9d7dde0d904fda54',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/intl',
             'aliases' => array(),
@@ -268,9 +268,9 @@
             'dev_requirement' => false,
         ),
         'symfony/translation' => array(
-            'pretty_version' => 'v6.4.24',
-            'version' => '6.4.24.0',
-            'reference' => '300b72643e89de0734d99a9e3f8494a3ef6936e1',
+            'pretty_version' => 'v6.4.26',
+            'version' => '6.4.26.0',
+            'reference' => 'c8559fe25c7ee7aa9d28f228903a46db008156a4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/translation',
             'aliases' => array(),
